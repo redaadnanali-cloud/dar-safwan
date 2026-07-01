@@ -21,23 +21,30 @@
   --sh:0 1px 8px rgba(0,0,0,.07);--sh2:0 4px 20px rgba(0,0,0,.12);
   --qfont:'Scheherazade New',serif;
 }
+body.dark-mode {
+  --off: #0b132b; background: #0b132b; color: #e2e8f0;
+  --white: #1c2541; --gray50: #1c2541; --gray100: #3a506b;
+  --gray200: #2a3b5c; --gray800: #f1f5f9; --gray600: #cbd5e1;
+  --navy: #0b132b; --navy2: #1c2541;
+}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Cairo',sans-serif;background:#f0f4f8;color:var(--gray800);padding-bottom:72px}
+body{font-family:'Cairo',sans-serif;background:var(--off);color:var(--gray800);padding-bottom:85px;transition:background 0.3s, color 0.3s;}
 
 /* TOPBAR */
 .topbar{background:var(--navy);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300;box-shadow:0 2px 12px rgba(0,0,0,.3)}
 .tlogo{display:flex;align-items:center;gap:10px}
 .tlogo-frame{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
-.tlogo-frame img{width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
+.tlogo-frame span { font-size: 24px; }
 .tlogo-t .m{font-size:13px;font-weight:700;color:#fff}
 .tlogo-t .s{font-size:10px;color:var(--gold2)}
 .ib{width:34px;height:34px;border-radius:8px;border:none;background:rgba(255,255,255,.1);color:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
-/* PAGES */
-.page{display:none}.page.active{display:block}
+/* PAGES & SMOOTH TRANSITIONS */
+.page{display:none; opacity:0; transform:translateY(8px); transition:all 0.25s ease-in-out;}
+.page.active{display:block; opacity:1; transform:translateY(0);}
 
-/* ═══ HOME ═══ */
+/* HERO */
 .hero{background:linear-gradient(160deg,#060e1f 0%,#0f2044 50%,#1a4080 100%);padding:24px 16px 36px;text-align:center;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;opacity:.09;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath d='M0 0L120 120M120 0L0 120' stroke='white' stroke-width='1' fill='none'/%3E%3Ccircle cx='60' cy='60' r='34' stroke='white' stroke-width='1' fill='none'/%3E%3C/svg%3E");background-size:120px 120px}
 .hero-badge{position:relative;display:inline-flex;align-items:center;gap:5px;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);color:var(--gold2);padding:4px 12px;border-radius:50px;font-size:10px;font-weight:600;margin-bottom:12px}
@@ -45,17 +52,13 @@ body{font-family:'Cairo',sans-serif;background:#f0f4f8;color:var(--gray800);padd
 .hero h1 .g{color:var(--gold2)}
 .hero p{position:relative;font-size:12px;color:rgba(255,255,255,.7);line-height:1.8;margin-bottom:20px}
 .hero-stats{display:flex;gap:8px;justify-content:center;position:relative}
-.hs{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:8px 14px;text-align:center;min-width:72px}
+.hs{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:8px 14px;text-align:center;min-width:85px}
 .hs .n{font-size:20px;font-weight:800;color:#fff}
 .hs .l{font-size:9px;color:rgba(255,255,255,.6);margin-top:1px}
-.hero-contact{position:relative;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.15)}
-.hc-addr{font-size:10px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:10px}
-.hc-links{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-.hc-link{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.1);border:1px solid rgba(201,168,76,.35);color:#fff;padding:6px 14px;border-radius:50px;font-size:10px;text-decoration:none;font-weight:600;direction:ltr}
 
 /* LEVEL CARDS */
 .level-section{padding:16px}
-.level-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.level-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .lcard{border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:var(--sh2);transition:transform .15s}
 .lcard:active{transform:scale(.97)}
 .lcard-inner{padding:18px 14px 16px}
@@ -63,1557 +66,558 @@ body{font-family:'Cairo',sans-serif;background:#f0f4f8;color:var(--gray800);padd
 .lcard-num{font-size:10px;font-weight:700;opacity:.8;margin-bottom:4px}
 .lcard h3{font-size:15px;font-weight:800;color:#fff;margin-bottom:4px}
 .lcard p{font-size:10px;color:rgba(255,255,255,.75);line-height:1.5}
-.lcard-footer{background:rgba(0,0,0,.2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between}
-.lcard-footer span{font-size:11px;color:rgba(255,255,255,.8);font-weight:600}
-.lcard-footer .arr{font-size:16px;color:#fff}
 .lcard-1{background:linear-gradient(135deg,#1e40af,#3b82f6)}
 .lcard-2{background:linear-gradient(135deg,#065f46,#10b981)}
 
-/* HADITH MARQUEE BOARD */
-.hadith-wrap{padding:6px 0 4px}
-.hadith-track{overflow-x:auto;overflow-y:hidden;direction:ltr;-ms-overflow-style:none;scrollbar-width:none}
-.hadith-track::-webkit-scrollbar{display:none}
-.hadith-track-inner{display:flex;gap:12px;width:max-content;padding:2px 16px 10px}
-.hcard{direction:rtl;text-align:right;position:relative;width:280px;min-width:280px;max-width:280px;flex-shrink:0;border-radius:16px;padding:13px 16px 12px;color:#fff;box-shadow:var(--sh2);overflow:hidden}
-.hcard::before{content:'';position:absolute;inset:0;opacity:.12;background-image:radial-gradient(circle,#fff 1.5px,transparent 1.6px);background-size:16px 16px}
-.hcard-1{background:linear-gradient(135deg,var(--navy),var(--navy2))}
-.hcard-2{background:linear-gradient(135deg,#1e40af,#3b82f6)}
-.hcard-3{background:linear-gradient(135deg,#92400e,#c9a84c)}
-.hcard-4{background:linear-gradient(135deg,#065f46,#10b981)}
-.hcard-5{background:linear-gradient(135deg,#1e3a5f,#2563eb)}
-.hcard-speaker{position:relative;display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;color:#fff;background:rgba(0,0,0,.18);padding:3px 10px;border-radius:50px;margin-bottom:7px}
-.hcard-quote{position:relative;font-family:'Amiri',serif;font-size:13.5px;font-weight:500;line-height:1.75;color:#fff;margin-bottom:7px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.hcard-mark{display:none}
-.hcard-divider{position:relative;height:1px;background:rgba(255,255,255,.28);margin-bottom:6px}
-.hcard-src{position:relative;font-size:9px;color:rgba(255,255,255,.85);line-height:1.6}
-.hcard-src b{color:#fff;font-weight:700}
-
 /* PROGRESS CARD */
-.prog-wrap{padding:0 16px 4px}
-.prog-card{background:#fff;border-radius:var(--r2);padding:16px;box-shadow:var(--sh)}
-.prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.prog-wrap{padding:0 16px 12px}
+.prog-card{background:var(--white);border-radius:var(--r2);padding:16px;box-shadow:var(--sh)}
+.prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .prog-top h3{font-size:13px;font-weight:700;color:var(--navy)}
-.prog-top a{font-size:11px;color:var(--blue);cursor:pointer}
-.prog-row{margin-bottom:8px}
-.prog-label{display:flex;justify-content:space-between;margin-bottom:3px}
+body.dark-mode .prog-top h3 { color:#fff; }
+.prog-row{margin-bottom:10px}
+.prog-label{display:flex;justify-content:space-between;margin-bottom:4px}
 .prog-label span{font-size:11px;color:var(--gray600)}
-.prog-label strong{font-size:11px;color:var(--navy);font-weight:700}
-.pbar{background:var(--gray100);border-radius:50px;height:6px;overflow:hidden}
-.pfill{height:100%;border-radius:50px;transition:width 1s}
+.prog-label strong{font-size:11px;color:var(--gray800);font-weight:700}
+.pbar{background:var(--gray200);border-radius:50px;height:6px;overflow:hidden}
+.pfill{height:100%;border-radius:50px;transition:width 0.8s; width:0%}
 .pfill-1{background:linear-gradient(90deg,#1e40af,#3b82f6)}
 .pfill-2{background:linear-gradient(90deg,#065f46,#10b981)}
-.prog-dots{display:flex;gap:4px;flex-wrap:wrap;margin-top:10px}
-.pd{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
-.pd-done{background:var(--blue);color:#fff}.pd-cur{background:var(--gold);color:var(--navy);box-shadow:0 0 0 3px rgba(201,168,76,.3)}.pd-todo{background:var(--gray200);color:var(--gray400)}
 
-/* CONTINUE ROW */
-.continue-wrap{padding:0 16px 4px}
-.sec-h{display:flex;justify-content:space-between;align-items:center;padding:12px 16px 6px}
-.sec-h h2{font-size:14px;font-weight:700;color:var(--navy)}
-.sec-h a{font-size:11px;color:var(--blue);cursor:pointer}
-.cont-card{background:#fff;border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh);cursor:pointer;border:2px solid var(--blue)}
-.cont-ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+/* CONTINUE CARD */
+.continue-wrap{padding:4px 16px 16px}
+.sec-h h2{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:6px}
+.cont-card{background:var(--white);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh);cursor:pointer;border:2px solid var(--blue)}
+.cont-ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:var(--gray100)}
 .cont-info{flex:1}
-.cont-info h4{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:2px}
+.cont-info h4{font-size:13px;font-weight:700;color:var(--gray800);margin-bottom:2px}
 .cont-info p{font-size:10px;color:var(--gray400)}
 .cont-arr{color:var(--blue);font-size:18px}
 
-/* MINI LESSON SCROLL */
-.mini-scroll{display:flex;gap:8px;overflow-x:auto;padding:2px 16px 12px;scrollbar-width:none}
-.mini-scroll::-webkit-scrollbar{display:none}
-.mini-card{min-width:130px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--sh);flex-shrink:0;cursor:pointer}
-.mini-top{height:64px;display:flex;align-items:center;justify-content:center;font-size:24px;position:relative}
-.mini-num{position:absolute;top:5px;right:5px;background:rgba(0,0,0,.25);color:#fff;width:18px;height:18px;border-radius:50%;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.mini-st{position:absolute;top:5px;left:5px;font-size:11px}
-.mini-body{padding:7px 8px}
-.mini-body h4{font-size:10px;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:3px}
-.mini-tag{display:inline-block;padding:1px 7px;border-radius:50px;font-size:8px;font-weight:700}
-
-/* HOME FOOTER */
-.home-footer{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:20px 16px 22px;text-align:center;margin-top:6px}
-.hf-addr{color:rgba(255,255,255,.75);font-size:11px;line-height:1.8;margin-bottom:12px}
-.hf-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.hf-link{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(201,168,76,.35);color:#fff;padding:7px 16px;border-radius:50px;font-size:11px;text-decoration:none;font-weight:600;direction:ltr}
-
-/* ═══ LESSONS PAGE ═══ */
-.lessons-header{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:18px 16px;color:#fff}
-.lessons-header h2{font-size:18px;font-weight:700;margin-bottom:2px}
-.lessons-header p{font-size:11px;color:rgba(255,255,255,.65)}
-
-/* LEVEL TABS */
-.ltab-bar{display:flex;padding:10px 16px 0;gap:8px;background:#fff;border-bottom:1px solid var(--gray200)}
-.ltab{flex:1;padding:8px 4px 10px;border:none;background:none;font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;color:var(--gray400);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s}
-.ltab.active{color:var(--blue);border-bottom-color:var(--blue)}
-
-/* SEARCH & FILTER */
-.search-bar{padding:10px 16px}
-.sinp{width:100%;background:#fff;border:2px solid var(--gray200);border-radius:10px;padding:8px 12px;font-family:'Cairo',sans-serif;font-size:12px;outline:none;text-align:right}
-.sinp:focus{border-color:var(--blue)}
-.cat-bar{display:flex;gap:6px;overflow-x:auto;padding:0 16px 10px;scrollbar-width:none}
-.cat-bar::-webkit-scrollbar{display:none}
-.cat{flex-shrink:0;padding:5px 12px;border-radius:50px;border:1.5px solid var(--gray200);background:#fff;font-family:'Cairo',sans-serif;font-size:11px;color:var(--gray600);cursor:pointer;font-weight:600}
-.cat.active{background:var(--navy);color:#fff;border-color:var(--navy)}
-
-/* LESSON LIST */
+/* LESSONS VIEW */
+.lessons-header{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:20px 16px;color:#fff}
+.lessons-header h2{font-size:18px;font-weight:700}
+.ltab-bar{display:flex;background:var(--gray100);padding:4px;margin:12px 16px;border-radius:10px;gap:4px}
+.ltab{flex:1;border:none;background:none;padding:8px;font-family:'Cairo';font-size:11px;font-weight:700;border-radius:8px;cursor:pointer;color:var(--gray600)}
+.ltab.active{background:var(--white);color:var(--navy);box-shadow:var(--sh)}
+.search-bar{padding:0 16px 12px}
+.sinp{width:100%;background:var(--white);border:2px solid var(--gray200);border-radius:10px;padding:8px 12px;font-family:'Cairo',sans-serif;font-size:12px;outline:none;text-align:right;color:var(--gray800)}
 .llist{padding:0 16px 12px}
-.lrow{background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;box-shadow:var(--sh);cursor:pointer;border:1.5px solid var(--gray200);transition:all .15s}
-.lrow:active{transform:translateX(-2px)}
-.lrow-meta{text-align:center;width:48px;flex-shrink:0}
-.lrow-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;margin:0 auto 4px}
-.sbadge{display:inline-block;padding:2px 7px;border-radius:50px;font-size:9px;font-weight:700}
-.sb-d{background:var(--greenl);color:var(--green)}
-.sb-c{background:rgba(37,99,235,.08);color:var(--blue)}
-.lrow-ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.lrow{background:var(--white);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh);cursor:pointer;border:1.5px solid var(--gray200)}
+.lrow-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:var(--blue);color:#fff}
 .lrow-info{flex:1}
-.lrow-info h4{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:2px}
+.lrow-info h4{font-size:13px;font-weight:700;color:var(--gray800)}
 .lrow-info p{font-size:10px;color:var(--gray400)}
 
-/* ═══ LESSON DETAIL ═══ */
-.ldetail{display:none}
-.ldetail.open{display:block}
+/* DETAIL VIEW */
+.ldetail{background:var(--off); min-height:100vh;}
+.dh-top{padding:24px 16px; text-align:center; color:#fff; position:relative;}
+.dh-top.lvl1 { background:linear-gradient(135deg,#1e40af,#3b82f6); }
+.dh-top.lvl2 { background:linear-gradient(135deg,#065f46,#10b981); }
+.back-btn{background:rgba(255,255,255,.2);border:none;border-radius:8px;color:#fff;padding:6px 12px;cursor:pointer;font-family:'Cairo';font-size:11px;margin-bottom:10px}
+.dbody{padding:16px}
+.intro-box{background:var(--white);border-radius:12px;padding:16px;box-shadow:var(--sh);margin-bottom:14px}
+.intro-label{font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px}
+.intro-text{font-size:13px;line-height:1.7}
+.qverse-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid var(--gold);border-radius:14px;padding:24px 16px;text-align:center;margin:14px 0;position:relative}
+.qverse{font-family:var(--qfont);font-size:26px;color:#111;line-height:2}
+.hl-g{color:#92400e;background:rgba(251,191,36,.35);padding:2px 6px;border-radius:4px;font-weight:700;cursor:pointer}
+.audio-play-btn{background:var(--navy2);color:#fff;border:none;border-radius:12px;padding:14px;width:100%;cursor:pointer;font-family:'Cairo';font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px}
+.btn-complete{background:linear-gradient(135deg,var(--green),#047857);color:#fff;border:none;width:100%;padding:14px;border-radius:12px;font-family:'Cairo';font-size:14px;font-weight:700;cursor:pointer;margin-top:14px}
 
-/* Detail Hero */
-.dh{padding:0 0 0;position:relative}
-.dh-top{padding:20px 16px 16px;text-align:center;position:relative}
-.back-btn{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.2);border:none;border-radius:9px;color:#fff;padding:7px 14px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;font-weight:700;font-family:'Cairo',sans-serif;gap:4px;z-index:5}
-.back-btn:active{background:rgba(255,255,255,.35)}
-.dh-icon{font-size:44px;margin-bottom:8px}
-.dh h2{font-family:'Amiri',serif;font-size:20px;color:#fff;margin-bottom:3px}
-.dh-meta{font-size:10px;color:rgba(255,255,255,.7)}
-
-/* Lesson meta badges */
-.lesson-badges{display:flex;gap:6px;justify-content:center;margin-top:8px;flex-wrap:wrap}
-.lbadge{padding:3px 10px;border-radius:50px;font-size:10px;font-weight:700;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)}
-
-/* Detail Body */
-.dbody{padding:12px 14px}
-
-/* INTRO BOX */
-.intro-box{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #bfdbfe;border-radius:14px;padding:14px;margin-bottom:12px}
-.intro-label{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:700;color:var(--blue);margin-bottom:8px}
-.intro-label::before{content:'';width:16px;height:2px;background:var(--blue);border-radius:2px;flex-shrink:0}
-.intro-text{font-family:'Amiri',serif;font-size:17px;color:#1e3a5f;line-height:2;direction:rtl}
-
-/* DEFINITION VISUAL */
-.def-visual{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:var(--sh);border:1.5px solid var(--gray200)}
-.def-vis-title{font-size:11px;font-weight:700;color:var(--gray600);margin-bottom:8px;display:flex;align-items:center;gap:5px}
-.def-vis-title::after{content:'';flex:1;height:1px;background:var(--gray200)}
-.def-chips{display:flex;gap:6px;flex-wrap:wrap}
-.def-chip{padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:4px}
-
-/* RULES SECTION */
-.rules-title{font-size:12px;font-weight:700;color:var(--gray600);margin:10px 0 8px;display:flex;align-items:center;gap:6px}
-.rules-title::after{content:'';flex:1;height:1px;background:var(--gray200)}
-.rule-card{background:#fff;border-radius:10px;padding:10px 12px;display:flex;align-items:flex-start;gap:9px;box-shadow:var(--sh);border:1.5px solid var(--gray200);margin-bottom:6px}
-.rn{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;color:#fff;margin-top:1px}
-.rule-body{flex:1}
-.rt{font-size:12px;color:var(--gray800);line-height:1.7;font-weight:600}
-.rn2{font-size:11px;color:var(--blue);margin-top:3px;font-weight:500}
-.re{font-family:var(--qfont);font-size:16px;color:var(--navy);background:var(--gray50);border-radius:6px;padding:2px 8px;margin-top:4px;display:inline-block;direction:rtl}
-
-/* EXAMPLE CARDS */
-.ex-section-title{font-size:12px;font-weight:700;color:var(--navy);background:linear-gradient(to left,var(--gray100),#fff);border-right:3px solid var(--gold);border-radius:7px;padding:7px 10px;margin:12px 0 8px}
-
-.qex{background:#fff;border-radius:12px;margin-bottom:8px;box-shadow:var(--sh);border:1.5px solid var(--gray200);overflow:hidden}
-.qex-head{display:flex;justify-content:space-between;align-items:center;padding:8px 12px}
-.qex-lbl{font-size:11px;font-weight:700;color:var(--navy)}
-.qex-typ{font-size:9px;font-weight:700;padding:2px 8px;border-radius:50px}
-.t-iz{background:var(--greenl);color:var(--green)}
-.t-id{background:rgba(37,99,235,.1);color:var(--blue)}
-.t-iq{background:rgba(201,168,76,.12);color:#92400e}
-.t-ik{background:var(--purplel);color:var(--purple)}
-.t-taf{background:var(--orangel);color:var(--orange)}
-.t-tar{background:var(--teall);color:var(--teal)}
-.t-mad{background:var(--redl);color:var(--red)}
-
-/* QURAN VERSE BOX */
-.qverse-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid rgba(201,168,76,.3);border-radius:10px;padding:10px 12px;margin:0 10px}
-.qverse{font-family:var(--qfont);font-size:22px;color:#1a1a2e;line-height:2.1;direction:rtl;text-align:center}
-.hl-g{color:#92400e;font-weight:700;background:rgba(251,191,36,.25);border-radius:4px;padding:0 3px}
-.hl-b{color:#1d4ed8;font-weight:700;background:rgba(96,165,250,.2);border-radius:4px;padding:0 3px}
-.hl-gr{color:#065f46;font-weight:700;background:rgba(16,185,129,.15);border-radius:4px;padding:0 3px}
-.hl-r{color:#dc2626;font-weight:700;background:rgba(252,165,165,.2);border-radius:4px;padding:0 3px}
-.hl-p{color:#6d28d9;font-weight:700;background:rgba(196,181,253,.25);border-radius:4px;padding:0 3px}
-.qref{font-size:9px;color:var(--gray400);text-align:center;margin-top:5px;font-family:'Cairo',sans-serif}
-
-/* RULE TAG inside verse */
-.hl-label{display:inline-block;font-size:9px;font-weight:700;border-radius:4px;padding:1px 5px;margin-right:2px;vertical-align:middle}
-
-/* NOTE */
-.qnote{font-size:10px;color:var(--gray600);background:var(--gray50);border-radius:7px;padding:6px 10px;margin:4px 10px 0;line-height:1.6}
-
-/* AUDIO PLAYER */
-.audio-section{padding:8px 10px 10px}
-.audio-header{display:flex;align-items:center;gap:6px;margin-bottom:6px}
-.audio-header span{font-size:10px;color:var(--gray400);font-weight:600}
-.audio-play-btn{display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--navy),var(--navy2));border:none;border-radius:10px;padding:10px 16px;cursor:pointer;width:100%;font-family:'Cairo',sans-serif;color:#fff;font-size:12px;font-weight:700}
-.audio-play-btn .play-ic{width:32px;height:32px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.audio-play-btn .play-info{flex:1;text-align:right}
-.audio-play-btn .play-name{font-size:11px;font-weight:700}
-.audio-play-btn .play-sub{font-size:9px;opacity:.75;margin-top:1px}
-.yt-wrap{border-radius:8px;overflow:hidden;position:relative;padding-bottom:56.25%;height:0;margin-top:6px;display:none}
-.yt-wrap.show{display:block}
-.yt-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
-
-/* COMPLETE BTN */
-.btn-complete{background:linear-gradient(135deg,var(--blue),var(--navy));color:#fff;border:none;width:100%;padding:14px;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px}
-
-/* ═══ QUIZ PAGE ═══ */
-.qhdr{background:linear-gradient(135deg,#0f2044,#1e3a6b);padding:18px 16px;color:#fff}
-.qhdr h2{font-size:18px;font-weight:700;margin-bottom:2px}
-.qhdr p{font-size:11px;color:rgba(255,255,255,.65)}
-.qlbl{padding:6px 14px;background:#fff;border-bottom:1px solid var(--gray200);font-size:11px;font-weight:700;color:var(--navy)}
-.qlist-wrap{padding:12px 14px}
-.qcard{background:#fff;border-radius:12px;padding:14px;margin-bottom:8px;box-shadow:var(--sh);border:1.5px solid var(--gray200);cursor:pointer}
-.qcard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-.qcard-top h4{font-size:13px;font-weight:700;color:var(--navy)}
-.qcard-top p{font-size:10px;color:var(--gray400);margin-top:2px}
-.qbadge{padding:2px 9px;border-radius:50px;font-size:9px;font-weight:700}
-.qb-g{background:var(--greenl);color:var(--green)}
-.qb-gl{background:rgba(201,168,76,.12);color:#92400e}
-.qb-gr{background:var(--gray100);color:var(--gray400)}
-.sboxes{display:flex;gap:6px}
-.sbox{flex:1;background:var(--gray50);border-radius:8px;padding:7px;text-align:center;border:1.5px solid var(--gray200)}
-.sbox .sic{font-size:14px;margin-bottom:2px}
-.sbox .st{font-size:9px;font-weight:700}
-.sbox .ss{font-size:8px;color:var(--gray400)}
-.sbox .sc{font-size:10px;font-weight:800;margin-top:1px}
-
-/* STAGE VIEW */
-.stage-hdr{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:16px;color:#fff}
-.stage-hdr h2{font-size:16px;font-weight:700;margin-bottom:2px}
-.stage-hdr p{font-size:10px;color:rgba(255,255,255,.65)}
-.stage-back{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:7px;padding:4px 12px;font-family:'Cairo',sans-serif;font-size:11px;cursor:pointer;margin-bottom:8px}
-.stage-cards-wrap{padding:12px 14px}
-.scard{background:#fff;border-radius:12px;padding:14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;box-shadow:var(--sh);border:2px solid var(--gray200);cursor:pointer;transition:all .15s}
-.scard:active{transform:translateX(-2px)}
-.scard-ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.scard-info{flex:1}
-.scard-info h4{font-size:13px;font-weight:700;color:var(--navy)}
-.scard-info p{font-size:10px;color:var(--gray400);margin-top:2px}
-.scard-note{font-size:11px;font-weight:600;margin-top:4px}
-
-/* QUIZ ACTIVE */
-.quiz-active{display:none}.quiz-active.open{display:block}
-.qtop{background:var(--navy);padding:9px 13px;display:flex;align-items:center;gap:8px}
-.qback{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:6px;padding:3px 10px;font-family:'Cairo',sans-serif;font-size:10px;cursor:pointer}
-.qlbl2{font-size:10px;color:rgba(255,255,255,.7);flex:1;text-align:center}
-.qpbar{height:4px;background:var(--gray200)}
-.qpfill{height:100%;transition:width .4s}
-.qnum{text-align:center;padding:10px;font-size:11px;color:var(--gray400);font-weight:600}
-.qbox{margin:0 13px 16px;background:#fff;border-radius:12px;padding:18px;box-shadow:var(--sh);border:1.5px solid var(--gray200);text-align:center}
-.qbox-ic{font-size:28px;margin-bottom:10px}
-.qbox p{font-family:'Amiri',serif;font-size:18px;color:var(--navy);line-height:1.8}
-.opts{padding:0 13px;display:flex;flex-direction:column;gap:7px}
-.opt{background:#fff;border:2px solid var(--gray200);border-radius:10px;padding:11px 14px;font-family:'Cairo',sans-serif;font-size:12px;color:var(--gray800);cursor:pointer;text-align:right;font-weight:500;transition:all .15s}
+/* QUIZ VIEW */
+.qhdr{background:linear-gradient(135deg,#7c3aed,#4c1d95);padding:20px 16px;color:#fff}
+.qlist-wrap{padding:16px}
+.qcard{background:var(--white);border-radius:14px;padding:16px;margin-bottom:10px;box-shadow:var(--sh);border:1.5px solid var(--gray200);cursor:pointer}
+.qcard h4{font-size:14px;font-weight:700}
+.qcard p{font-size:11px;color:var(--gray400);margin-top:4px}
+.quiz-active{display:none;padding:16px 0}
+.qbox{background:var(--white);border-radius:14px;padding:22px;margin:0 16px 14px;box-shadow:var(--sh);text-align:center}
+.qbox-ic{font-size:28px;margin-bottom:6px}
+.opts{display:flex;flex-direction:column;gap:10px;padding:0 16px}
+.opt{background:var(--white);border:2px solid var(--gray200);border-radius:12px;padding:14px;cursor:pointer;font-family:'Cairo';font-size:13px;text-align:right;color:var(--gray800);transition:all 0.2s}
 .opt.correct{border-color:var(--green);background:var(--greenl);color:var(--green);font-weight:700}
 .opt.wrong{border-color:var(--red);background:var(--redl);color:var(--red)}
-.nwrap{margin:12px 13px 0;display:none}
-.nwrap.show{display:block}
-
-/* RESULT */
-.qresult{display:none;text-align:center;padding:20px 0 40px}
-.qresult.open{display:block}
-.res-circle{width:100px;height:100px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 0 0 6px rgba(37,99,235,.12)}
-.res-sc{font-size:26px;font-weight:800;color:#fff}
-.res-rl{font-size:10px;color:rgba(255,255,255,.7)}
-.res-ti{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:5px}
-.res-su{font-size:12px;color:var(--gray400);margin-bottom:20px;padding:0 24px}
-.res-btns{padding:0 13px;display:flex;gap:7px}
-.btn-out{flex:1;padding:10px;border-radius:9px;border:2px solid var(--navy);background:none;color:var(--navy);font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;cursor:pointer}
-.btn-s{flex:1;padding:10px;border-radius:9px;border:none;background:var(--navy);color:#fff;font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;cursor:pointer}
-.ns-btn{margin:0 13px 10px;display:none}
 
 /* CERTS */
-.cert-hdr{background:linear-gradient(135deg,#1a1060,#3730a3);padding:18px 16px;color:#fff}
-.cert-hdr h2{font-size:18px;font-weight:700;margin-bottom:2px}
-.cert-hdr p{font-size:11px;color:rgba(255,255,255,.65)}
-.clist{padding:12px 14px}
-.ccard{background:#fff;border-radius:14px;padding:16px;margin-bottom:10px;box-shadow:var(--sh);border:1.5px solid var(--gray200);position:relative;overflow:hidden}
-.ccard::before{content:'';position:absolute;top:0;right:0;width:5px;height:100%;background:linear-gradient(var(--gold),var(--gold2))}
-.ctop{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.ctop h4{font-size:13px;font-weight:700;color:var(--navy)}
-.cic{font-size:28px}
-.cmeta{font-size:10px;color:var(--gray400);margin-bottom:10px}
-.cpreview{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:10px;padding:16px;text-align:center;position:relative;overflow:hidden}
-.cpreview::before{content:'';position:absolute;inset:0;border:1.5px solid rgba(201,168,76,.3);border-radius:10px;margin:4px}
-.cpreview .ct{font-family:'Amiri',serif;font-size:15px;color:var(--gold2);margin-bottom:4px}
-.cpreview .cn{font-size:12px;color:#fff;margin-bottom:3px}
-.cpreview .cs{font-size:10px;color:rgba(255,255,255,.6)}
-.cacts{display:flex;gap:7px;margin-top:10px}
-.locked-c{opacity:.5;filter:grayscale(.6)}
-.locked-o{text-align:center;padding:8px;font-size:11px;color:var(--gray400);margin-top:6px}
+.cert-hdr{background:linear-gradient(135deg,var(--gold),#92400e);padding:20px 16px;color:#fff}
+.clist{padding:16px}
+.ccard{background:var(--white);border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:var(--sh);border:1.5px solid var(--gray200)}
+.ccard h4{font-size:13px;font-weight:700}
+.cpreview{background:linear-gradient(135deg,#fffef9,var(--goldl));border:3px double var(--gold);border-radius:10px;padding:24px 16px;text-align:center;color:var(--navy);margin:12px 0}
+.cpreview .ct{font-family:'Amiri';font-size:20px;font-weight:700;color:var(--gold)}
+.cpreview .cn{font-size:15px;font-weight:700;margin:8px 0 4px}
+.cpreview .cs{font-size:11px;color:var(--gray600)}
+.cacts{display:flex;gap:10px}
+.btn-s{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:10px;flex:1;font-family:'Cairo';font-size:12px;font-weight:700;cursor:pointer}
+.locked-c{opacity:.45;filter:grayscale(1);pointer-events:none}
 
 /* PROFILE */
-.phdr{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:22px 16px;text-align:center;color:#fff}
-.avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:var(--navy);border:3px solid rgba(255,255,255,.2)}
-.pname{font-size:17px;font-weight:700;margin-bottom:3px}
-.psub{font-size:11px;color:rgba(255,255,255,.65)}
-.pstats{display:flex;background:rgba(255,255,255,.1);border-radius:10px;margin-top:14px;overflow:hidden}
-.pstat{flex:1;padding:10px;text-align:center;border-left:1px solid rgba(255,255,255,.1)}
-.pstat:last-child{border-left:none}
-.pstat .pn{font-size:18px;font-weight:800;color:#fff}
-.pstat .pl{font-size:9px;color:rgba(255,255,255,.6)}
-.pbody{padding:12px 14px}
-.prow{background:#fff;border-radius:10px;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;box-shadow:var(--sh);border:1.5px solid var(--gray200);cursor:pointer}
-.prowl{display:flex;align-items:center;gap:9px}
-.prowic{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
-.prow h4{font-size:12px;font-weight:700;color:var(--navy)}
-.prow p{font-size:10px;color:var(--gray400)}
-
-/* BOTTOM NAV */
-.bnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--gray200);display:flex;box-shadow:0 -3px 12px rgba(0,0,0,.07);z-index:200}
-.ni{flex:1;border:none;background:none;padding:8px 0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--gray400);font-family:'Cairo',sans-serif;font-size:9px;font-weight:600}
-.ni-ic{font-size:20px}
-.ni.active{color:var(--blue)}
+.phdr{background:var(--white);padding:24px 16px;text-align:center;box-shadow:var(--sh);border-bottom:1px solid var(--gray200)}
+.avatar{font-size:44px;margin-bottom:4px}
+.pname{font-size:16px;font-weight:700}
+.psub{font-size:11px;color:var(--gray400);margin-bottom:12px}
+.pstats{display:flex;gap:10px;justify-content:center}
+.pstat{background:var(--off);border:1px solid var(--gray200);border-radius:10px;padding:8px 16px;min-width:90px}
+.pstat .n{font-size:18px;font-weight:800}
+.pstat .pl{font-size:10px;color:var(--gray400)}
 
 /* TOAST */
-.toast{position:fixed;bottom:82px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--navy);color:#fff;padding:9px 20px;border-radius:50px;font-size:11px;font-weight:600;opacity:0;transition:all .3s;z-index:999;white-space:nowrap;pointer-events:none}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast{position:fixed;bottom:95px;left:50%;transform:translateX(-50%);background:rgba(15,31,61,0.95);color:#fff;padding:10px 20px;border-radius:50px;font-size:12px;z-index:500;display:none;font-weight:600;box-shadow:var(--sh2);text-align:center;white-space:nowrap}
 
-/* COLOR HELPERS */
-.c-blue{background:linear-gradient(135deg,#1e40af,#2563eb)}.c-green{background:linear-gradient(135deg,#065f46,#059669)}.c-gold{background:linear-gradient(135deg,#92400e,#d97706)}.c-purple{background:linear-gradient(135deg,#5b21b6,#7c3aed)}.c-red{background:linear-gradient(135deg,#991b1b,#dc2626)}.c-teal{background:linear-gradient(135deg,#134e4a,#0891b2)}.c-navy{background:linear-gradient(135deg,#0f172a,#1e3a8a)}.c-orange{background:linear-gradient(135deg,#7c2d12,#ea580c)}.c-rose{background:linear-gradient(135deg,#881337,#e11d48)}.c-indigo{background:linear-gradient(135deg,#312e81,#4338ca)}
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--gray200);display:flex;box-shadow:0 -3px 12px rgba(0,0,0,.06);z-index:200}
+.ni{flex:1;border:none;background:none;padding:12px 0;cursor:pointer;display:flex;flex-direction:column;align-items:center;font-family:'Cairo';font-size:11px;color:var(--gray400);font-weight:600;transition:all 0.15s}
+.ni.active{color:var(--blue)}
+.ni-ic{font-size:20px;margin-bottom:2px}
 
-/* FONT SIZE SCALING — applies only to lesson detail content */
-.fsz-1 #dbody{zoom:1.12}
-.fsz-2 #dbody{zoom:1.26}
-.fsz--1 #dbody{zoom:0.92}
-#fontCtrls{display:none}
-#fontCtrls.show{display:flex}
-.ib[onclick*="changeFontSize"]{font-size:12px;font-weight:800;width:auto;padding:0 8px}
+/* PRINT PREVIEW OVERRIDE */
+@media print {
+  body * { display: none !important; }
+  .cpreview, .cpreview * { display: block !important; }
+  .cpreview { position: fixed; inset: 0; background: #fff !important; color: #000 !important; border: 6px double #c9a84c !important; padding: 40px !important; }
+}
 </style>
 </head>
 <body>
 
+<!-- TOPBAR -->
 <div class="topbar">
   <div class="tlogo">
-    <div class="tlogo-frame"><img src="data:image/png;base64,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" alt="دار سفوان"></div>
-    <div class="tlogo-t"><div class="m">دار سفوان القرآنية</div><div class="s">منصة التعليم القرآني</div></div>
-  </div>
-  <div style="display:flex;gap:6px">
-    <div id="fontCtrls" style="gap:6px">
-      <button class="ib" onclick="changeFontSize(-1)" title="تصغير الخط">A-</button>
-      <button class="ib" onclick="changeFontSize(1)" title="تكبير الخط">A+</button>
+    <div class="tlogo-frame"><span>🕌</span></div>
+    <div class="tlogo-t">
+      <div class="m">دار سفوان القرآنية</div>
+      <div class="s">منصة إدارة الحلقات والتجويد</div>
     </div>
-    <button class="ib" onclick="toast('لا توجد إشعارات جديدة')">🔔</button>
   </div>
+  <button class="ib" onclick="toggleDarkMode()">🌓</button>
 </div>
 
-<!-- ═══ HOME ═══ -->
-<div id="page-home" class="page active">
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- PAGE: HOME -->
+<div id="p-home" class="page active">
   <div class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-badge">✦ منصة التعليم القرآني الرسمية لدار سفوان القرآنية</div>
-    <h1>تعلَّم <span class="g">القرآن الكريم</span><br>بأحدث الأساليب</h1>
-    <p>دروس القراءة الصحيحة وأحكام التجويد بالألوان، اختبارات تفاعلية، وشهادات معتمدة</p>
+    <div class="hero-badge">✨ نسخة التصفح المحمية الفورية</div>
+    <h1>ورتّل القرآن <span class="g">ترتيلاً</span></h1>
+    <p>مرحباً بك في منصة دار سفوان الشاملة. تعلم وطوّر مهارات قراءتك وضبطك العثماني تلقائياً.</p>
     <div class="hero-stats">
-      <div class="hs"><div class="n">١٥</div><div class="l">قاعدة قراءة</div></div>
-      <div class="hs"><div class="n">١٣</div><div class="l">درس تجويد</div></div>
-      <div class="hs"><div class="n">٣</div><div class="l">شهادة</div></div>
-    </div>
-    <div class="hero-contact">
-      <div class="hc-addr">📍 دار سفوان القرآنية — البصرة، سفوان، جامع الإمام علي (ع)</div>
-      <div class="hc-links">
-        <a class="hc-link" href="https://instagram.com/dar_safwan" target="_blank" rel="noopener">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-          dar_safwan
-        </a>
-        <a class="hc-link" href="tel:+9647778103832">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.57 1 1 0 01-.25 1.01l-2.2 2.21z"/></svg>
-          07778103832
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="hadith-wrap">
-    <div class="sec-h"><h2>💫 من أنوار الحديث الشريف</h2></div>
-    <div class="hadith-track">
-      <div class="hadith-track-inner" id="hadith-track-inner">
-        <div class="hcard hcard-1">
-          <div class="hcard-speaker">🕊️ قال النبي ﷺ</div>
-          <div class="hcard-quote">من كان القرآن حديثه والمسجد بيته، بنى الله له بيتاً في الجنّة.</div>
-          <div class="hcard-divider"></div>
-          <div class="hcard-src"><b>المصدر الأصلي:</b> الأمالي للصدوق<br><b>بحار الأنوار:</b> ج٨٩، ص١٩٧-١٩٨</div>
-        </div>
-        <div class="hcard hcard-2">
-          <div class="hcard-speaker">🕊️ قال النبي ﷺ لأبي ذرّ</div>
-          <div class="hcard-quote">عليك بتلاوة القرآن وذكر الله كثيراً، فإنّه ذكر لك في السماء ونور لك في الأرض.</div>
-          <div class="hcard-divider"></div>
-          <div class="hcard-src"><b>المصدر الأصلي:</b> الخصال<br><b>بحار الأنوار:</b> ج٨٩، ص١٩٨</div>
-        </div>
-        <div class="hcard hcard-3">
-          <div class="hcard-speaker">☪️ قال الإمام الصادق (ع)</div>
-          <div class="hcard-quote">إنّ البيت إذا كان فيه المسلم يتلو القرآن يتراءاه أهل السماء، كما يتراءى أهل الدنيا الكوكب الدرّيّ في السماء.</div>
-          <div class="hcard-divider"></div>
-          <div class="hcard-src"><b>المصدر الأصلي:</b> عدّة الداعي<br><b>بحار الأنوار:</b> ج٨٩، ص٢٠٠</div>
-        </div>
-        <div class="hcard hcard-4">
-          <div class="hcard-speaker">☪️ قال الإمام الصادق (ع)</div>
-          <div class="hcard-quote">إنّ الذي يعالج القرآن ليحفظه بمشقّة منه وقلّة حفظه له أجران. وما يمنع التاجر منكم المشغول في سوقه إذا رجع إلى منزله أن لا ينام حتّى يقرأ سورة من القرآن، فيكتب له مكان كلّ آية يقرأها عشر حسنات، ويمحى عنه عشر سيّئات.</div>
-          <div class="hcard-divider"></div>
-          <div class="hcard-src"><b>المصدر الأصلي:</b> ثواب الأعمال<br><b>بحار الأنوار:</b> ج٨٩، ص٢٠٢</div>
-        </div>
-        <div class="hcard hcard-5">
-          <div class="hcard-speaker">☪️ قال أمير المؤمنين (ع)</div>
-          <div class="hcard-quote">من قرأ مائة آية من القرآن من أيّ آي القرآن شاء، ثمّ قال: «يا الله» سبع مرّات، فلو دعا على الصخرة لقلعها إن شاء الله.</div>
-          <div class="hcard-divider"></div>
-          <div class="hcard-src"><b>المصدر الأصلي:</b> ثواب الأعمال<br><b>بحار الأنوار:</b> ج٨٩، ص٢٠٢</div>
-        </div>
-        <div class="hcard hcard-1">
-          <div class="hcard-speaker">🕊️ قال النبي ﷺ</div>
-          <div class="hcard-quote">من كان القرآن حديثه والمسجد بيته، بنى الله له بيتاً في الجنّة.</div>
-          <div class="hcard-divider"></div>
-          <div class="hcard-src"><b>المصدر الأصلي:</b> الأمالي للصدوق<br><b>بحار الأنوار:</b> ج٨٩، ص١٩٧-١٩٨</div>
-        </div>
-        <div class="hcard hcard-2">
-          <div class="hcard-speaker">🕊️ قال النبي ﷺ لأبي ذرّ</div>
-          <div class="hcard-quote">عليك بتلاوة القرآن وذكر الله كثيراً، فإنّه ذكر لك في السماء ونور لك في الأرض.</div>
-          <div class="hcard-divider"></div>
-          <div class="hcard-src"><b>المصدر الأصلي:</b> الخصال<br><b>بحار الأنوار:</b> ج٨٩، ص١٩٨</div>
-        </div>
-        <div class="hcard hcard-3">
-          <div class="hcard-speaker">☪️ قال الإمام الصادق (ع)</div>
-          <div class="hcard-quote">إنّ البيت إذا كان فيه المسلم يتلو القرآن يتراءاه أهل السماء، كما يتراءى أهل الدنيا الكوكب الدرّيّ في السماء.</div>
-          <div class="hcard-divider"></div>
-          <div class="hcard-src"><b>المصدر الأصلي:</b> عدّة الداعي<br><b>بحار الأنوار:</b> ج٨٩، ص٢٠٠</div>
-        </div>
-        <div class="hcard hcard-4">
-          <div class="hcard-speaker">☪️ قال الإمام الصادق (ع)</div>
-          <div class="hcard-quote">إنّ الذي يعالج القرآن ليحفظه بمشقّة منه وقلّة حفظه له أجران. وما يمنع التاجر منكم المشغول في سوقه إذا رجع إلى منزله أن لا ينام حتّى يقرأ سورة من القرآن، فيكتب له مكان كلّ آية يقرأها عشر حسنات، ويمحى عنه عشر سيّئات.</div>
-          <div class="hcard-divider"></div>
-          <div class="hcard-src"><b>المصدر الأصلي:</b> ثواب الأعمال<br><b>بحار الأنوار:</b> ج٨٩، ص٢٠٢</div>
-        </div>
-        <div class="hcard hcard-5">
-          <div class="hcard-speaker">☪️ قال أمير المؤمنين (ع)</div>
-          <div class="hcard-quote">من قرأ مائة آية من القرآن من أيّ آي القرآن شاء، ثمّ قال: «يا الله» سبع مرّات، فلو دعا على الصخرة لقلعها إن شاء الله.</div>
-          <div class="hcard-divider"></div>
-          <div class="hcard-src"><b>المصدر الأصلي:</b> ثواب الأعمال<br><b>بحار الأنوار:</b> ج٨٩، ص٢٠٢</div>
-        </div>
-      </div>
+      <div class="hs"><div class="n" id="stat-points">0</div><div class="l">مجموع النقاط</div></div>
+      <div class="hs"><div class="n" id="stat-done">0</div><div class="l">الدروس المنجزة</div></div>
     </div>
   </div>
 
   <div class="level-section">
-    <div class="sec-h"><h2>📚 أقسام التعليم</h2></div>
     <div class="level-cards">
-      <div class="lcard lcard-1" onclick="goToLevel('reading')">
+      <div class="lcard lcard-1" onclick="navToLessons(1)">
         <div class="lcard-inner">
           <div class="lcard-icon">📖</div>
           <div class="lcard-num">المستوى الأول</div>
           <h3>القراءة الصحيحة</h3>
-          <p>القواعد الذهبية في رسم المصحف وضبطه</p>
+          <p>ضبط المخارج والقواعد الأساسية.</p>
         </div>
-        <div class="lcard-footer"><span>١٥ قاعدة</span><span class="arr">←</span></div>
       </div>
-      <div class="lcard lcard-2" onclick="goToLevel('tajweed')">
+      <div class="lcard lcard-2" onclick="navToLessons(2)">
         <div class="lcard-inner">
-          <div class="lcard-icon">🎓</div>
+          <div class="lcard-icon">💎</div>
           <div class="lcard-num">المستوى الثاني</div>
           <h3>أحكام التجويد</h3>
-          <p>تبسيط التجويد بالألوان والأمثلة</p>
+          <p>النون الساكنة والمدود والتفخيم.</p>
         </div>
-        <div class="lcard-footer"><span>١٣ درساً</span><span class="arr">←</span></div>
       </div>
+    </div>
+  </div>
+
+  <div class="continue-wrap" id="continue-box" style="display:none">
+    <div class="sec-h"><h2>مواصلة التعلم الفوري:</h2></div>
+    <div class="cont-card" onclick="openLastLesson()">
+      <div class="cont-ic">🔖</div>
+      <div class="cont-info">
+        <h4 id="last-lesson-title">جاري تحميل أحدث درس...</h4>
+        <p>اضغط للانتقال والمتابعة من حيث وقفت</p>
+      </div>
+      <div class="cont-arr">←</div>
     </div>
   </div>
 
   <div class="prog-wrap">
     <div class="prog-card">
-      <div class="prog-top"><h3>📈 تقدمك الحالي</h3><a onclick="showPage('profile')">التفاصيل</a></div>
+      <div class="prog-top"><h3>معدل الإنجاز التعليمي الحالي</h3></div>
       <div class="prog-row">
-        <div class="prog-label"><span>📖 القراءة الصحيحة</span><strong id="p1-txt">٠ / ١٥</strong></div>
-        <div class="pbar"><div class="pfill pfill-1" id="p1-fill" style="width:0%"></div></div>
+        <div class="prog-label"><span>المستوى الأول: القراءة الصحيحة</span><strong id="prog-txt-1">0%</strong></div>
+        <div class="pbar"><div id="prog-fill-1" class="pfill pfill-1"></div></div>
       </div>
       <div class="prog-row">
-        <div class="prog-label"><span>🎓 أحكام التجويد</span><strong id="p2-txt">٠ / ١٣</strong></div>
-        <div class="pbar"><div class="pfill pfill-2" id="p2-fill" style="width:0%"></div></div>
-      </div>
-      <div class="prog-dots" id="prog-dots"></div>
-    </div>
-  </div>
-
-  <div class="sec-h"><h2>▶ أكمل من حيث توقفت</h2></div>
-  <div class="continue-wrap" id="cont-row"></div>
-
-  <div class="sec-h"><h2>🆕 آخر الدروس</h2><a onclick="goToLevel('reading')">عرض الكل</a></div>
-  <div class="mini-scroll" id="mini-scroll"></div>
-
-
-</div>
-
-<!-- ═══ LESSONS ═══ -->
-<div id="page-lessons" class="page">
-  <div id="llist-view">
-    <div class="lessons-header" style="display:flex;align-items:center;gap:10px">
-      <button onclick="showPage('home')" style="background:rgba(255,255,255,.2);border:none;border-radius:9px;color:#fff;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0">←</button>
-      <div><h2>📚 الدروس التعليمية</h2><p>مستويان — القراءة الصحيحة وأحكام التجويد</p></div>
-    </div>
-    <div class="ltab-bar">
-      <button class="ltab active" id="lt1" onclick="switchLvl('reading',this)">📖 القراءة الصحيحة</button>
-      <button class="ltab" id="lt2" onclick="switchLvl('tajweed',this)">🎓 أحكام التجويد</button>
-    </div>
-    <div class="search-bar"><input class="sinp" type="text" placeholder="🔍 ابحث عن درس..." oninput="filterL(this.value)"></div>
-    <div class="cat-bar">
-      <button class="cat active" onclick="filterCat('الكل',this)">الكل</button>
-      <button class="cat" onclick="filterCat('مبتدئ',this)">مبتدئ</button>
-      <button class="cat" onclick="filterCat('متوسط',this)">متوسط</button>
-      <button class="cat" onclick="filterCat('متقدم',this)">متقدم</button>
-    </div>
-    <div class="llist" id="llist"></div>
-  </div>
-  <div class="ldetail" id="ldetail">
-    <div class="dh" id="dh">
-      <div class="dh-top">
-        <button class="back-btn" onclick="closeLesson()">← رجوع للدروس</button>
-        <div class="dh-icon" id="d-ic"></div>
-        <h2 id="d-ti"></h2>
-        <div class="dh-meta" id="d-me"></div>
-        <div class="lesson-badges" id="d-badges"></div>
+        <div class="prog-label"><span>المستوى الثاني: أحكام التجويد</span><strong id="prog-txt-2">0%</strong></div>
+        <div class="pbar"><div id="prog-fill-2" class="pfill pfill-2"></div></div>
       </div>
     </div>
-    <div class="dbody" id="dbody"></div>
   </div>
 </div>
 
-<!-- ═══ QUIZ ═══ -->
-<div id="page-quiz" class="page">
-  <div id="qlist-view">
-    <div class="qhdr"><h2>✏️ الاختبارات</h2><p>مرحلتان لكل درس</p></div>
-    <div class="ltab-bar">
-      <button class="ltab active" onclick="switchQLvl('reading',this)">📖 القراءة الصحيحة</button>
-      <button class="ltab" onclick="switchQLvl('tajweed',this)">🎓 أحكام التجويد</button>
+<!-- PAGE: LESSONS -->
+<div id="p-lessons" class="page">
+  <div class="lessons-header">
+    <h2>المنهج والدروس</h2>
+    <p>تصفح الدروس التفاعلية مع الأمثلة التطبيقية الفورية</p>
+  </div>
+  <div class="ltab-bar">
+    <button id="tab-l1" class="ltab active" onclick="switchLevelTab(1)">المستوى الأول</button>
+    <button id="tab-l2" class="ltab" onclick="switchLevelTab(2)">المستوى الثاني</button>
+  </div>
+  <div class="search-bar">
+    <input type="text" id="lessonSearch" class="sinp" placeholder="🔍 ابحث عن عنوان قاعدة أو درس..." oninput="filterLessons()">
+  </div>
+  <div class="llist" id="lessons-container"></div>
+</div>
+
+<!-- PAGE: LESSON DETAIL -->
+<div id="p-detail" class="page ldetail">
+  <div id="dh-header" class="dh-top">
+    <button class="back-btn" onclick="showPage('lessons')">➔ عودة لقائمة المنهج</button>
+    <h2 id="det-title">عنوان الدرس</h2>
+    <div class="dh-meta" id="det-meta">المستوى الدراسي</div>
+  </div>
+  <div class="dbody">
+    <div class="intro-box">
+      <div class="intro-label">القاعدة والشرح التوضيحي</div>
+      <div class="intro-text" id="det-desc">تفاصيل الشرح...</div>
     </div>
-    <div class="qlbl" id="qlbl"></div>
-    <div class="qlist-wrap" id="qlist"></div>
-  </div>
-  <div id="qstage-view" style="display:none">
-    <div class="stage-hdr">
-      <button class="stage-back" onclick="backQL()">← رجوع</button>
-      <h2 id="stg-ti"></h2><p>اختر المرحلة</p>
+    <div class="qverse-box">
+      <div class="qverse" id="det-verse">المثال القرآني</div>
+      <div style="font-size:11px; color:var(--gold); margin-top:10px;" id="det-ref">الموضع</div>
     </div>
-    <div class="stage-cards-wrap" id="stg-cards"></div>
-  </div>
-  <div class="quiz-active" id="quiz-active">
-    <div class="qtop"><button class="qback" onclick="backStages()">← رجوع</button><span class="qlbl2" id="qlbl2"></span></div>
-    <div class="qpbar"><div class="qpfill" id="qpf"></div></div>
-    <div class="qnum" id="qnum"></div>
-    <div class="qbox" id="qbox"></div>
-    <div class="opts" id="opts"></div>
-    <div class="nwrap" id="nwrap"></div>
-  </div>
-  <div class="qresult" id="qresult">
-    <div class="res-circle" id="res-circle"><span class="res-sc" id="res-sc"></span><span class="res-rl">النتيجة</span></div>
-    <div class="res-ti" id="res-ti"></div>
-    <div class="res-su" id="res-su"></div>
-    <div class="ns-btn" id="ns-btn"><button class="btn-complete" style="background:linear-gradient(135deg,var(--gold),#a86820);color:var(--navy)" onclick="goS2()">🏆 انتقل للمرحلة الثانية ←</button></div>
-    <div class="res-btns"><button class="btn-out" onclick="retryQ()">إعادة</button><button class="btn-s" onclick="backQL()">الاختبارات</button></div>
+    <button class="audio-play-btn" onclick="playLessonAudio()">
+      <span>🔊</span> استمع إلى نطق الآية وتطبيق الحكم
+    </button>
+    <button class="btn-complete" onclick="markLessonComplete()">✓ تم استيعاب وفهم الدرس (+10 نقاط)</button>
   </div>
 </div>
 
-<!-- ═══ CERTS ═══ -->
-<div id="page-certs" class="page">
-  <div class="cert-hdr"><h2>🏅 شهاداتي</h2><p>شهادات إتمام المستويات القرآنية</p></div>
-  <div class="clist" id="clist"></div>
+<!-- PAGE: QUIZ -->
+<div id="p-quiz" class="page">
+  <div class="qhdr">
+    <h2>الاختبارات وقياس المستوى</h2>
+    <p>أجب عن الأسئلة بدقة لتأكيد إتقانك وتفعيل شهادتك الموثقة</p>
+  </div>
+  <div class="qlist-wrap" id="quiz-list-container">
+    <div class="qcard" onclick="startQuiz(1)">
+      <h4>🏆 اختبار كفاءة المستوى الأول: القراءة الذهبية</h4>
+      <p>يتضمن أسئلة قياس الضبط ومخارج الحروف الأساسية.</p>
+    </div>
+    <div class="qcard" onclick="startQuiz(2)">
+      <h4>🏆 اختبار كفاءة المستوى الثاني: أحكام التجويد الشاملة</h4>
+      <p>قياس أحكام النون الساكنة، والتنوين، والإدغام.</p>
+    </div>
+  </div>
+  <div id="active-quiz" class="quiz-active">
+    <div class="qbox">
+      <div class="qbox-ic">❓</div>
+      <p id="quiz-question-text">نص السؤال يظهر هنا...</p>
+    </div>
+    <div class="opts" id="quiz-options-container"></div>
+  </div>
 </div>
 
-<!-- ═══ PROFILE ═══ -->
-<div id="page-profile" class="page">
+<!-- PAGE: CERTS -->
+<div id="p-certs" class="page">
+  <div class="cert-hdr">
+    <h2>لوحة الشهادات والجوائز</h2>
+    <p>تُفتح الشهادة تلقائياً باسمك عند إنجاز 100% من دروس المستوى</p>
+  </div>
+  <div class="clist">
+    <div class="ccard" id="cert-card-1">
+      <div class="cpreview">
+        <div class="ct">دار سفوان القرآنية</div>
+        <div class="cn">شهادة إتمام كفاءة القراءة الصحيحة</div>
+        <div class="cs">تمنح هذه الشهادة الفخرية لطالب العلم لإتمامه المتطلبات كاملة.</div>
+      </div>
+      <div class="cacts">
+        <button class="btn-s" onclick="printCertificate()">⬇️ طباعة وحفظ الشهادة الحالية كـ PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: PROFILE -->
+<div id="p-profile" class="page">
   <div class="phdr">
-    <div class="avatar">ط</div>
-    <div class="pname">الطالب القرآني</div>
-    <div class="psub">عضو منذ رمضان ١٤٤٧هـ</div>
+    <div class="avatar">🎓</div>
+    <div class="pname">طالب القرآن الكريم</div>
+    <div class="psub">حساب مدمج ذاتي التحديث والتحكم</div>
     <div class="pstats">
-      <div class="pstat"><div class="pn" id="pp-d">٠</div><div class="pl">درس مكتمل</div></div>
-      <div class="pstat"><div class="pn">٠</div><div class="pl">اختبار</div></div>
-      <div class="pstat"><div class="pn">٠</div><div class="pl">شهادة</div></div>
+      <div class="pstat"><div class="n" id="prof-points">0</div><div class="pl">مجموع النقاط</div></div>
+      <div class="pstat"><div class="n" id="prof-done">0</div><div class="pl">دروس مكتملة</div></div>
     </div>
   </div>
-  <div class="pbody">
-    <div class="prow" onclick="toast('قريباً')"><div class="prowl"><div class="prowic" style="background:rgba(37,99,235,.1)">👤</div><div><h4>تعديل الملف الشخصي</h4><p>الاسم والصورة</p></div></div><span style="color:var(--gray400)">‹</span></div>
-    <div class="prow" onclick="toast('قريباً')"><div class="prowl"><div class="prowic" style="background:rgba(201,168,76,.1)">🔔</div><div><h4>الإشعارات</h4><p>تذكيرات الدراسة اليومية</p></div></div><span style="color:var(--gray400)">‹</span></div>
-    <div class="prow" onclick="toast('قريباً')"><div class="prowl"><div class="prowic" style="background:rgba(5,150,105,.1)">📤</div><div><h4>مشاركة المنصة</h4><p>دعوة الأصدقاء للتعلم</p></div></div><span style="color:var(--gray400)">‹</span></div>
+  <div style="padding:20px 16px;">
+    <button class="btn-complete" style="background:var(--red);" onclick="resetAllData()">🗑️ إعادة تعيين وتصفير التقدم بالكامل</button>
   </div>
 </div>
 
+<!-- BOTTOM NAV -->
 <div class="bnav">
-  <button class="ni active" onclick="showPage('home',this)"><span class="ni-ic">🏠</span>الرئيسية</button>
-  <button class="ni" onclick="showPage('lessons',this)"><span class="ni-ic">📚</span>الدروس</button>
-  <button class="ni" onclick="showPage('quiz',this)"><span class="ni-ic">✏️</span>الاختبارات</button>
-  <button class="ni" onclick="showPage('certs',this)"><span class="ni-ic">🏅</span>شهاداتي</button>
-  <button class="ni" onclick="showPage('profile',this)"><span class="ni-ic">👤</span>حسابي</button>
+  <button class="ni active" onclick="showPage('home', this)"><div class="ni-ic">🏠</div>الرئيسية</button>
+  <button class="ni" onclick="showPage('lessons', this)"><div class="ni-ic">📚</div>المنهج</button>
+  <button class="ni" onclick="showPage('quiz', this)"><div class="ni-ic">🎯</div>الاختبارات</button>
+  <button class="ni" onclick="showPage('certs', this)"><div class="ni-ic">🏅</div>الشهادات</button>
+  <button class="ni" onclick="showPage('profile', this)"><div class="ni-ic">👤</div>الملف</button>
 </div>
-<div class="toast" id="toast-el"></div>
+
 <script>
-// ════════════════════════════════════════════════════════════
-//  DATA — READING LESSONS (١٥ قاعدة) من ملزمة "القواعد الذهبية"
-// ════════════════════════════════════════════════════════════
-var RL = [
-{id:0,icon:"🔤",color:"c-blue",title:"القاعدة الأولى — الحركات",meta:"الدرس الأول · ٢٠ دقيقة",level:"مبتدئ",status:"done",
- intro:"الحركاتُ هي علاماتُ الضبط التي تُوضع على الحروف لبيان كيفية النطق بها. وهي ستُّ حركات: الضمة، والفتحة، والكسرة، والسكون، والشدة، والتنوين. وقد اعتمد العلماء رسماً موحداً لها حافظ على نطق القرآن الكريم كما نزل.",
- defs:[
-   {label:"الضمة",color:"c-blue",icon:"ُ"},{label:"الفتحة",color:"c-gold",icon:"َ"},
-   {label:"الكسرة",color:"c-green",icon:"ِ"},{label:"السكون",color:"c-purple",icon:"ۡ"},
-   {label:"الشدة",color:"c-red",icon:"ّ"},{label:"التنوين",color:"c-teal",icon:"ًٌٍ"}
- ],
- rules:[
-   {c:"c-blue",t:"الضمة",d:"تكون فوق الحرف دائماً، وتدل على ضم الشفتين عند النطق بالحرف.",ex:"نَعۡبُدُ"},
-   {c:"c-gold",t:"الفتحة",d:"تكون فوق الحرف دائماً، وتدل على فتح الفم عند النطق بالحرف.",ex:"رَبِّ الۡعَالَمِينَ"},
-   {c:"c-green",t:"الكسرة",d:"تكون تحت الحرف دائماً، وتدل على كسر الفك السفلي عند النطق.",ex:"بِسۡمِ اللَّهِ"},
-   {c:"c-purple",t:"السكون",d:"رأس حاء صغير فوق الحرف، يدل على أن الحرف ساكنٌ مُظهَر بلا حركة.",ex:"يَرۡمِي"},
-   {c:"c-red",t:"الشدة",d:"تكون فوق الحرف دائماً وتلازمها حركة، والحرف المشدد مكوَّن من حرفين: ساكن ومتحرك.",ex:"إِنَّ — رَبَّنَا"},
-   {c:"c-teal",t:"التنوين",d:"نون ساكنة زائدة تلحق آخر الاسم لفظاً لا خطاً، وله ثلاثة أشكال حسب الحرف الذي يليه: متراكب ومتتابع ومقلب.",ex:"عَلِيمٌ — حَكِيمًا — رَحِيمٍ"}
- ],
- examples:[
-   {l:"الضمة فوق الحرف",a:"إِيَّاكَ <span class='hl-g'>نَعۡبُدُ</span> وَإِيَّاكَ <span class='hl-g'>نَسۡتَعِينُ</span>",ref:"سورة الفاتحة — الآية ٥",note:"الضمة فوق الدال في نَعۡبُدُ وفوق النون في نَسۡتَعِينُ — تدل على ضم الشفتين",type:"ضمة",tc:"t-iz",surah:1,ayah:5},
-   {l:"الشدة — الحرف المضاعف",a:"غَيۡرِ الۡمَغۡضُوبِ عَلَيۡهِمۡ وَلَا <span class='hl-r'>الضَّآلِّينَ</span>",ref:"سورة الفاتحة — الآية ٧",note:"اللام في الضَّآلِّينَ مشددة: لام ساكنة ثم لام مكسورة",type:"شدة",tc:"t-mad",surah:1,ayah:7},
-   {l:"التنوين المقلب قبل الباء",a:"وَلَنَبۡلُوَنَّكُم بِشَيۡءٍ مِّنَ الۡخَوۡفِ وَالۡجُوعِ",ref:"سورة البقرة — الآية ١٥٥",note:"تنوين الكسر في شَيۡءٍ يُقلب ميماً مع الغنة أمام الباء",type:"تنوين",tc:"t-tar",surah:2,ayah:155}
- ]},
-{id:1,icon:"〰️",color:"c-teal",title:"القاعدة الثانية — الحروف المدية واللينة",meta:"الدرس الثاني · ٢٠ دقيقة",level:"مبتدئ",status:"done",
- intro:"الحروفُ المديةُ ثلاثةٌ: الألفُ الساكنة المسبوقة بفتحة، والواوُ الساكنة المسبوقة بضمة، والياءُ الساكنة المسبوقة بكسرة. أما الحروفُ اللينةُ فهي الواو والياء الساكنتان المسبوقتان بفتحة فقط، وتختلفان عن المديتين في أن حركة ما قبلهما لا تجانسهما.",
- defs:[{label:"ألف مدية",color:"c-blue",icon:"ا"},{label:"واو مدية",color:"c-green",icon:"و"},{label:"ياء مدية",color:"c-purple",icon:"ي"},{label:"واو لينة",color:"c-gold",icon:"وۡ"},{label:"ياء لينة",color:"c-teal",icon:"يۡ"}],
- rules:[
-   {c:"c-blue",t:"الألف المدية",d:"ساكنة مسبوقة بفتحة، ولا تقبل الحركة مطلقاً، ولا تأتي في أول الكلمة.",ex:"قَالَ — كَانَ — جَاءَ"},
-   {c:"c-green",t:"الواو المدية",d:"ساكنة مسبوقة بضمة، تُمد بمقدار حركتين على الأقل.",ex:"يَقُولُ — مَغۡفُورٌ — نُورٌ"},
-   {c:"c-purple",t:"الياء المدية",d:"ساكنة مسبوقة بكسرة، تُمد بمقدار حركتين على الأقل.",ex:"قِيلَ — فِيهَا — عَلِيمٌ"},
-   {c:"c-gold",t:"الواو اللينة",d:"ساكنة مسبوقة بفتحة وليست مدية — تخرج بلين ويسر بلا مد.",ex:"خَوۡفٌ — قَوۡلٌ — يَوۡمٌ"},
-   {c:"c-teal",t:"الياء اللينة",d:"ساكنة مسبوقة بفتحة وليست مدية — تخرج بلين ويسر بلا مد.",ex:"بَيۡتٌ — خَيۡرٌ — عَيۡنٌ"},
-   {c:"c-red",t:"ملاحظة مهمة",d:"كل ألف في القرآن الكريم هو ألف مدي، والفتحة تسبقه دائماً.",ex:""}
- ],
- examples:[
-   {l:"الألف المدية",a:"<span class='hl-g'>قَالَ</span> رَبِّ اجۡعَل لِّي آيَةً",ref:"سورة آل عمران — الآية ٤١",note:"الألف في قَالَ حرف مدي — ساكن مسبوق بفتحة على القاف",type:"ألف مدية",tc:"t-iz",surah:3,ayah:41},
-   {l:"الواو المدية",a:"وَمِنَ النَّاسِ مَن <span class='hl-b'>يَقُولُ</span> آمَنَّا بِاللَّهِ",ref:"سورة البقرة — الآية ٨",note:"الواو في يَقُولُ حرف مدي — ساكن مسبوق بضمة على القاف",type:"واو مدية",tc:"t-id",surah:2,ayah:8},
-   {l:"الواو اللينة",a:"أَلَا إِنَّ أَوۡلِيَاءَ اللَّهِ لَا <span class='hl-gr'>خَوۡفٌ</span> عَلَيۡهِمۡ",ref:"سورة يونس — الآية ٦٢",note:"الواو في خَوۡفٌ حرف لين — مسبوق بفتحة وليس مدياً، فهي ساكنة بلا مد",type:"واو لينة",tc:"t-iq",surah:10,ayah:62}
- ]},
-{id:2,icon:"○",color:"c-green",title:"القاعدة الثالثة — الحرف المعرى",meta:"الدرس الثالث · ٢٠ دقيقة",level:"مبتدئ",status:"done",
- intro:"الحرفُ المعرى هو الحرف المجرد كلياً من أي علامة ضبط — لا حركة ولا سكون ظاهراً عليه — وهو في حقيقته حرفٌ ساكنٌ حتماً، وُضع هذا الترك تنبيهاً على حالة خاصة في النطق كالإدغام أو الإخفاء.",
- defs:[{label:"إدغام كامل",color:"c-blue",icon:"⊕"},{label:"إدغام ناقص",color:"c-green",icon:"⊖"},{label:"نون معراة",color:"c-purple",icon:"ن"},{label:"ميم معراة",color:"c-gold",icon:"م"},{label:"لام شمسية",color:"c-red",icon:"ال"}],
- rules:[
-   {c:"c-blue",t:"الإدغام الكامل",d:"يأتي بعد الحرف المعرى حرفٌ مشدد من جنسه أو مقارب له، فيُدغم فيه إدغاماً تاماً.",ex:"لَمۡ يَكُن لَّهُ"},
-   {c:"c-green",t:"الإدغام الناقص",d:"يأتي بعد الحرف المعرى حرفٌ غير مشدد، فيبقى أثر الحرف الأول جزئياً.",ex:"مِن وَلِيٍّ وَلَا نَصِيرٍ"},
-   {c:"c-purple",t:"النون الساكنة المعراة",d:"تُعرَّى النون الساكنة من علامة السكون إذا أتى بعدها حرف من حروف الإدغام أو الإخفاء.",ex:"مَن يَعۡمَلۡ — مِن كُلِّ"},
-   {c:"c-gold",t:"الميم الساكنة المعراة",d:"تُعرَّى الميم الساكنة من علامة السكون إذا أتى بعدها الباء أو الميم.",ex:"تَرۡمِيهِم بِحِجَارَةٍ"},
-   {c:"c-red",t:"الإدغام الشمسي",d:"لام التعريف تُعرَّى من الحركة إذا دخلت على اسم يبدأ بحرف شمسي، فتُدغم في الحرف الذي يليها.",ex:"الرَّحِيمِ — الشَّمۡسِ"}
- ],
- examples:[
-   {l:"الإدغام الشمسي",a:"بِسۡمِ اللَّهِ <span class='hl-g'>الرَّحۡمَٰنِ الرَّحِيمِ</span>",ref:"سورة الفاتحة — الآية ١",note:"لام التعريف في الرَّحۡمَٰنِ والرَّحِيمِ معراة ومدغمة في الراء — حرف شمسي",type:"إدغام شمسي",tc:"t-id",surah:1,ayah:1},
-   {l:"النون الساكنة المعراة",a:"فَمَن <span class='hl-b'>يَعۡمَلۡ</span> مِثۡقَالَ ذَرَّةٍ خَيۡرًا يَرَهُ",ref:"سورة الزلزلة — الآية ٧",note:"النون في مَن معراة قبل الياء — حرف من حروف الإدغام بغنة",type:"نون معراة",tc:"t-iz",surah:99,ayah:7}
- ]},
-{id:3,icon:"⊘",color:"c-orange",title:"القاعدة الرابعة — الصفر المستدير والمستطيل",meta:"الدرس الرابع · ٢٥ دقيقة",level:"متوسط",status:"done",
- intro:"الصفرُ المستديرُ علامةٌ دائرية صغيرة تجعل الحرف الذي تعلوه ملغىً تماماً لا يُلفظ وقفاً ولا وصلاً. أما الصفرُ المستطيلُ فهو علامة أكبر حجماً تختص بالألف فقط، وتدل على أنها تُلفظ وقفاً وتُحذف وصلاً.",
- defs:[{label:"صفر مستدير",color:"c-blue",icon:"○"},{label:"صفر مستطيل",color:"c-orange",icon:"◌"}],
- rules:[
-   {c:"c-blue",t:"الصفر المستدير",d:"يأتي فوق الألف أو الواو أو الياء، ويجعل الحرف ملغىً رسماً لا يُلفظ أبداً — لا وقفاً ولا وصلاً.",ex:"لَـٰكِنَّ — أُو۟لَـٰئِكَ"},
-   {c:"c-orange",t:"الصفر المستطيل",d:"يأتي فوق الألف فقط، وتُلفظ الألف عنده وقفاً وتُحذف وصلاً.",ex:"أَنَا۠ — لَّـٰكِنَّا۠"},
-   {c:"c-green",t:"الألفات السبع",d:"جاء الصفر المستطيل في سبع كلمات فقط في القرآن الكريم، أشهرها ألف الضمير (أنا) في ستين موضعاً.",ex:""}
- ],
- examples:[
-   {l:"الصفر المستطيل — أَنَا۠",a:"إِنِّي أَنَا۠ رَبُّكَ فَاخۡلَعۡ نَعۡلَيۡكَ",ref:"سورة طه — الآية ١٢",note:"الألف في أَنَا۠ فوقه صفر مستطيل — يُلفظ وقفاً ويُحذف وصلاً",type:"صفر مستطيل",tc:"t-iz",surah:20,ayah:12},
-   {l:"الصفر المستطيل — لَّـٰكِنَّا۠",a:"لَّـٰكِنَّا۠ هُوَ اللَّهُ رَبِّي وَلَا أُشۡرِكُ بِرَبِّي أَحَدًا",ref:"سورة الكهف — الآية ٣٨",note:"الألف فوقها صفر مستطيل — تُلفظ وقفاً: لَكِنَّا — وتُحذف وصلاً",type:"صفر مستطيل",tc:"t-id",surah:18,ayah:38}
- ]},
-{id:4,icon:"†",color:"c-purple",title:"القاعدة الخامسة — الألف الخنجرية",meta:"الدرس الخامس · ٢٠ دقيقة",level:"متوسط",status:"done",
- intro:"الألفُ الخنجريةُ — وتُسمى أيضاً القصيرة — هي ألف مدية تُكتب على هيئة خنجر أو هلال صغير مائل فوق الحرف. وهي ثابتة في النطق وقفاً ووصلاً، باستثناء كلمتين فقط في القرآن الكريم.",
- defs:[{label:"خنجرية ثابتة",color:"c-purple",icon:"ٰ"},{label:"الاستثناء الأول",color:"c-red",icon:"١"},{label:"الاستثناء الثاني",color:"c-gold",icon:"٢"}],
- rules:[
-   {c:"c-purple",t:"الأصل في الخنجرية",d:"ثابتة في النطق وقفاً ووصلاً دائماً، وتُلفظ ألفاً مدية كاملة.",ex:"الرَّحۡمَٰنِ — هَـٰذَا"},
-   {c:"c-red",t:"الاستثناء الأول",d:"في كلمة لَـٰكِنۡ في سورة البقرة آية ٢٨ — الألف الخنجرية ملغاة بسبب الهمزة بعدها.",ex:""},
-   {c:"c-gold",t:"الاستثناء الثاني",d:"في كلمة مَجۡرَىٰهَا في سورة هود آية ٤١ — إمالة الألف نحو الياء، وهي الإمالة الوحيدة في رواية حفص.",ex:""}
- ],
- examples:[
-   {l:"الخنجرية في الرَّحۡمَٰنِ",a:"بِسۡمِ اللَّهِ <span class='hl-g'>الرَّحۡمَٰنِ</span> الرَّحِيمِ",ref:"سورة الفاتحة — الآية ١",note:"الألف الخنجرية فوق الميم في الرَّحۡمَٰنِ ثابتة وقفاً ووصلاً",type:"خنجرية",tc:"t-id",surah:1,ayah:1}
- ]},
-{id:5,icon:"◆",color:"c-rose",title:"القاعدة السادسة — الحروف المتروكة",meta:"الدرس السادس · ٢٠ دقيقة",level:"متوسط",status:"done",
- intro:"الحروفُ المتروكةُ هي حروف تُرسم في المصحف الشريف بصورة خاصة (صغيرة أو معلَّقة) ولها أحكام دقيقة في النطق تختلف عن صورتها المكتوبة، وقد التزم علماء الرسم القرآني برسمها كذلك لحكمة دقيقة.",
- defs:[{label:"واو صغيرة",color:"c-blue",icon:"ۥ"},{label:"ياء صغيرة",color:"c-green",icon:"ۦ"},{label:"نون متروكة",color:"c-purple",icon:"ن"}],
- rules:[
-   {c:"c-blue",t:"الواو الصغيرة",d:"تُرسم صغيرة فوق الحرف وتدل على واو مدية تُلفظ مداً طبيعياً كاملاً.",ex:"دَاوُۥدَ — الرِّبَوٰا۟"},
-   {c:"c-green",t:"الياء الصغيرة المنقلبة",d:"تُلفظ ياءً مديةً كاملة رغم رسمها الصغير، وقد وردت بكثرة في سورة البقرة.",ex:"الصَّلَوٰةَ — الزَّكَوٰةَ"},
-   {c:"c-purple",t:"النون المتروكة",d:"في كلمة نُّنجِي بسورة الأنبياء آية ٤٤، النون الأولى تُترك في الرسم وتُلفظ مدغمة.",ex:""}
- ],
- examples:[
-   {l:"الواو الصغيرة — دَاوُۥدَ",a:"وَآتَيۡنَا <span class='hl-g'>دَاوُۥدَ</span> زَبُورًا",ref:"سورة الإسراء — الآية ٥٥",note:"الواو الصغيرة فوق الدال تدل على واو مدية تُلفظ مداً طبيعياً",type:"واو صغيرة",tc:"t-id",surah:17,ayah:55},
-   {l:"الياء الصغيرة — الصَّلَوٰةَ",a:"وَأَقِيمُوا۟ <span class='hl-b'>الصَّلَوٰةَ</span> وَآتُوا۟ الزَّكَوٰةَ",ref:"سورة البقرة — الآية ٤٣",note:"الياء الصغيرة المنقلبة تُلفظ مداً طبيعياً كاملاً رغم رسمها الصغير",type:"ياء صغيرة",tc:"t-iz",surah:2,ayah:43}
- ]},
-{id:6,icon:"أ",color:"c-indigo",title:"القاعدة السابعة — همزة الوصل بعدها همزة ساكنة",meta:"الدرس السابع · ٢٠ دقيقة",level:"متوسط",status:"done",
- intro:"عند الابتداء بكلمة تبدأ بهمزة وصل يليها همزة ساكنة، تتحول هذه الهمزة الساكنة عند الابتداء إلى حرف مد من جنس حركة همزة الوصل ذاتها. هذا الحكم خاص بسبع كلمات وردت في القرآن الكريم.",
- defs:[{label:"٧ كلمات",color:"c-indigo",icon:"٧"}],
- rules:[
-   {c:"c-indigo",t:"الكلمة الأولى",d:"ٱئۡتَمَنَ في سورة البقرة ٢٨٣ — عند الابتداء تُقرأ: أُوتُمِنَ.",ex:""},
-   {c:"c-blue",t:"الكلمة الثانية",d:"ٱئۡتِ في سورة يونس ١٥ — عند الابتداء تُقرأ: إِيتِ.",ex:""},
-   {c:"c-green",t:"الكلمة الثالثة",d:"ٱئۡتِنَا في سورة الأنعام ٨٣ — عند الابتداء تُقرأ: إِيتِنَا.",ex:""},
-   {c:"c-purple",t:"بقية الكلمات",d:"ٱئۡتُوا۟ — ٱئۡتُونِي — ٱئۡتِيَا — ٱئۡذَن لِّي، وجميعها تتبع نفس القاعدة عند الابتداء.",ex:""}
- ],
- examples:[
-   {l:"ٱئۡتِيَا — عند الوصل والابتداء",a:"فَقَالَ لَهَا وَلِلۡأَرۡضِ <span class='hl-g'>ٱئۡتِيَا</span> طَوۡعًا أَوۡ كَرۡهًا",ref:"سورة فصلت — الآية ١١",note:"وصلاً: ٱئۡتِيَا بهمزة الوصل — ابتداءً: إِيتِيَا بمد الكسر، لأن همزة الوصل في الفعل مكسورة",type:"همزة وصل",tc:"t-iz",surah:41,ayah:11}
- ]},
-{id:7,icon:"~",color:"c-blue",title:"القاعدة الثامنة — علامة المد",meta:"الدرس الثامن · ٣٠ دقيقة",level:"متوسط",status:"done",
- intro:"علامةُ المدِّ هي رمز يُكتب فوق حروف المد (الألف والواو والياء) إذا جاء بعدها سبب من أسباب المد: همزة قطع، أو سكون أصلي. ويختلف مقدار المد بحسب نوع السبب: همزة (٤-٥ حركات) أو سكون (٦ حركات = مد لازم).",
- defs:[{label:"متصل",color:"c-blue",icon:"٤"},{label:"منفصل",color:"c-green",icon:"٢-٥"},{label:"لازم",color:"c-red",icon:"٦"}],
- rules:[
-   {c:"c-blue",t:"المد المتصل",d:"حرف المد والهمزة في كلمة واحدة، ومقداره أربع أو خمس حركات وجوباً.",ex:"جَاۤءَ — السَّمَاۤءِ"},
-   {c:"c-green",t:"المد المنفصل",d:"حرف المد في آخر كلمة والهمزة في أول الكلمة التالية، ومقداره اختياري بين ٢-٤-٥ حركات.",ex:"إِنَّاۤ أَعۡطَيۡنَاكَ"},
-   {c:"c-red",t:"المد اللازم الكلمي المثقل",d:"حرف المد متبوعٌ بحرف مشدد في نفس الكلمة، ومقداره ست حركات وجوباً.",ex:"وَلَا الضَّاۤلِّينَ"},
-   {c:"c-gold",t:"المد اللازم الكلمي المخفف",d:"حرف المد متبوعٌ بحرف ساكن غير مشدد، ومقداره ست حركات — ورد مرتين فقط في سورة يونس.",ex:""},
-   {c:"c-purple",t:"المد اللازم الحرفي",d:"في الحروف المقطعة بفواتح السور ذات الثلاثة أحرف التي أوسطها حرف مد، مجموعة في عبارة: سنقص لكم.",ex:"الۤمۤ"}
- ],
- examples:[
-   {l:"المد المتصل — جَاۤءَ",a:"إِذَا <span class='hl-g'>جَاۤءَ</span> نَصۡرُ اللَّهِ وَالۡفَتۡحُ",ref:"سورة النصر — الآية ١",note:"الألف والهمزة في نفس الكلمة جَاۤءَ — مد واجب متصل أربع حركات",type:"متصل",tc:"t-iq",surah:110,ayah:1},
-   {l:"المد اللازم — وَلَا الضَّاۤلِّينَ",a:"غَيۡرِ الۡمَغۡضُوبِ عَلَيۡهِمۡ وَلَا <span class='hl-b'>الضَّاۤلِّينَ</span>",ref:"سورة الفاتحة — الآية ٧",note:"الألف ثم اللام المشددة في الضَّاۤلِّينَ — مد لازم كلمي مثقل ست حركات",type:"لازم",tc:"t-ik",surah:1,ayah:7},
-   {l:"المد الحرفي — الۤمۤ",a:"<span class='hl-gr'>الۤمۤ</span>",ref:"سورة البقرة — الآية ١",note:"حرف اللام هجاؤه (لام-ألف-ميم) أوسطه الألف المدية — مد لازم حرفي مثقل ست حركات",type:"حرفي",tc:"t-iz",surah:2,ayah:1}
- ]},
-{id:8,icon:"⏸",color:"c-green",title:"القاعدة التاسعة — كيفية الوقوف",meta:"الدرس التاسع · ٢٥ دقيقة",level:"متوسط",status:"done",
- intro:"الوقفُ في القراءة يكون دائماً على حرفٍ ساكن، وعند الوقف تسقط جميع الحركات من آخر الكلمة. أما التنوينُ فيسقط هو الآخر كلياً عند الوقف، إلا تنوين الفتح فإنه يُعوَّض بألف يُمد بها الصوت.",
- defs:[{label:"وقف عام",color:"c-green",icon:"⏸"},{label:"تنوين فتح",color:"c-gold",icon:"ًا"}],
- rules:[
-   {c:"c-green",t:"الوقف العام",d:"تسقط الحركة من آخر الكلمة ويُسكَّن الحرف الأخير عند الوقف عليه.",ex:"الرَّحِيمُ ← الرَّحِيمۡ"},
-   {c:"c-blue",t:"تنوين الضم والكسر",d:"يسقطان كلياً عند الوقف، ويبقى الحرف ساكناً بلا تنوين.",ex:"عَلِيمٌ ← عَلِيمۡ"},
-   {c:"c-gold",t:"تنوين الفتح",d:"يُعوَّض بألف عند الوقف فقط — تُمد به الفتحة الأخيرة مداً طبيعياً.",ex:"عَلِيمًا ← عَلِيمَا"},
-   {c:"c-purple",t:"الوقف على المشدد والقلقلة",d:"الوقف على الحرف المشدد يكون بالنبر والضغط عليه، والوقف على حروف القلقلة يكون بقلقلتها.",ex:""}
- ],
- examples:[
-   {l:"تنوين الفتح وقفاً",a:"إِنَّا فَتَحۡنَا لَكَ فَتۡحًا <span class='hl-g'>مُّبِينًا</span>",ref:"سورة الفتح — الآية ١",note:"مُّبِينًا تُقرأ وقفاً: مُّبِينَا — يُعوَّض التنوين بألف",type:"وقف",tc:"t-iz",surah:48,ayah:1}
- ]},
-{id:9,icon:"ه",color:"c-purple",title:"القاعدة العاشرة — مد هاء الكناية",meta:"الدرس العاشر · ٣٠ دقيقة",level:"متوسط",status:"done",
- intro:"هاءُ الكناية هي هاء الضمير المفرد المذكر الغائب التي تأتي في آخر الكلمة، وتُشبع بالوصل فقط إذا كانت متحركة بين متحركين، أي إذا كان الحرف الذي قبلها متحرك والحرف الذي بعدها متحرك أيضاً. وإشباعها يُسمى مد الصلة.",
- defs:[{label:"صلة صغرى",color:"c-blue",icon:"٢"},{label:"صلة كبرى",color:"c-purple",icon:"٤-٥"}],
- rules:[
-   {c:"c-blue",t:"هاء الكناية المكسورة",d:"تُكسر هاء الكناية إذا سبقها كسرة أو ياء ساكنة (مدية أو لينة).",ex:"بِهِ — عَلَيۡهِ — فِيهِ"},
-   {c:"c-green",t:"هاء الكناية المضمومة",d:"تُضم هاء الكناية إذا لم يسبقها كسرة ولا ياء ساكنة.",ex:"لَهُ — مِنۡهُ — رَبُّهُ"},
-   {c:"c-purple",t:"مد الصلة الصغرى",d:"إشباع الهاء بالوصل بين متحركين ولا يأتي بعدها همزة — مد طبيعي حركتان.",ex:"إِنَّهُۥ كَانَ"},
-   {c:"c-red",t:"مد الصلة الكبرى",d:"إشباع الهاء وبعدها همزة قطع — يُلحق بحكم المد المنفصل في المقدار.",ex:"رَبَّهُۥٓ أَحَاطَ"}
- ],
- examples:[
-   {l:"مد الصلة الكبرى",a:"إِنَّ <span class='hl-g'>رَبَّهُۥٓ</span> أَحَاطَ بِهِ بَصِيرًا",ref:"سورة الإسراء — الآية ٦٠",note:"الهاء في رَبَّهُۥٓ مشبعة بالوصل وبعدها همزة — مد الصلة الكبرى بمقدار المنفصل",type:"صلة كبرى",tc:"t-iq",surah:17,ayah:60}
- ]},
-{id:10,icon:"أ",color:"c-navy",title:"القاعدة الحادية عشرة — همزة الوصل",meta:"الدرس الحادي عشر · ٣٠ دقيقة",level:"متقدم",status:"done",
- intro:"همزةُ الوصل هي همزة تُكتب أول الكلمة التي تبدأ بساكن لتمكين الابتداء بها، وتسقط لفظاً في حالة الوصل بما قبلها، وتُلفظ محركة عند الابتداء بها. وعلامتها رأس صاد صغير فوق الألف (ٱ).",
- defs:[{label:"مفتوحة",color:"c-gold",icon:"اَ"},{label:"مكسورة",color:"c-green",icon:"اِ"},{label:"مضمومة",color:"c-blue",icon:"اُ"}],
- rules:[
-   {c:"c-gold",t:"لام التعريف",d:"همزة الوصل في (ال) التعريفية مفتوحة دائماً عند الابتداء بها.",ex:"ٱلۡحَمۡدُ — ٱلۡكِتَابُ"},
-   {c:"c-green",t:"الأسماء السبعة السماعية",d:"همزتها مكسورة عند الابتداء — وهي: ٱبۡن، ٱسۡم، ٱمۡرُؤ، ٱمۡرَأَة، ٱثۡنَان، ٱثۡنَتَان، ٱيۡمُن.",ex:"ٱبۡنُ — ٱسۡمُ"},
-   {c:"c-blue",t:"الأفعال — قاعدة الحرف الثالث",d:"إن كان ثالث الفعل مضموماً فهمزة الوصل مضمومة، وإن كان مفتوحاً أو مكسوراً فهمزة الوصل مكسورة.",ex:"ٱنطَلِقُوا۟ — ٱذۡهَبۡ"},
-   {c:"c-purple",t:"المصادر",d:"مصادر الأفعال الخماسية والسداسية تبدأ بهمزة وصل مكسورة دائماً.",ex:"ٱنطِلَاقٌ — ٱسۡتِغۡفَارٌ"}
- ],
- examples:[
-   {l:"همزة وصل مفتوحة",a:"<span class='hl-g'>ٱلۡحَمۡدُ</span> لِلَّهِ رَبِّ <span class='hl-g'>ٱلۡعَالَمِينَ</span>",ref:"سورة الفاتحة — الآية ٢",note:"همزة الوصل في ٱلۡحَمۡدُ وٱلۡعَالَمِينَ مفتوحة دائماً عند الابتداء بلام التعريف",type:"مفتوحة",tc:"t-iz",surah:1,ayah:2},
-   {l:"همزة وصل مكسورة",a:"<span class='hl-b'>ٱذۡهَبۡ</span> بِكِتَابِي هَـٰذَا فَأَلۡقِهۡ إِلَيۡهِمۡ",ref:"سورة النمل — الآية ٢٨",note:"الحرف الثالث في ٱذۡهَبۡ (الهاء) مفتوح — همزة الوصل مكسورة عند الابتداء",type:"مكسورة",tc:"t-ik",surah:27,ayah:28}
- ]},
-{id:11,icon:"س",color:"c-rose",title:"القاعدة الثانية عشرة — السكت",meta:"الدرس الثاني عشر · ١٥ دقيقة",level:"متقدم",status:"done",
- intro:"السكتُ هو قطع الصوت زمناً يسيراً جداً عند كلمة معينة، دون أخذ نَفَس، بنية مواصلة القراءة فيما بعد. وقد اختار حفص بن سليمان عن عاصم أربعة مواضع محددة للسكت في القرآن الكريم، وعلامته حرف (سـ) صغير فوق الكلمة.",
- defs:[{label:"الموضع الأول",color:"c-blue",icon:"١"},{label:"الموضع الثاني",color:"c-green",icon:"٢"},{label:"الموضع الثالث",color:"c-purple",icon:"٣"},{label:"الموضع الرابع",color:"c-gold",icon:"٤"}],
- rules:[
-   {c:"c-blue",t:"الموضع الأول — سورة الكهف",d:"السكت عند عِوَجًاۜ ثم الابتداء بـ ۞ قَيِّمًا — الآيتان ١-٢.",ex:""},
-   {c:"c-green",t:"الموضع الثاني — سورة القيامة",d:"السكت عند مَنۡ ۜرَّاقٍ في الآية ٢٧.",ex:""},
-   {c:"c-purple",t:"الموضع الثالث — سورة يس",d:"السكت عند مَّرۡقَدِنَاۜ ثم الابتداء بـ هَـٰذَا — الآية ٥٢.",ex:""},
-   {c:"c-gold",t:"الموضع الرابع — سورة المطففين",d:"السكت عند بَلۡۜ ثم الابتداء بـ رَانَ — الآية ١٤.",ex:""}
- ],
- examples:[
-   {l:"السكت في سورة يس",a:"مَنۢ بَعَثَنَا مِن مَّرۡقَدِنَاۜ هَـٰذَا مَا وَعَدَ الرَّحۡمَـٰنُ",ref:"سورة يس — الآية ٥٢",note:"السكت في مَّرۡقَدِنَاۜ ثم يُبتدأ بـ هَـٰذَا — انقطاع لحظي دون تنفس",type:"سكت",tc:"t-id",surah:36,ayah:52},
-   {l:"السكت في سورة المطففين",a:"كَلَّا بَلۡۜ رَانَ عَلَىٰ قُلُوبِهِم مَّا كَانُوا۟ يَكۡسِبُونَ",ref:"سورة المطففين — الآية ١٤",note:"السكت في بَلۡۜ قبل رَانَ — وعلامة السكت حرف (سـ) فوق الكلمة",type:"سكت",tc:"t-iq",surah:83,ayah:14}
- ]},
-{id:12,icon:"ء",color:"c-orange",title:"القاعدة الثالثة عشرة — همزة القطع",meta:"الدرس الثالث عشر · ٢٠ دقيقة",level:"متقدم",status:"done",
- intro:"همزةُ القطع هي همزة تُلفظ دائماً سواء عند الوصل أو الوقف أو الابتداء، وعلامتها رأس عين صغير (ء) فوق الألف أو تحتها أو فوق الواو أو الياء. وجميع همزات القرآن الكريم محققة عند حفص بلا استثناء، إلا همزة واحدة قرأها بالتسهيل.",
- defs:[{label:"محققة",color:"c-orange",icon:"ء"},{label:"مسهَّلة",color:"c-gold",icon:"بين بين"}],
- rules:[
-   {c:"c-orange",t:"همزة القطع المحققة",d:"تُنطق همزة واضحة في جميع الأحوال — وصلاً ووقفاً وابتداءً.",ex:"أَنعَمتَ — إِنَّ — أُو۟لَـٰئِكَ"},
-   {c:"c-gold",t:"الهمزة المسهَّلة (الاستثناء الوحيد)",d:"الهمزة الثانية في كلمة ءَأَعۡجَمِيٌّ بسورة فصلت آية ٤٤ — تُنطق بين الهمزة والألف، وهي الهمزة الوحيدة المسهَّلة عند حفص.",ex:""}
- ],
- examples:[
-   {l:"همزة القطع المحققة",a:"صِرَٰطَ الَّذِينَ <span class='hl-g'>أَنعَمتَ</span> عَلَيۡهِمۡ",ref:"سورة الفاتحة — الآية ٧",note:"الهمزة في أَنعَمتَ همزة قطع — تُلفظ دائماً مهما كان موضعها من الكلام",type:"محققة",tc:"t-iz",surah:1,ayah:7},
-   {l:"الهمزة المسهَّلة",a:"وَلَوۡ جَعَلۡنَـٰهُ قُرۡءَانًا <span class='hl-b'>أَعۡجَمِيًّا</span> لَّقَالُوا۟ لَوۡلَا فُصِّلَتۡ ءَايَـٰتُهُۥٓ",ref:"سورة فصلت — الآية ٤٤",note:"الهمزة الثانية تُقرأ بالتسهيل — بين الهمزة الصافية والألف الممدودة",type:"مسهَّلة",tc:"t-iq",surah:41,ayah:44}
- ]},
-{id:13,icon:"ﷲ",color:"c-green",title:"القاعدة الرابعة عشرة — لام لفظ الجلالة",meta:"الدرس الرابع عشر · ١٥ دقيقة",level:"متقدم",status:"done",
- intro:"لامُ لفظ الجلالة (اللَّهُ) لها حالتان: التفخيمُ والترقيقُ، بحسب الحركة التي تسبقها — وهي الحالة الوحيدة التي تتغير فيها حالة اللام، إذ إن اللام في غير لفظ الجلالة مرققة دائماً.",
- defs:[{label:"تفخيم",color:"c-green",icon:"اللَّهُ"},{label:"ترقيق",color:"c-blue",icon:"اللَّهِ"}],
- rules:[
-   {c:"c-green",t:"تفخيم لام الجلالة",d:"تُفخَّم لام الجلالة إذا سُبقت بفتحة ملفوظة أو ضمة ملفوظة قبلها.",ex:"قَالَ اللَّهُ — رَسُولُ اللَّهِ"},
-   {c:"c-blue",t:"ترقيق لام الجلالة",d:"تُرقَّق لام الجلالة إذا سُبقت بكسرة ملفوظة قبلها مباشرة.",ex:"بِاللَّهِ — لِلَّهِ"},
-   {c:"c-purple",t:"حروف الاستعلاء السبعة",d:"خص ضغط قظ — هذه الحروف مفخمة دائماً بصرف النظر عن حركتها.",ex:""}
- ],
- examples:[
-   {l:"تفخيم لام الجلالة",a:"<span class='hl-g'>قَالَ اللَّهُ</span> هَـٰذَا يَوۡمُ يَنفَعُ الصَّـٰدِقِينَ صِدۡقُهُمۡ",ref:"سورة المائدة — الآية ١١٩",note:"اللام في اللَّهُ مفخمة — سُبقت بفتحة في قَالَ",type:"تفخيم",tc:"t-iz",surah:5,ayah:119},
-   {l:"ترقيق لام الجلالة",a:"وَاعۡتَصِمُوا۟ <span class='hl-b'>بِاللَّهِ</span> هُوَ مَوۡلَىٰكُمۡ",ref:"سورة الحج — الآية ٧٨",note:"اللام في اللَّهِ مرققة — سُبقت بكسرة في بِـ",type:"ترقيق",tc:"t-id",surah:22,ayah:78}
- ]},
-{id:14,icon:"ال",color:"c-purple",title:"القاعدة الخامسة عشرة — التقاء الساكنين",meta:"الدرس الخامس عشر · ٣٥ دقيقة",level:"متقدم",status:"done",
- intro:"الأصلُ في العربية أنه لا يجتمع ساكنان متتاليان عند الوصل بين كلمتين، فإذا التقى ساكنان وجب علاج هذا الالتقاء، إما بحذف الساكن الأول إذا كان حرف مد، أو بتحريكه بحركة مناسبة.",
- defs:[{label:"حذف",color:"c-red",icon:"✕"},{label:"تحريك بالضم",color:"c-blue",icon:"ُ"},{label:"تحريك بالفتح",color:"c-gold",icon:"َ"},{label:"تحريك بالكسر",color:"c-green",icon:"ِ"}],
- rules:[
-   {c:"c-red",t:"حذف حرف المد",d:"إذا جاء بعد حرف المد ساكن (همزة وصل)، يُحذف حرف المد لفظاً عند الوصل.",ex:"اهۡدِنَا الصِّرَٰطَ ← اهۡدِنَصِّرَٰطَ"},
-   {c:"c-blue",t:"التحريك بالضم",d:"تُحرَّك ميم الجمع وواو الجماعة بالضم عند التقائها بساكن بعدها.",ex:"كُنتُمُ الظَّـٰلِمِينَ"},
-   {c:"c-gold",t:"التحريك بالفتح",d:"يُحرَّك حرف الجر (مِنَ) بالفتح عند التقائه بساكن بعده.",ex:"مِنَ النَّاسِ — مِنَ الۡمُؤۡمِنِينَ"},
-   {c:"c-green",t:"التحريك بالكسر",d:"تُحرَّك بعض السواكن بالكسر في مواضع محددة من القرآن الكريم — وهو الأصل في التقاء الساكنين.",ex:""}
- ],
- examples:[
-   {l:"حذف حرف المد",a:"<span class='hl-g'>اهۡدِنَا</span> الصِّرَٰطَ الۡمُسۡتَقِيمَ",ref:"سورة الفاتحة — الآية ٦",note:"الألف في اهۡدِنَا تُحذف لفظاً عند وصلها بالصِّرَٰطَ — لالتقاء الساكنين",type:"حذف",tc:"t-mad",surah:1,ayah:6},
-   {l:"تحريك ميم الجمع بالضم",a:"وَكُنتُمُ الظَّـٰلِمِينَ فَتَابَ عَلَيۡكُمۡ",ref:"سورة البقرة — الآية ٥٤",note:"ميم الجمع في كُنتُمُ تُضم لالتقاء الساكنين مع همزة الوصل بعدها",type:"تحريك",tc:"t-id",surah:2,ayah:54}
- ]}
+var currentLevel = 1;
+var currentLessonId = null;
+var activeQuizType = null;
+var currentQuestionIdx = 0;
+
+var lessonsData = [
+  {id:1, lvl:1, icon:"🖋️", title:"القاعدة الأولى: الحركات الثلاث وعلامات الضبط", desc:"تعتمد قراءة آلذكر الحكيم على الضبط الدقيق للحركات الثلاث والتمييز التام بين السكون والشدة التمكينية لمنع التمطيط المولد للحروف.", verse:"كَتَبَ اللَّهُ لَأَغْلِبَنَّ أَنَا وَرُسُلِي", ref:"سورة المجادلة - الآية ٢١"},
+  {id:2, lvl:1, icon:"📖", title:"القاعدة الثانية: مخرجا الشفتين واللسان", desc:"التركيز على مخرج النطق الصحيح وتفادي خلط الضاد بالظاء في النطق العثماني والحرص على إطباق مخرج الثنايا العليا.", verse:"صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ", ref:"سورة الفاتحة - الآية ٧"},
+  {id:3, lvl:2, icon:"💎", title:"أحكام النون الساكنة: الإظهار الحلقي", desc:"إخراج النون الساكنة أو التنوين من مخرجها ناصعة واضحة من غير زيادة في الغنة إذا تلاها أحد حروف الحلق: الهمز والهاء والعين والحاء والغين والخاء.", verse:"مَنْ خَشِيَ الرَّحْمَنَ بِالْغَيْبِ", ref:"سورة ق - الآية ٣٣"},
+  {id:4, lvl:2, icon:"✨", title:"أحكام النون الساكنة: الإدغام بغنة الكامل", desc:"إدخال النون الساكنة أو التنوين في الحرف الذي يليها بحيث يصيران حرفاً واحداً مشدداً من جنس الثاني يصاحبه صوت الغنة التمكيني.", verse:"مَن يَقُولُ آمَنَّا بِاللَّهِ", ref:"سورة البقرة - الآية ٨"}
 ];
 
-// ════════════════════════════════════════════════════════════
-//  DATA — TAJWEED LESSONS (١٣ درساً) من كتاب "تبسيط التجويد"
-// ════════════════════════════════════════════════════════════
-var TL = [
-{id:0,icon:"📖",color:"c-navy",title:"تعريف علم التجويد",meta:"الدرس الأول · ١٥ دقيقة",level:"مبتدئ",status:"done",
- intro:"التجويدُ لغةً: التحسين والإتقان. واصطلاحاً: علمٌ يُعرف به إعطاء كل حرف حقَّه ومستحقَّه من المخرج والصفة، مع مراعاة أحكام الوقف والابتداء، من غير تكلُّف ولا تعسُّف. وهو علم عظيم القدر، به يُصان اللسان عن الخطأ في تلاوة كتاب الله.",
- defs:[{label:"حق الحرف",color:"c-navy",icon:"١"},{label:"مستحق الحرف",color:"c-blue",icon:"٢"}],
- rules:[
-   {c:"c-navy",t:"حق الحرف",d:"هو الصفات الذاتية اللازمة الثابتة للحرف التي لا تنفك عنه أبداً، كالجهر والشدة والاستعلاء.",ex:""},
-   {c:"c-blue",t:"مستحق الحرف",d:"هو الصفات العرضية الناشئة عن مجاورة الحروف بعضها لبعض، كالإدغام والإخفاء والقلقلة.",ex:""},
-   {c:"c-green",t:"الجانب النظري",d:"العلم بقواعد التجويد وضوابطها — حكمه فرض كفاية على الأمة.",ex:""},
-   {c:"c-gold",t:"الجانب العملي",d:"تطبيق هذه القواعد أثناء تلاوة القرآن الكريم — حكمه فرض عين على كل مسلم ومسلمة.",ex:""}
- ],
- examples:[
-   {l:"تطبيق شامل للتجويد",a:"بِسۡمِ اللَّهِ <span class='hl-g'>الرَّحۡمَـٰنِ</span> <span class='hl-b'>الرَّحِيمِ</span>",ref:"سورة الفاتحة — الآية ١",note:"كل حرف هنا له مخرج وصفة دقيقة — التجويد إتقان النطق بها جميعاً كما نزل القرآن",type:"تطبيق",tc:"t-iz",surah:1,ayah:1}
- ]},
-{id:1,icon:"🤲",color:"c-teal",title:"الاستعاذة والبسملة",meta:"الدرس الثاني · ٢٠ دقيقة",level:"مبتدئ",status:"done",
- intro:"الاستعاذةُ هي الالتجاء إلى الله تعالى والاعتصام به من شر الشيطان الرجيم عند إرادة قراءة القرآن الكريم. والبسملةُ هي قول: بسم الله الرحمن الرحيم، وتُقرأ عند البدء بكل سورة من القرآن إلا سورة التوبة.",
- defs:[{label:"الاستعاذة",color:"c-teal",icon:"🤲"},{label:"البسملة",color:"c-gold",icon:"﷽"}],
- rules:[
-   {c:"c-teal",t:"حكم الاستعاذة",d:"واجبة عند إرادة قراءة القرآن امتثالاً لقوله تعالى: فَإِذَا قَرَأۡتَ الۡقُرۡآنَ فَاسۡتَعِذۡ بِاللَّهِ مِنَ الشَّيۡطَانِ الرَّجِيمِ.",ex:""},
-   {c:"c-blue",t:"صيغتها المختارة",d:"أعوذ بالله من الشيطان الرجيم — وهي الصيغة الأشهر والمختارة عند جمهور القراء.",ex:""},
-   {c:"c-gold",t:"البسملة بين السورتين",d:"للقارئ ثلاثة أوجه: قطع الجميع (وقف على كل من الاستعاذة والبسملة وأول السورة) — وصل الجميع — الوقف على الاستعاذة فقط ثم وصل البسملة بأول السورة.",ex:""},
-   {c:"c-red",t:"الاستثناء الوحيد",d:"لا تُقرأ البسملة بين سورتي الأنفال والتوبة لخلاف علمي مشهور في علة ذلك.",ex:""}
- ],
- examples:[
-   {l:"الاستعاذة الكاملة",a:"فَإِذَا قَرَأۡتَ الۡقُرۡآنَ فَاسۡتَعِذۡ بِاللَّهِ مِنَ <span class='hl-g'>الشَّيۡطَانِ الرَّجِيمِ</span>",ref:"سورة النحل — الآية ٩٨",note:"أمر الله تعالى بالاستعاذة قبل تلاوة القرآن — هذا هو الأصل الشرعي للاستعاذة",type:"استعاذة",tc:"t-tar",surah:16,ayah:98}
- ]},
-{id:2,icon:"👄",color:"c-orange",title:"مخارج الحروف",meta:"الدرس الثالث · ٢٥ دقيقة",level:"مبتدئ",status:"done",
- intro:"المخرجُ هو الموضع الذي ينشأ منه الصوت متميزاً ليتكوَّن منه حرف من الحروف. وللحروف العربية خمسة مخارج عامة رئيسية، تتفرع منها سبعة عشر مخرجاً خاصاً تتوزع على هذه المخارج الخمسة.",
- defs:[{label:"الجوف",color:"c-blue",icon:"١"},{label:"الحلق",color:"c-green",icon:"٢"},{label:"اللسان",color:"c-purple",icon:"٣"},{label:"الشفتان",color:"c-gold",icon:"٤"},{label:"الخيشوم",color:"c-red",icon:"٥"}],
- rules:[
-   {c:"c-blue",t:"الجوف",d:"التجويف الداخلي للفم والحلق، وهو مخرج حروف المد الثلاثة: الألف والواو والياء الساكنتين المديتين.",ex:"ا — و — ي"},
-   {c:"c-green",t:"الحلق وله ثلاثة مخارج",d:"أقصى الحلق (الهمزة والهاء) — وسط الحلق (العين والحاء) — أدنى الحلق (الغين والخاء).",ex:"ء هـ — ع ح — غ خ"},
-   {c:"c-purple",t:"اللسان وله عشرة مخارج",d:"وهو أوسع المخارج اتساعاً وتنوعاً، يخرج منه ثمانية عشر حرفاً من حروف العربية.",ex:""},
-   {c:"c-gold",t:"الشفتان ولهما مخرجان",d:"الباء والميم (انطباق الشفتين) — والفاء (باطن الشفة السفلى مع أطراف الثنايا العليا) — والواو غير المدية.",ex:"ب م و ف"},
-   {c:"c-red",t:"الخيشوم",d:"التجويف الأنفي، وهو مخرج الغنة الملازمة للنون والميم المشددتين وفي أحكام الإخفاء والإدغام بغنة.",ex:""}
- ],
- examples:[
-   {l:"حروف الحلق — أقصاه",a:"<span class='hl-g'>أَعُوذُ</span> بِاللَّهِ مِنَ الشَّيۡطَانِ الرَّجِيمِ",ref:"الاستعاذة",note:"الهمزة في أَعُوذُ تخرج من أقصى الحلق — أبعد نقطة في مخارج الحروف",type:"حلق",tc:"t-iz",surah:16,ayah:98}
- ]},
-{id:3,icon:"⭐",color:"c-gold",title:"صفات الحروف",meta:"الدرس الرابع · ٣٠ دقيقة",level:"متوسط",status:"done",
- intro:"صفاتُ الحروف هي أحوال تعتري الحرف عند خروجه من مخرجه. وهي نوعان: صفات لها ضد (متقابلة كالجهر والهمس) وصفات لا ضد لها (منفردة). معرفة الصفات ضرورية لتمييز الحروف المتشابهة في المخرج وإعطاء كل حرف حقه.",
- defs:[{label:"الجهر",color:"c-blue",icon:"⊕"},{label:"الهمس",color:"c-green",icon:"⊖"},{label:"الشدة",color:"c-red",icon:"●"},{label:"الرخاوة",color:"c-purple",icon:"○"},{label:"الاستعلاء",color:"c-gold",icon:"▲"}],
- rules:[
-   {c:"c-blue",t:"الجهر",d:"انحباس جريان النَّفَس عند النطق بالحرف لقوة الاعتماد على المخرج — حروفه مجموعة في: ظل قد ربما وزن جود غيث.",ex:""},
-   {c:"c-green",t:"الهمس",d:"جريان النَّفَس عند النطق بالحرف لضعف الاعتماد على المخرج — حروفه مجموعة في: فحثه شخص سكت.",ex:""},
-   {c:"c-red",t:"الشدة",d:"انحباس جريان الصوت تماماً عند النطق بالحرف — حروفها مجموعة في: أجد قط بكت.",ex:""},
-   {c:"c-purple",t:"الرخاوة",d:"جريان الصوت بسهولة عند النطق بالحرف — وهي ضد الشدة — معظم الحروف العربية رخوة.",ex:""},
-   {c:"c-gold",t:"الاستعلاء",d:"ارتفاع أقصى اللسان نحو الحنك الأعلى عند النطق — حروفه السبعة مجموعة في: خص ضغط قظ — وهي مفخمة دائماً.",ex:""}
- ],
- examples:[
-   {l:"حروف الاستعلاء المفخمة",a:"اهۡدِنَا <span class='hl-g'>الصِّرَٰطَ</span> الۡمُسۡتَقِيمَ",ref:"سورة الفاتحة — الآية ٦",note:"الصاد والطاء من حروف الاستعلاء السبعة — تُنطق بتفخيم وارتفاع أقصى اللسان نحو الحنك",type:"استعلاء",tc:"t-iq",surah:1,ayah:6}
- ]},
-{id:4,icon:"🔤",color:"c-blue",title:"أحكام النون الساكنة والتنوين",meta:"الدرس الخامس · ٣٠ دقيقة",level:"متوسط",status:"done",
- intro:"النونُ الساكنةُ والتنوينُ لهما أربعةُ أحكام تتحدد بحسب الحرف الذي يأتي بعدهما مباشرة، وهذا الباب من أهم أبواب علم التجويد وأكثرها وروداً في القرآن الكريم.",
- defs:[{label:"إظهار",color:"c-green",icon:"١"},{label:"إدغام",color:"c-blue",icon:"٢"},{label:"إقلاب",color:"c-gold",icon:"٣"},{label:"إخفاء",color:"c-purple",icon:"٤"}],
- rules:[
-   {c:"c-green",t:"الإظهار الحلقي",d:"يكون عند مجيء أحد حروف الحلق الستة بعد النون الساكنة أو التنوين: (ء هـ ع ح غ خ) — فتُنطق النون واضحة بدون غنة زائدة.",ex:"مِنۡ أَهۡلِ — عَلِيمٌ حَكِيمٌ"},
-   {c:"c-blue",t:"الإدغام",d:"يكون عند مجيء أحد حروف (يرملون) بعد النون الساكنة أو التنوين، وينقسم إلى: إدغام بغنة (ي و م ن) وإدغام بلا غنة (ر ل).",ex:"مَن يَعۡمَلۡ — مِن رَّبِّهِم"},
-   {c:"c-gold",t:"الإقلاب",d:"يكون عند مجيء حرف الباء فقط بعد النون الساكنة أو التنوين، فتُقلب النون ميماً مخفاة مع الغنة.",ex:"سَمِيعٌۢ بَصِيرٌ — مِنۢ بَعۡدِ"},
-   {c:"c-purple",t:"الإخفاء الحقيقي",d:"يكون عند مجيء أحد الحروف الخمسة عشر الباقية بعد النون الساكنة أو التنوين، فتُنطق النون بحالة بين الإظهار والإدغام مع الغنة.",ex:"مِنكُمۡ — قَوۡمًا كَافِرِينَ"}
- ],
- examples:[
-   {l:"الإظهار الحلقي",a:"لَيۡسُوا۟ سَوَاءً مِّنۡ <span class='hl-g'>أَهۡلِ</span> الۡكِتَـٰبِ أُمَّةٌ قَآئِمَةٌ",ref:"سورة آل عمران — الآية ١١٣",note:"النون في مِنۡ تُظهر واضحة قبل الهمزة — حرف من حروف الحلق",type:"إظهار",tc:"t-iz",surah:3,ayah:113},
-   {l:"الإقلاب",a:"وَكَانَ اللَّهُ <span class='hl-b'>سَمِيعًۢا بَصِيرًا</span>",ref:"سورة النساء — الآية ١٣٤",note:"التنوين في سَمِيعًۢا يُقلب ميماً مع الغنة قبل الباء — ويُكتب فوقه ميم صغيرة في المصحف",type:"إقلاب",tc:"t-iq",surah:4,ayah:134},
-   {l:"الإخفاء الحقيقي",a:"شَهِدَ اللَّهُ أَنَّهُۥ لَآ إِلَـٰهَ إِلَّا هُوَ وَالۡمَلَـٰٓئِكَةُ وَأُو۟لُوا۟ الۡعِلۡمِ <span class='hl-p'>قَآئِمًۢا</span> بِالۡقِسۡطِ",ref:"سورة آل عمران — الآية ١٨",note:"النون الساكنة في قَآئِمًۢا تُخفى مع الغنة عند ملاقاتها للقاف",type:"إخفاء",tc:"t-ik",surah:3,ayah:18}
- ]},
-{id:5,icon:"👄",color:"c-purple",title:"أحكام الميم الساكنة",meta:"الدرس السادس · ٢٠ دقيقة",level:"متوسط",status:"done",
- intro:"الميمُ الساكنةُ لها ثلاثةُ أحكام تتحدد بحسب الحرف الذي يأتي بعدها، وهي مماثلة في بعض جوانبها لأحكام النون الساكنة لكنها أقل عدداً.",
- defs:[{label:"إخفاء شفوي",color:"c-purple",icon:"١"},{label:"إدغام شفوي",color:"c-blue",icon:"٢"},{label:"إظهار شفوي",color:"c-green",icon:"٣"}],
- rules:[
-   {c:"c-purple",t:"الإخفاء الشفوي",d:"يكون عند مجيء الباء فقط بعد الميم الساكنة، فتُخفى الميم مع الغنة بإطباق خفيف للشفتين.",ex:"تَرۡمِيهِم بِحِجَارَةٍ"},
-   {c:"c-blue",t:"الإدغام الشفوي",d:"يكون عند مجيء الميم بعد الميم الساكنة مثلها، فتُدغم الميم في الميم مع الغنة الكاملة.",ex:"لَهُم مَّا يَشَآءُونَ"},
-   {c:"c-green",t:"الإظهار الشفوي",d:"يكون عند مجيء سائر الحروف العربية بعد الميم الساكنة (ما عدا الباء والميم)، فتُظهر الميم بوضوح بدون غنة زائدة.",ex:"وَهُمۡ فِيهَا خَـٰلِدُونَ"}
- ],
- examples:[
-   {l:"الإخفاء الشفوي",a:"تَرۡمِيهِم <span class='hl-b'>بِحِجَارَةٍ</span> مِّن سِجِّيلٍ",ref:"سورة الفيل — الآية ٤",note:"الميم في تَرۡمِيهِم ساكنة قبل الباء — تُخفى مع الغنة بإطباق خفيف للشفتين",type:"إخفاء شفوي",tc:"t-ik",surah:105,ayah:4},
-   {l:"الإدغام الشفوي",a:"لَهُم مَّا يَشَآءُونَ فِيهَا وَلَدَيۡنَا مَزِيدٌ",ref:"سورة ق — الآية ٣٥",note:"الميم في لَهُم ساكنة قبل الميم — تُدغم ميم في ميم مع غنة كاملة",type:"إدغام شفوي",tc:"t-id",surah:50,ayah:35}
- ]},
-{id:6,icon:"〰",color:"c-rose",title:"النون والميم المشددتان",meta:"الدرس السابع · ١٥ دقيقة",level:"متوسط",status:"done",
- intro:"النونُ والميمُ المشددتان واجبتا الغنة وجوباً بمقدار حركتين، في جميع الأحوال وفي كل المواضع، سواء كانتا في وسط الكلمة أو آخرها، متصلتين أو منفصلتين.",
- defs:[{label:"نون مشددة",color:"c-rose",icon:"نّ"},{label:"ميم مشددة",color:"c-blue",icon:"مّ"}],
- rules:[
-   {c:"c-rose",t:"النون المشددة",d:"غنة واجبة بمقدار حركتين في كل مواضع ورودها، سواء وسط الكلمة أو في آخرها.",ex:"إِنَّ — ثُمَّ — النَّاسِ"},
-   {c:"c-blue",t:"الميم المشددة",d:"غنة واجبة بمقدار حركتين كذلك في كل مواضع ورودها.",ex:"أَمَّا — إِمَّا — ثُمَّ"},
-   {c:"c-green",t:"مقدار الغنة",d:"حركتان فقط — بمقدار قبض الإصبع وبسطه بحركة معتدلة لا تطويل فيها ولا تقصير.",ex:""}
- ],
- examples:[
-   {l:"النون المشددة",a:"<span class='hl-g'>إِنَّ</span> اللَّهَ لَا يَظۡلِمُ النَّاسَ شَيۡـًٔا",ref:"سورة يونس — الآية ٤٤",note:"النون في إِنَّ مشددة — تُنطق مع غنة واضحة بمقدار حركتين بالضبط",type:"غنة",tc:"t-iz",surah:10,ayah:44}
- ]},
-{id:7,icon:"⚖️",color:"c-indigo",title:"التفخيم والترقيق",meta:"الدرس الثامن · ٣٠ دقيقة",level:"متوسط",status:"done",
- intro:"التفخيمُ هو تسمين الحرف وتغليظ صوته عند النطق به، والترقيقُ هو ترقيق صوت الحرف وتنحيفه. وهما خاصان بحروف الاستعلاء السبعة، والألف، والراء، ولام لفظ الجلالة في القرآن الكريم.",
- defs:[{label:"تفخيم دائم",color:"c-indigo",icon:"خص ضغط قظ"},{label:"ترقيق دائم",color:"c-green",icon:"باقي الحروف"}],
- rules:[
-   {c:"c-indigo",t:"حروف الاستعلاء السبعة",d:"خص ضغط قظ — مفخمة دائماً بصرف النظر عن حركتها (فتح أو ضم أو كسر أو سكون).",ex:"الصِّرَٰطَ — قُلُوبِهِمۡ"},
-   {c:"c-blue",t:"الراء بين التفخيم والترقيق",d:"تُفخَّم الراء إذا كانت مفتوحة أو مضمومة أو ساكنة بعد فتح أو ضم، وتُرقَّق إذا كانت مكسورة أو ساكنة بعد كسر.",ex:"رَبِّ (مرققة) — قَرَأَ (مفخمة)"},
-   {c:"c-green",t:"لام لفظ الجلالة",d:"تُفخَّم بعد فتح أو ضم وتُرقَّق بعد كسر — وهذا حكم خاص بلفظ الجلالة وحده.",ex:"قَالَ اللَّهُ (مفخمة) — بِاللَّهِ (مرققة)"}
- ],
- examples:[
-   {l:"تفخيم الصاد — استعلاء",a:"اهۡدِنَا <span class='hl-g'>الصِّرَٰطَ</span> الۡمُسۡتَقِيمَ",ref:"سورة الفاتحة — الآية ٦",note:"الصاد من حروف الاستعلاء السبعة — تُفخَّم بارتفاع أقصى اللسان نحو الحنك الأعلى",type:"تفخيم",tc:"t-iz",surah:1,ayah:6},
-   {l:"ترقيق الراء",a:"<span class='hl-b'>رَبِّ</span> الۡعَـٰلَمِينَ",ref:"سورة الفاتحة — الآية ٢",note:"الراء في رَبِّ مكسورة — تُرقَّق وفقاً لقاعدة الراء المكسورة",type:"ترقيق",tc:"t-id",surah:1,ayah:2}
- ]},
-{id:8,icon:"〰️",color:"c-blue",title:"أحكام المد عند حفص",meta:"الدرس التاسع · ٤٠ دقيقة",level:"متوسط",status:"done",
- intro:"المدُّ لغةً: الزيادة. واصطلاحاً: إطالة الصوت بحرف من حروف المد عند ملاقاة سبب من أسبابه. وهو نوعان رئيسيان: مد أصلي (طبيعي) لا يتوقف على سبب، ومد فرعي يتوقف على سبب من همزة أو سكون.",
- defs:[{label:"طبيعي",color:"c-green",icon:"٢"},{label:"متصل",color:"c-blue",icon:"٤-٥"},{label:"منفصل",color:"c-gold",icon:"٢-٤-٥"},{label:"لازم",color:"c-red",icon:"٦"},{label:"صلة",color:"c-purple",icon:"٢-٤"}],
- rules:[
-   {c:"c-green",t:"المد الطبيعي",d:"إطالة الصوت بحرف المد بمقدار حركتين فقط، بلا توقف على سبب همزة أو سكون.",ex:"قَالَ — قِيلَ — يَقُولُ"},
-   {c:"c-blue",t:"المد المتصل",d:"حرف المد والهمزة في كلمة واحدة — مقداره أربع أو خمس حركات وجوباً.",ex:"جَآءَ — السَّمَآءِ"},
-   {c:"c-gold",t:"المد المنفصل",d:"حرف المد آخر كلمة والهمزة أول التالية — مقداره اختياري بين ٢ و٤ و٥ حركات.",ex:"إِنَّآ أَعۡطَيۡنَاكَ"},
-   {c:"c-red",t:"المد اللازم",d:"حرف المد متبوعٌ بسكون أصلي — مقداره ست حركات وجوباً، وينقسم إلى كلمي وحرفي.",ex:"وَلَا الضَّآلِّينَ — الۤمۤ"},
-   {c:"c-purple",t:"مد الصلة",d:"إشباع هاء الكناية المتحركة بين متحركين — مقداره حركتان (صغرى) أو يُلحق بالمنفصل (كبرى إن تلاها همزة).",ex:"إِنَّهُۥ كَانَ"}
- ],
- examples:[
-   {l:"المد الطبيعي",a:"<span class='hl-g'>قَالَ</span> رَبِّ اجۡعَل لِّيَ ءَايَةً",ref:"سورة آل عمران — الآية ٤١",note:"الألف في قَالَ مد طبيعي بمقدار حركتين فقط لا يزيد ولا ينقص",type:"طبيعي",tc:"t-iz",surah:3,ayah:41},
-   {l:"المد المتصل",a:"إِذَا <span class='hl-b'>جَآءَ</span> نَصۡرُ اللَّهِ وَالۡفَتۡحُ",ref:"سورة النصر — الآية ١",note:"الألف والهمزة في نفس الكلمة جَآءَ — مد واجب متصل أربع إلى خمس حركات",type:"متصل",tc:"t-id",surah:110,ayah:1}
- ]},
-{id:9,icon:"⏸️",color:"c-navy",title:"الوقف وأنواعه",meta:"الدرس العاشر · ٣٠ دقيقة",level:"متقدم",status:"done",
- intro:"الوقفُ هو قطع الصوت على الكلمة زمناً يتنفَّس فيه القارئ عادةً بنية استئناف القراءة. ويكون الوقف دائماً على حرف ساكن. وللوقف أنواع أربعة بحسب تمام المعنى وتعلقه بما بعده.",
- defs:[{label:"تام",color:"c-green",icon:"م"},{label:"كافٍ",color:"c-blue",icon:"ك"},{label:"حسن",color:"c-gold",icon:"ح"},{label:"قبيح",color:"c-red",icon:"ق"}],
- rules:[
-   {c:"c-green",t:"الوقف التام",d:"تمَّ المعنى عنده وانقطعت علاقته بما بعده لفظاً ومعنى — يُستحب الوقف عليه والابتداء بما بعده.",ex:"رؤوس الآيات غالباً"},
-   {c:"c-blue",t:"الوقف الكافي",d:"تمَّ المعنى عنده لكن له تعلق معنوي بما بعده دون تعلق لفظي — يحسُن الوقف والابتداء.",ex:""},
-   {c:"c-gold",t:"الوقف الحسن",d:"يحسُن الوقف عنده لتمام المعنى لكن لا يحسُن الابتداء بما بعده لتعلقه اللفظي بما قبله.",ex:""},
-   {c:"c-red",t:"الوقف القبيح",d:"لا يحسُن الوقف عليه مطلقاً لعدم تمام المعنى — كالوقف على (بسم) دون إكمال (الله).",ex:""}
- ],
- examples:[
-   {l:"وقف تام — آية الكرسي",a:"وَلَا يَـُٔودُهُۥ حِفۡظُهُمَا <span class='hl-g'>وَهُوَ الۡعَلِىُّ الۡعَظِيمُ</span>",ref:"سورة البقرة — الآية ٢٥٥",note:"الوقف عند الۡعَظِيمُ وقف تام — تمَّ المعنى تماماً وانقطع عما بعده لفظاً ومعنى",type:"وقف تام",tc:"t-iz",surah:2,ayah:255}
- ]},
-{id:10,icon:"🔑",color:"c-purple",title:"همزتا القطع والوصل",meta:"الدرس الحادي عشر · ٢٥ دقيقة",level:"متقدم",status:"done",
- intro:"الهمزةُ في اللغة العربية نوعان: همزةُ قطع تُلفظ دائماً في كل الأحوال — وصلاً ووقفاً وابتداءً، وهمزةُ وصل تُلفظ فقط عند الابتداء وتسقط لفظاً عند الوصل بما قبلها.",
- defs:[{label:"همزة القطع",color:"c-purple",icon:"ء"},{label:"همزة الوصل",color:"c-blue",icon:"ٱ"}],
- rules:[
-   {c:"c-purple",t:"همزة القطع",d:"علامتها رأس عين (ء) فوق الألف أو تحتها — تُلفظ دائماً في جميع الأحوال بلا استثناء.",ex:"أَكۡرَمَ — إِنَّ — أُو۟لَـٰئِكَ"},
-   {c:"c-blue",t:"همزة الوصل",d:"علامتها رأس صاد صغير (ٱ) — تسقط لفظاً عند الوصل بما قبلها وتُلفظ فقط عند الابتداء بها.",ex:"ٱلۡحَمۡدُ — ٱذۡهَبۡ — ٱسۡتَغۡفِرۡ"},
-   {c:"c-green",t:"مواضع همزة الوصل",d:"تأتي في: (ال) التعريف — الأسماء السبعة السماعية — الأفعال الخماسية والسداسية — مصادرها.",ex:""}
- ],
- examples:[
-   {l:"همزة القطع — أَنعَمتَ",a:"صِرَٰطَ الَّذِينَ <span class='hl-g'>أَنعَمتَ</span> عَلَيۡهِمۡ",ref:"سورة الفاتحة — الآية ٧",note:"الهمزة في أَنعَمتَ همزة قطع — تُلفظ دائماً وصلاً ووقفاً وابتداءً",type:"قطع",tc:"t-iz",surah:1,ayah:7}
- ]},
-{id:11,icon:"💎",color:"c-orange",title:"القلقلة",meta:"الدرس الثاني عشر · ٢٠ دقيقة",level:"متقدم",status:"done",
- intro:"القلقلةُ هي اضطرابُ الصوت عند النطق بالحرف ساكناً حتى يُسمع له نبرة قوية واضحة. وحروفُها خمسةٌ فقط، مجموعةٌ في عبارة (قُطۡب جَدّ)، وهي أكثر الصفات وضوحاً عند سماع التلاوة.",
- defs:[{label:"قلقلة صغرى",color:"c-orange",icon:"وسط الكلمة"},{label:"قلقلة كبرى",color:"c-red",icon:"عند الوقف"}],
- rules:[
-   {c:"c-orange",t:"حروف القلقلة",d:"خمسة حروف فقط، مجموعة في عبارة (قُطۡب جَدّ): ق ط ب ج د.",ex:""},
-   {c:"c-blue",t:"القلقلة الصغرى",d:"يكون الحرف ساكناً في وسط الكلمة — نبرة خفيفة معتدلة.",ex:"يَقۡطَعُونَ — أَدۡرِكُمۡ"},
-   {c:"c-red",t:"القلقلة الكبرى",d:"يكون الحرف ساكناً عند الوقف عليه في آخر الكلمة — نبرة أقوى وأوضح.",ex:"الۡفَلَقِ ← الۡفَلَقۡ"},
-   {c:"c-purple",t:"أقوى مراتب القلقلة",d:"عندما يكون حرف القلقلة مشدداً موقوفاً عليه — أقوى الحالات على الإطلاق.",ex:"الۡحَقّۡ"}
- ],
- examples:[
-   {l:"القلقلة الكبرى",a:"قُلۡ أَعُوذُ بِرَبِّ <span class='hl-r'>الۡفَلَقِ</span>",ref:"سورة الفلق — الآية ١",note:"القاف في الۡفَلَقِ عند الوقف — قلقلة كبرى — نبرة صوتية قوية واضحة",type:"كبرى",tc:"t-mad",surah:113,ayah:1},
-   {l:"القلقلة الصغرى",a:"وَيَقۡطَعُونَ مَآ أَمَرَ اللَّهُ بِهِۦٓ أَن يُوصَلَ",ref:"سورة البقرة — الآية ٢٧",note:"القاف في يَقۡطَعُونَ ساكنة وسط الكلمة — قلقلة صغرى خفيفة معتدلة",type:"صغرى",tc:"t-iq",surah:2,ayah:27}
- ]},
-{id:12,icon:"📋",color:"c-teal",title:"خصائص رواية حفص عن عاصم",meta:"الدرس الثالث عشر · ٢٥ دقيقة",level:"متقدم",status:"done",
- intro:"حفصُ بن سليمان الأسدي الكوفي راوٍ عن إمامه عاصم بن أبي النجود، وروايته هي الأشهر والأكثر انتشاراً بين المسلمين اليوم. ولها خصائص فريدة تميزها عن سائر روايات القراء العشرة.",
- defs:[{label:"السكت",color:"c-teal",icon:"٤ مواضع"},{label:"الإمالة",color:"c-purple",icon:"موضع واحد"},{label:"التسهيل",color:"c-gold",icon:"موضع واحد"}],
- rules:[
-   {c:"c-teal",t:"السكت — أربعة مواضع",d:"عِوَجًاۜ — مَن رَّاقٍۜ — مَّرۡقَدِنَاۜ — بَلۡۜ رَانَ — وهذا أبرز ما يميز رواية حفص.",ex:""},
-   {c:"c-purple",t:"الإمالة — موضع واحد فقط",d:"كلمة مَجۡرَىٰهَا في سورة هود آية ٤١ — إمالة الألف نحو الياء، وهي الإمالة الوحيدة عند حفص في كل القرآن.",ex:""},
-   {c:"c-gold",t:"التسهيل — موضع واحد فقط",d:"الهمزة الثانية في كلمة ءَأَعۡجَمِيٌّ بسورة فصلت آية ٤٤ — تُنطق بين الهمزة والألف.",ex:""},
-   {c:"c-blue",t:"إشباع مد الصلة",d:"إشباع هاء الكناية المتحركة بين متحركين بالوصل — من خصائص رواية حفص الأساسية.",ex:""}
- ],
- examples:[
-   {l:"الإمالة — موضع فريد",a:"وَقَالَ ارۡكَبُوا۟ فِيهَا بِسۡمِ اللَّهِ <span class='hl-g'>مَجۡر۪ىٰهَا</span> وَمُرۡسَىٰهَآ",ref:"سورة هود — الآية ٤١",note:"الألف في مَجۡرَىٰهَا تُمال نحو الياء عند حفص — هذا هو الموضع الوحيد للإمالة في روايته كاملة",type:"إمالة",tc:"t-iz",surah:11,ayah:41}
- ]}
-];
-
-// ════════════════════════════════════════════════════════════
-//  QUIZ DATA
-// ════════════════════════════════════════════════════════════
-var RQ = {
- 0:{t:"القاعدة الأولى — الحركات",s1:{t:"مرحلة ١",q:[
-   {q:"أين تكون الضمة على الحرف؟",o:["تحته","فوقه","يمينه","يساره"],a:1},
-   {q:"ما علامة السكون في الرسم القرآني؟",o:["نقطة","رأس حاء صغير","شدة","خط أفقي"],a:1},
-   {q:"التنوين نون ساكنة تُلفظ ولا تُكتب — كم شكلاً له؟",o:["٢","٣","٤","٥"],a:1},
-   {q:"الحرف المشدد مكوَّن من؟",o:["حرفين متحركين","حرف ساكن وحرف متحرك","حرفين ساكنين","حرف واحد"],a:1}
- ]},s2:{t:"مرحلة ٢",q:[
-   {q:"التنوين المقلب يكون قبل؟",o:["حروف الحلق","الياء","الباء","الميم"],a:2},
-   {q:"التنوين المتراكب يأتي قبل؟",o:["حروف الحلق وهمزة الوصل","الباء فقط","يرملون","الحروف الخمسة عشر"],a:0},
-   {q:"التنوين المتتابع يأتي قبل؟",o:["حروف الحلق","يرملون وحروف الإخفاء","الباء","كل الحروف"],a:1},
-   {q:"كم حركة أصلية في اللغة العربية؟",o:["اثنتان","ثلاث","أربع","خمس"],a:1}
- ]}},
- 1:{t:"القاعدة الثانية — الحروف المدية واللينة",s1:{t:"مرحلة ١",q:[
-   {q:"الواو المدية مسبوقة بـ؟",o:["فتحة","كسرة","ضمة","سكون"],a:2},
-   {q:"الياء اللينة مسبوقة بـ؟",o:["كسرة","ضمة","فتحة","سكون"],a:2},
-   {q:"كل ألف في القرآن هو؟",o:["ألف لين","ألف مدي","ألف زائد","همزة"],a:1}
- ]},s2:{t:"مرحلة ٢",q:[
-   {q:"ما الفرق بين المدي واللين؟",o:["المدي مسبوق بحركة مجانسة واللين بفتحة","لا فرق","المدي أطول","اللين أقوى"],a:0},
-   {q:"الحروف المدية لا تأتي في أول الكلمة — لماذا؟",o:["لأنها ثقيلة","لأنها تحتاج حركة قبلها","لأنها ساكنة","لا سبب"],a:1},
-   {q:"الياء المدية مسبوقة بـ؟",o:["فتحة","ضمة","كسرة","سكون"],a:2}
- ]}},
- 2:{t:"القاعدة الثالثة — الحرف المعرى",s1:{t:"مرحلة ١",q:[
-   {q:"الحرف المعرى هو؟",o:["المتحرك","الساكن المجرد من الحركة","المشدد","المنون"],a:1},
-   {q:"لام التعريف قبل الحروف الشمسية؟",o:["مفتوحة","مضمومة","مكسورة","معراة مدغمة"],a:3},
-   {q:"الميم الساكنة تكون معراة قبل؟",o:["الباء والميم فقط","كل الحروف","حروف الحلق","يرملون"],a:0}
- ]},s2:{t:"مرحلة ٢",q:[
-   {q:"الإدغام الكامل يكون عند؟",o:["حرف مشدد بعد المعرى","حرف ساكن","حرف متحرك","حرف مد"],a:0},
-   {q:"الإدغام الشمسي خاص بـ؟",o:["الأفعال","الأسماء المعرفة بال قبل حرف شمسي","المصادر","الحروف"],a:1},
-   {q:"حروف القمرية مجموعة في؟",o:["قطب جد","ابغ حجك وخف عقيمه","يرملون","خص ضغط قظ"],a:1}
- ]}},
- 3:{t:"القاعدة الرابعة — الصفر",s1:{t:"مرحلة ١",q:[
-   {q:"الصفر المستدير يعني أن الحرف؟",o:["يُلفظ وقفاً ووصلاً","يُلفظ وقفاً فقط","ملغى لا يُلفظ أبداً","يُلفظ وصلاً فقط"],a:2},
-   {q:"الصفر المستطيل يأتي فوق؟",o:["الواو فقط","الياء فقط","الألف فقط","الحروف الثلاثة"],a:2},
-   {q:"الصفر المستطيل: الألف يُلفظ؟",o:["وقفاً فقط","وصلاً فقط","وقفاً ووصلاً","لا يُلفظ"],a:0}
- ]},s2:{t:"مرحلة ٢",q:[
-   {q:"كم كلمة جاء فيها الصفر المستطيل؟",o:["٥","٦","٧","٨"],a:2},
-   {q:"الصفر المستدير يأتي فوق؟",o:["الألف فقط","الواو فقط","الياء فقط","الألف والواو والياء"],a:3},
-   {q:"ألف (أنا) جاء بالصفر المستطيل كم مرة؟",o:["٧","٣٠","٦٠","٩٠"],a:2}
- ]}},
- 4:{t:"القاعدة الخامسة — الألف الخنجرية",s1:{t:"مرحلة ١",q:[
-   {q:"الألف الخنجرية ثابتة وقفاً ووصلاً إلا في كم كلمة؟",o:["كلمة واحدة","كلمتين","ثلاث كلمات","لا استثناء"],a:1},
-   {q:"الإمالة الوحيدة عند حفص في أي كلمة؟",o:["لَكِنَّ","مَجۡرَاهَا","قَالَ","هَذَا"],a:1}
- ]},s2:{t:"مرحلة ٢",q:[
-   {q:"الاستثناء الأول للألف الخنجرية في أي سورة؟",o:["آل عمران","البقرة","يونس","هود"],a:1},
-   {q:"كيف تُرسم الألف الخنجرية؟",o:["خط مستقيم","نقطة","خنجر أو هلال صغير","دائرة"],a:2}
- ]}},
- 5:{t:"القاعدة السادسة — الحروف المتروكة",s1:{t:"مرحلة ١",q:[
-   {q:"الواو الصغيرة تدل على؟",o:["واو لينة","واو مدية","واو زائدة","لا شيء"],a:1},
-   {q:"الياء الصغيرة المنقلبة وردت بكثرة في؟",o:["آل عمران","البقرة","يونس","طه"],a:1}
- ]},s2:{t:"مرحلة ٢",q:[
-   {q:"النون المتروكة في كلمة نُّنجِي في أي سورة؟",o:["الأنبياء","البقرة","يونس","هود"],a:0},
-   {q:"الحرف المتروك معناه؟",o:["محذوف تماماً","يُرسم بصورة خاصة وله حكم نطق خاص","غير موجود","زائد فقط"],a:1}
- ]}}
+var quizQuestions = {
+  1: [
+    {q:"ما الخطأ الشائع عند نطق الحركات الثلاث في قراءة المصحف؟", o:["تمطيط الحركة وتوليد حرف مد منها", "إظهار الحرف الحلقي", "قصر المد المتصل"], a:0},
+    {q:"كم عدد مخارج الحروف العامة الأساسية؟", o:["خمسة مخارج عامة", "ثلاثة مخارج", "عشرة مخارج"], a:0}
+  ],
+  2: [
+    {q:"ما هي حروف الإظهار الحلقي الستة؟", o:["أخي هاك علماً حازه غير خاسر", "مجموعة في لفظ يرملون", "مجموعة في قطب جد"], a:0},
+    {q:"ما حكم النون الساكنة في قوله تعالى (مَن يَقُولُ)؟", o:["إظهار حلقي تام", "إدغام بغنة ناقص", "إخفاء شفوي"], a:1}
+  ]
 };
 
-var TQ = {
- 0:{t:"تعريف علم التجويد",s1:{t:"مرحلة ١",q:[
-   {q:"التجويد لغةً يعني؟",o:["الإسراع","التحسين والإتقان","التبسيط","التلحين"],a:1},
-   {q:"ما حكم تعلم التجويد عملاً وتطبيقاً؟",o:["سنة مؤكدة","مستحب","فرض عين","فرض كفاية"],a:2},
-   {q:"حق الحرف هو؟",o:["الصفات العرضية","الصفات الذاتية اللازمة","المخرج فقط","الحركة"],a:1}
- ]},s2:{t:"مرحلة ٢",q:[
-   {q:"ما تعريف التجويد اصطلاحاً؟",o:["إتقان الكتابة","إعطاء كل حرف حقه ومستحقه","حفظ القرآن","ترتيل الصوت"],a:1},
-   {q:"مستحق الحرف هو؟",o:["الصفة الذاتية","الصفة العرضية الناشئة عن المجاورة","المخرج","لا شيء"],a:1},
-   {q:"الجانب النظري لعلم التجويد حكمه؟",o:["فرض عين","فرض كفاية","سنة","مستحب"],a:1}
- ]}},
- 1:{t:"الاستعاذة والبسملة",s1:{t:"مرحلة ١",q:[
-   {q:"ما صيغة الاستعاذة المختارة؟",o:["أعوذ بالله من الشيطان","أعوذ بالله من الشيطان الرجيم","نعوذ بالله","أستعيذ بالله"],a:1},
-   {q:"كم وجهاً للبسملة بين السورتين؟",o:["٢","٣","٤","٥"],a:1},
-   {q:"حكم الاستعاذة؟",o:["مستحبة فقط","واجبة","مكروهة","سنة خفيفة"],a:1}
- ]},s2:{t:"مرحلة ٢",q:[
-   {q:"بين أي سورتين لا توجد بسملة؟",o:["الناس والفلق","الأنفال والتوبة","الكهف ومريم","يس والصافات"],a:1},
-   {q:"ما دليل وجوب الاستعاذة؟",o:["إجماع العلماء فقط","آية في سورة النحل","قياس","لا دليل"],a:1},
-   {q:"الوجه الثالث للبسملة بين السورتين؟",o:["قطع الجميع","وصل الجميع","الوقف على الاستعاذة فقط ثم وصل البسملة","لا يوجد وجه ثالث"],a:2}
- ]}},
- 2:{t:"مخارج الحروف",s1:{t:"مرحلة ١",q:[
-   {q:"من أين تخرج حروف المد الثلاثة؟",o:["الحلق","اللسان","الجوف","الشفتين"],a:2},
-   {q:"كم عدد المخارج الرئيسية؟",o:["٣","٤","٥","٦"],a:2},
-   {q:"حروف الحلق كم عددها؟",o:["٤","٥","٦","٧"],a:2}
- ]},s2:{t:"مرحلة ٢",q:[
-   {q:"مخرج الغنة هو؟",o:["الحلق","اللسان","الشفتان","الخيشوم"],a:3},
-   {q:"كم مخرجاً خاصاً للحروف؟",o:["١٢","١٥","١٧","٢٠"],a:2},
-   {q:"الفاء تخرج من؟",o:["انطباق الشفتين","باطن الشفة السفلى مع أطراف الثنايا العليا","الحلق","اللسان"],a:1}
- ]}},
- 3:{t:"صفات الحروف",s1:{t:"مرحلة ١",q:[
-   {q:"حروف الجهر مقابل؟",o:["الشدة","الهمس","الرخاوة","الاستعلاء"],a:1},
-   {q:"حروف الاستعلاء السبعة مجموعة في؟",o:["قطب جد","خص ضغط قظ","يرملون","فحثه شخص سكت"],a:1}
- ]},s2:{t:"مرحلة ٢",q:[
-   {q:"حروف الشدة مجموعة في؟",o:["أجد قط بكت","خص ضغط قظ","قطب جد","يرملون"],a:0},
-   {q:"حروف الهمس مجموعة في؟",o:["أجد قط بكت","فحثه شخص سكت","خص ضغط قظ","قطب جد"],a:1}
- ]}},
- 4:{t:"أحكام النون الساكنة والتنوين",s1:{t:"مرحلة ١",q:[
-   {q:"كيف تقرأ مِنۡ أَهۡلِ صحيحاً؟",o:["بإدغام النون","بإظهار النون واضحة","بقلب النون ميماً","بإخفاء النون"],a:1},
-   {q:"كيف تقرأ سَمِيعًۢا بَصِيرًا صحيحاً؟",o:["بإظهار التنوين","بإدغامه","بقلبه ميماً مع غنة","بإخفائه"],a:2},
-   {q:"كيف تقرأ مِن كُلِّ صحيحاً؟",o:["بإظهار النون","بإدغامها","بقلبها","بإخفائها مع غنة"],a:3}
- ]},s2:{t:"مرحلة ٢",q:[
-   {q:"كم عدد أحكام النون الساكنة والتنوين؟",o:["٢","٣","٤","٥"],a:2},
-   {q:"ما حكم النون الساكنة قبل الهاء؟",o:["إدغام","إظهار","إقلاب","إخفاء"],a:1},
-   {q:"حروف الإدغام بغنة هي؟",o:["ي ر م ل و ن","ي و م ن","ر ل فقط","ء هـ ع ح غ خ"],a:1}
- ]}},
- 5:{t:"أحكام الميم الساكنة",s1:{t:"مرحلة ١",q:[
-   {q:"كيف تقرأ تَرۡمِيهِم بِحِجَارَةٍ؟",o:["بإظهار الميم","بإدغام الميم","بإخفاء الميم مع غنة","بقلب الميم"],a:2},
-   {q:"كيف تقرأ لَهُم مَّا؟",o:["بإظهار الميم","بإدغام ميم في ميم مع غنة","بإخفاء الميم","بقلب الميم"],a:1}
- ]},s2:{t:"مرحلة ٢",q:[
-   {q:"كم عدد أحكام الميم الساكنة؟",o:["٢","٣","٤","٥"],a:1},
-   {q:"ما حكم الميم الساكنة قبل الباء؟",o:["إظهار شفوي","إدغام شفوي","إخفاء شفوي","إقلاب"],a:2}
- ]}}
+window.onload = function() {
+  if(!localStorage.getItem('dar_safwan_v2_user')) {
+    var state = { points: 0, completed: [], last: null };
+    localStorage.setItem('dar_safwan_v2_user', JSON.stringify(state));
+  }
+  loadUserState();
+  renderLessonsList();
 };
 
-// ════════════════════════════════════════════════════════════
-//  STATE
-// ════════════════════════════════════════════════════════════
-var level="reading", curLessonId=null, curQuizId=null, curStage=null;
-var curQ=0, curScore=0, answered=false;
-var prog={reading:{},tajweed:{}};
+function loadUserState() {
+  var user = JSON.parse(localStorage.getItem('dar_safwan_v2_user'));
+  document.getElementById('stat-points').innerText = user.points;
+  document.getElementById('stat-done').innerText = user.completed.length;
+  document.getElementById('prof-points').innerText = user.points;
+  document.getElementById('prof-done').innerText = user.completed.length;
 
-function getLessons(){return level==="reading"?RL:TL;}
-function getQuizzes(){return level==="reading"?RQ:TQ;}
-function getProg(){return prog[level];}
+  var l1Total = lessonsData.filter(l => l.lvl === 1).length;
+  var l2Total = lessonsData.filter(l => l.lvl === 2).length;
+  var l1Done = lessonsData.filter(l => l.lvl === 1 && user.completed.includes(l.id)).length;
+  var l2Done = lessonsData.filter(l => l.lvl === 2 && user.completed.includes(l.id)).length;
 
-// ════════════════════════════════════════════════════════════
-//  NAV
-// ════════════════════════════════════════════════════════════
-function showPage(name,btn){
-  var ps=document.querySelectorAll(".page");
-  for(var i=0;i<ps.length;i++) ps[i].classList.remove("active");
-  var pg=document.getElementById("page-"+name);
-  if(pg) pg.classList.add("active");
-  var ns=document.querySelectorAll(".ni");
-  for(var i=0;i<ns.length;i++) ns[i].classList.remove("active");
-  if(btn) btn.classList.add("active");
-  else{var m={home:0,lessons:1,quiz:2,certs:3,profile:4};if(m[name]!==undefined) ns[m[name]].classList.add("active");}
-  if(name!=="lessons") closeLesson();
-  if(name==="quiz") renderQuizzes();
-  window.scrollTo(0,0);
+  var p1 = l1Total > 0 ? Math.round((l1Done/l1Total)*100) : 0;
+  var p2 = l2Total > 0 ? Math.round((l2Done/l2Total)*100) : 0;
+
+  document.getElementById('prog-txt-1').innerText = p1 + "%";
+  document.getElementById('prog-fill-1').style.width = p1 + "%";
+  document.getElementById('prog-txt-2').innerText = p2 + "%";
+  document.getElementById('prog-fill-2').style.width = p2 + "%";
+
+  if(user.last) {
+    var lObj = lessonsData.find(l => l.id === user.last);
+    if(lObj) {
+      document.getElementById('continue-box').style.display = "block";
+      document.getElementById('last-lesson-title').innerText = lObj.title;
+    }
+  } else {
+    document.getElementById('continue-box').style.display = "none";
+  }
+
+  document.getElementById('cert-card-1').className = (p1 === 100) ? "ccard" : "ccard locked-c";
 }
-function toast(msg){var t=document.getElementById("toast-el");t.textContent=msg;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2200);}
 
-var fontLevel=0;
-function changeFontSize(dir){
-  var ld=document.getElementById("ldetail");
-  if(!ld.classList.contains("open")){
-    toast("📖 افتح درساً أولاً لتغيير حجم الخط");
+function showPage(pageId, btn) {
+  var pages = document.querySelectorAll('.page');
+  pages.forEach(p => p.classList.remove('active'));
+  var target = document.getElementById('p-' + pageId);
+  if(target) {
+    target.classList.add('active');
+  }
+
+  var navBtns = document.querySelectorAll('.ni');
+  navBtns.forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+
+function navToLessons(lvl) {
+  switchLevelTab(lvl);
+  showPage('lessons', document.querySelectorAll('.bnav .ni')[1]);
+}
+
+function switchLevelTab(lvl) {
+  currentLevel = lvl;
+  document.getElementById('tab-l1').classList.toggle('active', lvl === 1);
+  document.getElementById('tab-l2').classList.toggle('active', lvl === 2);
+  renderLessonsList();
+}
+
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  toast("🌗 تم تحويل مظهر الواجهة التفاعلية بنجاح");
+}
+
+function toast(msg) {
+  var t = document.getElementById('toast');
+  t.innerText = msg;
+  t.style.display = 'block';
+  setTimeout(() => { t.style.display = 'none'; }, 2200);
+}
+
+function renderLessonsList() {
+  var container = document.getElementById('lessons-container');
+  container.innerHTML = "";
+  var user = JSON.parse(localStorage.getItem('dar_safwan_v2_user'));
+  
+  var filtered = lessonsData.filter(l => l.lvl === currentLevel);
+  filtered.forEach(l => {
+    var isDone = user.completed.includes(l.id);
+    var row = document.createElement('div');
+    row.className = "lrow";
+    row.onclick = () => openLesson(l.id);
+    row.innerHTML = `
+      <div class="lrow-num">${l.id}</div>
+      <div class="lrow-info">
+        <h4>${l.title}</h4>
+        <p>${isDone ? '✅ تم الاستيعاب والمنجز' : '⏳ قيد الدراسة والمراجعة'}</p>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+function filterLessons() {
+  var q = document.getElementById('lessonSearch').value.toLowerCase();
+  var container = document.getElementById('lessons-container');
+  container.innerHTML = "";
+  
+  var filtered = lessonsData.filter(l => l.lvl === currentLevel && l.title.toLowerCase().includes(q));
+  filtered.forEach(l => {
+    var row = document.createElement('div');
+    row.className = "lrow";
+    row.onclick = () => openLesson(l.id);
+    row.innerHTML = `
+      <div class="lrow-num">${l.id}</div>
+      <div class="lrow-info">
+        <h4>${l.title}</h4>
+        <p>اضغط للمتابعة الفورية</p>
+      </div>`;
+    container.appendChild(row);
+  });
+}
+
+function openLesson(id) {
+  var l = lessonsData.find(item => item.id === id);
+  if(!l) return;
+  currentLessonId = id;
+
+  var user = JSON.parse(localStorage.getItem('dar_safwan_v2_user'));
+  user.last = id;
+  localStorage.setItem('dar_safwan_v2_user', JSON.stringify(user));
+
+  document.getElementById('det-title').innerText = l.title;
+  document.getElementById('det-meta').innerText = l.lvl === 1 ? "المستوى الأول — القراءة الصحيحة" : "المستوى الثاني — أحكام التجويد";
+  document.getElementById('det-desc').innerText = l.desc;
+  
+  // Highlight tool injection
+  var highlightedVerse = l.verse.replace(/(لأَغْلِبَنَّ|أَنْعَمْتَ|مَنْ خَشِيَ|مَن يَقُولُ)/g, "<span class='hl-g' onclick='toast("حكم تجويدي مضبوط تلقائياً")'>$1</span>");
+  document.getElementById('det-verse').innerHTML = highlightedVerse;
+  document.getElementById('det-ref').innerText = l.ref;
+
+  var dh = document.getElementById('dh-header');
+  dh.className = "dh-top " + (l.lvl === 1 ? "lvl1" : "lvl2");
+
+  showPage('detail');
+  loadUserState();
+}
+
+function openLastLesson() {
+  var user = JSON.parse(localStorage.getItem('dar_safwan_v2_user'));
+  if(user.last) openLesson(user.last);
+}
+
+function playLessonAudio() {
+  toast("🔊 جاري تشغيل التسجيل التوضيحي بالرواية المعتمدة...");
+}
+
+function markLessonComplete() {
+  var user = JSON.parse(localStorage.getItem('dar_safwan_v2_user'));
+  if(!user.completed.includes(currentLessonId)) {
+    user.completed.push(currentLessonId);
+    user.points += 10;
+    localStorage.setItem('dar_safwan_v2_user', JSON.stringify(user));
+    toast("🎉 هنيئاً لك! كسبت +10 نقاط وتم تحديث لوحة الإنجاز");
+  } else {
+    toast("📖 الدرس مسجل كمكتمل سابقاً في سجلاتك");
+  }
+  loadUserState();
+  showPage('lessons');
+}
+
+function startQuiz(type) {
+  activeQuizType = type;
+  currentQuestionIdx = 0;
+  document.getElementById('active-quiz').style.display = "block";
+  showQuestion();
+}
+
+function showQuestion() {
+  var qList = quizQuestions[activeQuizType];
+  if(currentQuestionIdx >= qList.length) {
+    var user = JSON.parse(localStorage.getItem('dar_safwan_v2_user'));
+    user.points += 30;
+    localStorage.setItem('dar_safwan_v2_user', JSON.stringify(user));
+    toast("🏆 أحسنت بارك الله فيك! اجتزت الاختبار الشامل بنجاح وكسبت +30 نقطة");
+    document.getElementById('active-quiz').style.display = "none";
+    loadUserState();
     return;
   }
-  fontLevel+=dir;
-  if(fontLevel>2) fontLevel=2;
-  if(fontLevel<-1) fontLevel=-1;
-  ld.classList.remove("fsz-1","fsz-2","fsz--1");
-  if(fontLevel===1) ld.classList.add("fsz-1");
-  else if(fontLevel===2) ld.classList.add("fsz-2");
-  else if(fontLevel===-1) ld.classList.add("fsz--1");
-  toast(fontLevel>0?"🔍 تكبير الخط":fontLevel<0?"🔍 تصغير الخط":"🔍 الحجم الافتراضي");
-}
-function goToLevel(lv){
-  level=lv;
-  showPage("lessons");
-  setTimeout(function(){
-    var t1=document.getElementById("lt1"),t2=document.getElementById("lt2");
-    if(lv==="reading"){t1.classList.add("active");t2.classList.remove("active");}
-    else{t2.classList.add("active");t1.classList.remove("active");}
-    renderLessons(null);
-  },50);
-}
-
-// ════════════════════════════════════════════════════════════
-//  HOME
-// ════════════════════════════════════════════════════════════
-function renderHome(){
-  // progress bars
-  var d1=0,d2=0;
-  for(var i=0;i<RL.length;i++) if(RL[i].status==="done") d1++;
-  for(var i=0;i<TL.length;i++) if(TL[i].status==="done") d2++;
-  document.getElementById("p1-txt").textContent=toAr(d1)+" / "+toAr(RL.length);
-  document.getElementById("p2-txt").textContent=toAr(d2)+" / "+toAr(TL.length);
-  document.getElementById("p1-fill").style.width=Math.round(d1/RL.length*100)+"%";
-  document.getElementById("p2-fill").style.width=Math.round(d2/TL.length*100)+"%";
-  document.getElementById("pp-d").textContent=toAr(d1+d2);
-
-  // mini scroll
-  var el=document.getElementById("mini-scroll"),h="",ls=RL;
-  for(var i=0;i<Math.min(6,ls.length);i++){
-    var l=ls[i];
-    var si=l.status==="done"?"✅":"▶️";
-    var tc=l.level==="مبتدئ"?"#ecfdf5":l.level==="متوسط"?"#eff6ff":"#f5f3ff";
-    var tv=l.level==="مبتدئ"?"#059669":l.level==="متوسط"?"#2563eb":"#7c3aed";
-    h+="<div class='mini-card' onclick='level=\"reading\";openLesson("+l.id+")'>"
-      +"<div class='mini-top "+l.color+"'><span>"+l.icon+"</span><span class='mini-num'>"+(l.id+1)+"</span><span class='mini-st'>"+si+"</span></div>"
-      +"<div class='mini-body'><h4>"+l.title.split("—")[1].trim()+"</h4>"
-      +"<span class='mini-tag' style='background:"+tc+";color:"+tv+"'>"+l.level+"</span></div></div>";
-  }
-  el.innerHTML=h;
-
-  // prog dots
-  var dots=document.getElementById("prog-dots"),dh="";
-  for(var i=0;i<RL.length;i++){
-    var s=RL[i].status;
-    var cls=s==="done"?"pd pd-done":"pd pd-todo";
-    dh+="<div class='"+cls+"'>"+toAr(i+1)+"</div>";
-  }
-  dots.innerHTML=dh;
-
-  // continue row
-  var cr=document.getElementById("cont-row");
-  var cur=null;
-  for(var i=0;i<RL.length;i++){if(RL[i].status!=="done"){cur=RL[i];break;}}
-  if(!cur) for(var i=0;i<TL.length;i++){if(TL[i].status!=="done"){cur=TL[i];level="tajweed";break;}}
-  if(!cur){cur=RL[0];}
-  cr.innerHTML="<div class='cont-card' onclick='level=\""+(TL.indexOf(cur)>=0?"tajweed":"reading")+"\";showPage(\"lessons\");setTimeout(function(){openLesson("+cur.id+")},200)'>"
-    +"<div class='cont-ic "+cur.color+"'>"+cur.icon+"</div>"
-    +"<div class='cont-info'><h4>"+cur.title+"</h4><p>"+cur.meta+"</p></div>"
-    +"<div class='cont-arr'>←</div></div>";
-}
-function toAr(n){
-  var ar=['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
-  return String(n).split('').map(function(d){return ar[d]||d;}).join('');
-}
-
-// ════════════════════════════════════════════════════════════
-//  LESSONS LIST
-// ════════════════════════════════════════════════════════════
-function switchLvl(lv,btn){
-  level=lv;
-  document.getElementById("lt1").classList.remove("active");
-  document.getElementById("lt2").classList.remove("active");
-  btn.classList.add("active");
-  renderLessons(null);
-}
-function renderLessons(list){
-  var ls=list||getLessons(),el=document.getElementById("llist"),h="";
-  for(var i=0;i<ls.length;i++){
-    var l=ls[i];
-    h+="<div class='lrow' onclick='openLesson("+l.id+")'>"
-      +"<div class='lrow-meta'><div class='lrow-num "+l.color+"' style='color:#fff'>"+toAr(l.id+1)+"</div><span class='sbadge sb-d'>مكتمل</span></div>"
-      +"<div class='lrow-ic "+l.color+"'>"+l.icon+"</div>"
-      +"<div class='lrow-info'><h4>"+l.title+"</h4><p>"+l.meta+"</p></div></div>";
-  }
-  el.innerHTML=h;
-}
-function filterL(v){
-  var f=getLessons().filter(function(l){return l.title.indexOf(v)!==-1||l.meta.indexOf(v)!==-1;});
-  renderLessons(f);
-}
-function filterCat(cat,btn){
-  var chips=document.querySelectorAll(".cat");
-  for(var i=0;i<chips.length;i++) chips[i].classList.remove("active");
-  btn.classList.add("active");
-  renderLessons(cat==="الكل"?null:getLessons().filter(function(l){return l.level===cat;}));
-}
-
-// ════════════════════════════════════════════════════════════
-//  LESSON DETAIL
-// ════════════════════════════════════════════════════════════
-function openLesson(id){
-  var ls=getLessons(),l=ls[id];
-  if(!l) return;
-  curLessonId=id;
-  document.getElementById("llist-view").style.display="none";
-  var d=document.getElementById("ldetail");
-  d.classList.add("open");
-  document.getElementById("fontCtrls").classList.add("show");
-  document.getElementById("dh").className="dh "+l.color;
-  document.getElementById("d-ic").textContent=l.icon;
-  document.getElementById("d-ti").textContent=l.title;
-  document.getElementById("d-me").textContent=l.meta;
-  document.getElementById("d-badges").innerHTML="<span class='lbadge'>"+l.level+"</span><span class='lbadge'>"+(level==="reading"?"القراءة الصحيحة":"أحكام التجويد")+"</span>";
-  renderDetail(l,id);
-  window.scrollTo(0,0);
-}
-function renderDetail(l,id){
-  // Definitions visual chips
-  var defH="";
-  if(l.defs&&l.defs.length){
-    defH="<div class='def-visual'><div class='def-vis-title'>مفاهيم الدرس</div><div class='def-chips'>";
-    for(var i=0;i<l.defs.length;i++){
-      var d=l.defs[i];
-      defH+="<span class='def-chip "+d.color+"' style='color:#fff'>"+d.icon+" "+d.label+"</span>";
-    }
-    defH+="</div></div>";
-  }
-  // Rules
-  var rh="<div class='rules-title'>القواعد والأحكام التفصيلية</div>";
-  for(var i=0;i<l.rules.length;i++){
-    var r=l.rules[i];
-    rh+="<div class='rule-card'><div class='rn "+r.c+"'>"+toAr(i+1)+"</div><div class='rule-body'>"
-      +"<div class='rt'>"+r.t+"</div>"
-      +(r.d?"<div class='rn2'>"+r.d+"</div>":"")
-      +(r.ex?"<div class='re'>"+r.ex+"</div>":"")
-      +"</div></div>";
-  }
-  // Examples with audio
-  var eh="";
-  if(l.examples&&l.examples.length){
-    eh="<div class='ex-section-title'>🎙️ أمثلة قرآنية تطبيقية — بصوت الشيخ الحصري</div>";
-    for(var i=0;i<l.examples.length;i++){
-      var e=l.examples[i];
-      var uid="ex"+id+"_"+i;
-      eh+="<div class='qex'>"
-        +"<div class='qex-head'><span class='qex-lbl'>📌 "+e.l+"</span><span class='qex-typ "+e.tc+"'>"+e.type+"</span></div>"
-        +"<div class='qverse-box'><div class='qverse'>"+e.a+"</div>"+(e.ref?"<div class='qref'>"+e.ref+"</div>":"")+"</div>"
-        +(e.note?"<div class='qnote'>💡 "+e.note+"</div>":"")
-        +"<div class='audio-section'>"
-        +"<button class='audio-play-btn' id='btn_"+uid+"' onclick='toggleAudio(\""+uid+"\","+e.surah+","+e.ayah+","+(e.af?JSON.stringify(e.af):"null")+")'>"
-        +"<span class='play-ic' id='ic_"+uid+"'>▶</span>"
-        +"<span class='play-info'><span class='play-name'>استمع بصوت الشيخ محمود خليل الحصري</span><span class='play-sub'>اضغط للاستماع لتلاوة الآية</span></span>"
-        +"</button>"
-        +"<div class='yt-wrap' id='yt_"+uid+"'></div>"
-        +"</div></div>";
-    }
-  }
-  document.getElementById("dbody").innerHTML=
-    "<div class='intro-box'><div class='intro-label'>شرح الدرس</div><div class='intro-text'>"+l.intro+"</div></div>"
-    +defH+rh+eh
-    +"<button class='btn-complete' onclick='completeLesson("+id+")'>✓ إتمام الدرس</button>"
-    +"<div style='height:14px'></div>";
-}
-function closeLesson(){
-  document.getElementById("llist-view").style.display="block";
-  document.getElementById("ldetail").classList.remove("open");
-  document.getElementById("fontCtrls").classList.remove("show");
-}
-function completeLesson(id){
-  var ls=getLessons();
-  if(ls[id]) ls[id].status="done";
-  renderLessons(null);renderHome();
-  closeLesson();
-  showPage("quiz");
-  setTimeout(function(){openStages(id);},200);
-  toast("✅ تم إتمام الدرس — ابدأ الاختبار!");
-}
-
-// ════════════════════════════════════════════════════════════
-//  AUDIO PLAYER — Husary via Quran.com CDN (mp3) embedded as YouTube fallback
-// ════════════════════════════════════════════════════════════
-var activeAudio=null;
-// عدد آيات كل سورة (١١٤ سورة) — تُستخدم لحساب رقم الآية الإجمالي (١-٦٢٣٦) لخدمة الصوت الأساسية
-var AYAH_COUNTS=[7,286,200,176,120,165,206,75,129,109,123,111,43,52,99,128,111,110,98,135,112,78,118,64,77,227,93,88,69,60,34,30,73,54,45,83,182,88,75,85,54,53,89,59,37,35,38,29,18,45,60,49,62,55,78,96,29,22,24,13,14,11,11,18,12,12,30,52,52,44,28,28,20,56,40,31,50,40,46,42,29,19,36,25,22,17,19,26,30,20,15,21,11,8,8,19,5,8,8,11,11,8,3,9,5,4,7,3,6,3,5,4,5,6];
-function globalAyahNum(surah,ayah){
-  var n=0;
-  for(var i=0;i<surah-1;i++) n+=AYAH_COUNTS[i];
-  return n+ayah;
-}
-function toggleAudio(uid,surah,ayah,customFile){
-  var wrap=document.getElementById("yt_"+uid);
-  var icon=document.getElementById("ic_"+uid);
-  if(activeAudio&&activeAudio!==uid){
-    var ow=document.getElementById("yt_"+activeAudio);
-    var oi=document.getElementById("ic_"+activeAudio);
-    if(ow){ow.classList.remove("show");ow.innerHTML="";}
-    if(oi) oi.textContent="▶";
-  }
-  if(wrap.classList.contains("show")){
-    wrap.classList.remove("show");
-    wrap.innerHTML="";
-    icon.textContent="▶";
-    activeAudio=null;
-  } else {
-    var surahPad=String(surah).padStart(3,'0');
-    var ayahPad=String(ayah).padStart(3,'0');
-    var gNum=globalAyahNum(surah,ayah);
-    // إن وُجد ملف صوتي مرفوع محلياً (تسجيلك الخاص) يُجرَّب أولاً، ثم مصادر احتياطية عبر الإنترنت
-    var sources=[];
-    if(customFile) sources.push(customFile);
-    sources.push(
-      "https://cdn.islamic.network/quran/audio/128/ar.husary/"+gNum+".mp3",
-      "https://everyayah.com/data/Husary_128kbps/"+surahPad+ayahPad+".mp3",
-      "https://www.everyayah.com/data/Husary_128kbps/"+surahPad+ayahPad+".mp3",
-      "https://verses.quran.com/Husary/mp3/"+surahPad+ayahPad+".mp3"
-    );
-    wrap.innerHTML="<audio controls preload='none' style='width:100%;height:42px;border-radius:8px' id='aud_"+uid+"'>"
-      +"<source src='"+sources[0]+"' type='audio/mpeg'>"
-      +"متصفحك لا يدعم تشغيل الصوت</audio>"
-      +"<div id='audSt_"+uid+"' style='display:none;font-size:10px;color:#92400e;margin-top:5px;text-align:center;background:#fffbeb;border-radius:6px;padding:6px'></div>"
-      +"<div id='audErr_"+uid+"' style='display:none;font-size:10px;color:#dc2626;margin-top:5px;text-align:center;background:#fef2f2;border-radius:6px;padding:6px'>"
-      +"⚠️ تعذّر تحميل الصوت من جميع المصادر — تحقق من اتصال الإنترنت، أو أضف تسجيلك الصوتي الخاص لهذا الدرس</div>";
-    wrap.classList.add("show");
-    icon.textContent="⏸";
-    activeAudio=uid;
-
-    var audEl=document.getElementById("aud_"+uid);
-    var stBox=document.getElementById("audSt_"+uid);
-    var srcIdx=0;
-    var stallTimer=null;
-    function tryNext(){
-      srcIdx++;
-      if(stallTimer){clearTimeout(stallTimer);stallTimer=null;}
-      if(srcIdx<sources.length){
-        if(stBox){stBox.style.display="block";stBox.textContent="⏳ جاري تجربة مصدر آخر ("+toAr(srcIdx+1)+"/"+toAr(sources.length)+")...";}
-        audEl.querySelector("source").src=sources[srcIdx];
-        audEl.load();
-        audEl.play().catch(function(){});
-        stallTimer=setTimeout(tryNext,6000);
+  
+  var qObj = qList[currentQuestionIdx];
+  document.getElementById('quiz-question-text').innerText = qObj.q;
+  
+  var container = document.getElementById('quiz-options-container');
+  container.innerHTML = "";
+  
+  qObj.o.forEach((text, i) => {
+    var btn = document.createElement('button');
+    btn.className = "opt";
+    btn.innerText = text;
+    btn.onclick = () => {
+      if(i === qObj.a) {
+        btn.classList.add('correct');
+        toast("👏 إجابة نموذجية صحيحة!");
+        setTimeout(() => {
+          currentQuestionIdx++;
+          showQuestion();
+        }, 1000);
       } else {
-        if(stBox) stBox.style.display="none";
-        var errBox=document.getElementById("audErr_"+uid);
-        if(errBox) errBox.style.display="block";
-        icon.textContent="▶";
+        btn.classList.add('wrong');
+        toast("❌ محاولة غير صحيحة، تأمل القاعدة جيدا");
       }
-    }
-    audEl.addEventListener("error",tryNext);
-    audEl.addEventListener("stalled",tryNext);
-    audEl.addEventListener("playing",function(){
-      if(stallTimer){clearTimeout(stallTimer);stallTimer=null;}
-      if(stBox) stBox.style.display="none";
-    });
-    audEl.addEventListener("ended",function(){ icon.textContent="▶"; activeAudio=null; });
-    audEl.play().catch(function(){ /* wait for user tap on native controls */ });
-    stallTimer=setTimeout(tryNext,6000);
-  }
+    };
+    container.appendChild(btn);
+  });
 }
 
-// ════════════════════════════════════════════════════════════
-//  QUIZZES
-// ════════════════════════════════════════════════════════════
-function switchQLvl(lv,btn){
-  level=lv;
-  var tabs=btn.parentElement.querySelectorAll(".ltab");
-  for(var i=0;i<tabs.length;i++) tabs[i].classList.remove("active");
-  btn.classList.add("active");
-  renderQuizzes();
-}
-function renderQuizzes(){
-  var qz=getQuizzes(),pr=getProg(),el=document.getElementById("qlist");
-  var lb=document.getElementById("qlbl");
-  if(lb) lb.textContent=level==="reading"?"📖 المستوى الأول — القراءة الصحيحة":"🎓 المستوى الثاني — أحكام التجويد";
-  var h="",keys=Object.keys(qz);
-  for(var ki=0;ki<keys.length;ki++){
-    var lid=keys[ki],q=qz[lid];
-    var p=pr[lid]||{};
-    var s1p=p.s1,s2p=p.s2,s1d=s1p!==undefined,s2d=s2p!==undefined;
-    var badge=s2d?"<span class='qbadge qb-g'>✅ مكتمل</span>":s1d?"<span class='qbadge qb-gl'>▶ مرحلة ٢</span>":"<span class='qbadge qb-gl'>جديد</span>";
-    h+="<div class='qcard' onclick='openStages("+lid+")'>"
-      +"<div class='qcard-top'><div><h4>"+q.t+"</h4><p>"+toAr(q.s1.q.length+q.s2.q.length)+" سؤال · مرحلتان</p></div>"+badge+"</div>"
-      +"<div class='sboxes'>"
-      +"<div class='sbox' style='border-color:"+(s1d?"#059669":"#e5e7eb")+"'>"
-      +"<div class='sic'>"+(s1d?"✅":"📖")+"</div><div class='st' style='color:"+(s1d?"#059669":"#4b5563")+"'>مرحلة ١</div>"
-      +"<div class='ss'>القراءة</div>"+(s1d?"<div class='sc' style='color:#059669'>"+toAr(s1p)+"٪</div>":"")+"</div>"
-      +"<div class='sbox' style='border-color:"+(s2d?"#059669":s1d?"#c9a84c":"#e5e7eb")+"'>"
-      +"<div class='sic'>"+(s2d?"✅":s1d?"🎓":"🔒")+"</div><div class='st' style='color:"+(s2d?"#059669":s1d?"#92400e":"#9ca3af")+"'>مرحلة ٢</div>"
-      +"<div class='ss'>التجويد</div>"+(s2d?"<div class='sc' style='color:#059669'>"+toAr(s2p)+"٪</div>":"")+"</div>"
-      +"</div></div>";
-  }
-  el.innerHTML=h;
-}
-function openStages(lid){
-  curQuizId=String(lid);
-  var q=getQuizzes()[lid];
-  if(!q){toast("لا يوجد اختبار لهذا الدرس بعد");return;}
-  var p=getProg()[lid]||{};
-  var s1d=p.s1!==undefined,s2d=p.s2!==undefined;
-  document.getElementById("qlist-view").style.display="none";
-  document.getElementById("qstage-view").style.display="block";
-  document.getElementById("quiz-active").classList.remove("open");
-  document.getElementById("qresult").classList.remove("open");
-  document.getElementById("stg-ti").textContent=q.t;
-  var oc2=s1d?"startStage('s2')":"toast('⚠️ أكمل المرحلة الأولى أولاً')";
-  var inf1=s1d?"<span style='color:#059669'>✅ نتيجتك: "+toAr(p.s1)+"٪</span>":"<span style='color:#2563eb'>ابدأ الاختبار ←</span>";
-  var inf2=s2d?"<span style='color:#059669'>✅ نتيجتك: "+toAr(p.s2)+"٪</span>":s1d?"<span style='color:#92400e'>متاحة الآن ✦</span>":"<span style='color:#9ca3af'>🔒 أكمل المرحلة الأولى</span>";
-  document.getElementById("stg-cards").innerHTML=
-    "<div class='scard' style='border-color:#2563eb' onclick=\"startStage('s1')\">"
-    +"<div class='scard-ic c-blue'>📖</div>"
-    +"<div class='scard-info'><h4>المرحلة الأولى — القراءة الصحيحة</h4><p>"+toAr(q.s1.q.length)+" أسئلة</p><div class='scard-note'>"+inf1+"</div></div>"
-    +"<span style='font-size:18px'>"+(s1d?"✅":"▶️")+"</span></div>"
-    +"<div class='scard "+(s1d?"":"locked-c")+"' style='border-color:"+(s1d?"#c9a84c":"#e5e7eb")+"' onclick=\""+oc2+"\">"
-    +"<div class='scard-ic "+(s1d?"c-gold":"")+"' style='background:"+(s1d?"":"#e5e7eb")+"'>"+(s1d?"🎓":"🔒")+"</div>"
-    +"<div class='scard-info'><h4>المرحلة الثانية — أحكام التجويد</h4><p>"+toAr(q.s2.q.length)+" أسئلة</p><div class='scard-note'>"+inf2+"</div></div>"
-    +"<span style='font-size:18px'>"+(s2d?"✅":s1d?"▶️":"🔒")+"</span></div>";
-}
-function backQL(){
-  document.getElementById("qlist-view").style.display="block";
-  document.getElementById("qstage-view").style.display="none";
-  document.getElementById("quiz-active").classList.remove("open");
-  document.getElementById("qresult").classList.remove("open");
-  renderQuizzes();
-}
-function backStages(){
-  document.getElementById("quiz-active").classList.remove("open");
-  document.getElementById("qresult").classList.remove("open");
-  document.getElementById("qstage-view").style.display="block";
-  openStages(curQuizId);
-}
-function startStage(stage){
-  curStage=stage;
-  var q=getQuizzes()[curQuizId];
-  if(!q) return;
-  var qs=q[stage];
-  if(!qs) return;
-  curQ=0;curScore=0;answered=false;
-  document.getElementById("qstage-view").style.display="none";
-  document.getElementById("quiz-active").classList.add("open");
-  document.getElementById("qresult").classList.remove("open");
-  document.getElementById("qlbl2").textContent=stage==="s1"?"📖 المرحلة الأولى — القراءة الصحيحة":"🎓 المرحلة الثانية — أحكام التجويد";
-  document.getElementById("qpf").style.background=stage==="s1"?"linear-gradient(90deg,#1e40af,#3b82f6)":"linear-gradient(90deg,#92400e,#c9a84c)";
-  showQ();
-}
-function showQ(){
-  var q=getQuizzes()[curQuizId][curStage];
-  var qi=q.q[curQ],tot=q.q.length;
-  answered=false;
-  document.getElementById("qpf").style.width=Math.round(curQ/tot*100)+"%";
-  document.getElementById("qnum").textContent="السؤال "+toAr(curQ+1)+" من "+toAr(tot);
-  document.getElementById("qbox").innerHTML="<div class='qbox-ic'>"+(curStage==="s1"?"📖":"🎓")+"</div><p>"+qi.q+"</p>";
-  var oh="";
-  for(var i=0;i<qi.o.length;i++) oh+="<button class='opt' onclick='answerQ("+i+")'>"+qi.o[i]+"</button>";
-  document.getElementById("opts").innerHTML=oh;
-  var nw=document.getElementById("nwrap");
-  nw.classList.remove("show");
-  nw.innerHTML=curQ===tot-1?"<button class='btn-complete' onclick='showResult()'>عرض النتيجة 🎉</button>":"<button class='btn-complete' onclick='nextQ()'>السؤال التالي ←</button>";
-}
-function answerQ(idx){
-  if(answered) return;
-  answered=true;
-  var correct=getQuizzes()[curQuizId][curStage].q[curQ].a;
-  var opts=document.querySelectorAll(".opt");
-  opts[correct].classList.add("correct");
-  if(idx!==correct) opts[idx].classList.add("wrong");
-  else curScore++;
-  document.getElementById("nwrap").classList.add("show");
-}
-function nextQ(){curQ++;showQ();}
-function showResult(){
-  document.getElementById("quiz-active").classList.remove("open");
-  document.getElementById("qresult").classList.add("open");
-  var tot=getQuizzes()[curQuizId][curStage].q.length;
-  var pct=Math.round(curScore/tot*100);
-  document.getElementById("res-circle").style.background="linear-gradient(135deg,"+(pct>=60?"#2563eb,#1e40af":"#dc2626,#991b1b")+")";
-  document.getElementById("res-sc").textContent=toAr(pct)+"٪";
-  document.getElementById("res-ti").textContent=pct>=80?"ممتاز! 🌟":pct>=60?"ناجح 👍":"يحتاج مراجعة 💪";
-  document.getElementById("res-su").textContent="أجبت على "+toAr(curScore)+" من "+toAr(tot)+" أسئلة بشكل صحيح";
-  var pr=getProg();
-  if(!pr[curQuizId]) pr[curQuizId]={};
-  var prev=pr[curQuizId][curStage];
-  if(prev===undefined||pct>prev) pr[curQuizId][curStage]=pct;
-  var nsb=document.getElementById("ns-btn");
-  var s2done=pr[curQuizId]&&pr[curQuizId].s2!==undefined;
-  if(curStage==="s1"&&pct>=60&&!s2done) nsb.style.display="block"; else nsb.style.display="none";
-}
-function goS2(){document.getElementById("qresult").classList.remove("open");startStage("s2");}
-function retryQ(){startStage(curStage);}
-
-// ════════════════════════════════════════════════════════════
-//  CERTS
-// ════════════════════════════════════════════════════════════
-function renderCerts(){
-  var certs=[
-    {t:"شهادة القراءة الصحيحة — المستوى الأول",s:"القواعد الذهبية في رسم المصحف وضبطه (١٥ قاعدة)",earned:false},
-    {t:"شهادة أحكام التجويد — المستوى الثاني",s:"تبسيط التجويد بالألوان والأمثلة (١٣ درساً)",earned:false},
-    {t:"شهادة الإتقان الكامل",s:"إتمام المستويين بنجاح",earned:false}
-  ];
-  var h="";
-  for(var i=0;i<certs.length;i++){
-    var c=certs[i];
-    h+="<div class='ccard "+(c.earned?"":"locked-c")+"'>"
-      +"<div class='ctop'><h4>"+c.t+"</h4><span class='cic'>"+(c.earned?"🏅":"🔒")+"</span></div>"
-      +"<div class='cmeta'>الموضوع: <strong>"+c.s+"</strong></div>"
-      +(c.earned
-        ?"<div class='cpreview'><div class='ct'>دار سفوان القرآنية</div><div class='cn'>"+c.t+"</div><div class='cs'>"+c.s+"</div></div>"
-          +"<div class='cacts'><button class='btn-out' onclick=\"toast('📤 جاري...')\">مشاركة</button><button class='btn-s' onclick=\"toast('⬇️ جاري...')\">تنزيل</button></div>"
-        :"<div class='locked-o'>🔒 أكمل "+c.s+" لفتح هذه الشهادة</div>")
-      +"</div>";
-  }
-  document.getElementById("clist").innerHTML=h;
+function printCertificate() {
+  window.print();
 }
 
-// ════════════════════════════════════════════════════════════
-//  INIT
-// ════════════════════════════════════════════════════════════
-renderHome();
-renderLessons(null);
-renderQuizzes();
-renderCerts();
-
-// ════════════════════════════════════════════════════════════
-//  HADITH AUTO-SCROLL (JS-driven, avoids CSS animation glitches)
-// ════════════════════════════════════════════════════════════
-(function(){
-  var track=document.querySelector(".hadith-track");
-  if(!track) return;
-  var pos=0,paused=false,speed=0.35;
-  function step(){
-    if(!paused){
-      var half=track.scrollWidth/2;
-      if(half>0){
-        pos+=speed;
-        if(pos>=half) pos=0;
-        track.scrollLeft=pos;
-      }
-    }
-    requestAnimationFrame(step);
+function resetAllData() {
+  if(confirm("هل أنت متأكد من رغبتك في تصفير وحذف جميع البيانات والبدء مجدداً؟")) {
+    var state = { points: 0, completed: [], last: null };
+    localStorage.setItem('dar_safwan_v2_user', JSON.stringify(state));
+    loadUserState();
+    toast("🗑️ تم مسح السجل وتصفير العداد");
+    showPage('home', document.querySelectorAll('.bnav .ni')[0]);
   }
-  track.addEventListener("touchstart",function(){paused=true;},{passive:true});
-  track.addEventListener("touchend",function(){paused=false;},{passive:true});
-  track.addEventListener("mouseenter",function(){paused=true;});
-  track.addEventListener("mouseleave",function(){paused=false;});
-  requestAnimationFrame(step);
-})();
+}
 </script>
 </body>
 </html>
