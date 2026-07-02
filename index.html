@@ -566,6 +566,67 @@ html.dark .home-footer{background:transparent}
 html.dark .toast{background:#1e3d72}
 html.dark .prowic{filter:brightness(1.3)}
 </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* تفعيل الخطوط والتحسينات البصرية الاحترافية */
+body {
+    font-family: 'Cairo', sans-serif !important;
+}
+.quran-text, .ayah-display, .ayah-text {
+    font-family: 'Scheherazade New', serif !important;
+    font-size: 28px !important;
+    line-height: 2.3 !important;
+    word-spacing: 4px;
+}
+.card, .menu-item, .quiz-box, .btn, .nav-item, .badge {
+    border-radius: 14px !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+    transition: all 0.3s ease !important;
+}
+
+/* تعديل قائمة الدروس لتصبح شبكية (Grid) مثل الصور المرسلة */
+.lessons-grid, .lessons-container, .menu-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+    gap: 16px !important;
+    padding: 15px !important;
+}
+
+/* تنسيق بطاقة المثال ليكون زر الصوت بجانب النص */
+.example-card, .example-item, .word-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: #ffffff !important;
+    padding: 15px 20px !important;
+    border-radius: 14px !important;
+    margin-bottom: 12px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04) !important;
+    border-right: 5px solid #0f1f3d !important;
+}
+
+/* زر الصوت الاحترافي بجانب البطاقة */
+.audio-btn, .play-btn {
+    background: #e0f2fe !important;
+    color: #0284c7 !important;
+    border: none !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    margin-right: auto !important; /* لدفع الزر إلى اليسار تماماً بجانب النص */
+}
+.audio-btn:hover, .play-btn:hover {
+    background: #0284c7 !important;
+    color: #ffffff !important;
+}
+</style>
+
 </head>
 <body>
 
@@ -2459,6 +2520,8 @@ if("serviceWorker" in navigator){
     requestAnimationFrame(step);
   }
   track.addEventListener("touchstart",function(){paused=true;},{passive:true});
+  track.addEventListener("mouseenter",function(){paused=true;});
+  track.addEventListener("mouseleave",function(){paused=false;});
   track.addEventListener("touchend",function(){paused=false;},{passive:true});
   track.addEventListener("mouseenter",function(){paused=true;});
   track.addEventListener("mouseleave",function(){paused=false;});
