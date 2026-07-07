@@ -1,66 +1,69 @@
-/* Dar Safwan — Service Worker (offline support) */
-var CACHE = "dar-safwan-v1";
-var CORE = [
-  "./dar-safwan.html",
+const CACHE_NAME = "dar-safwan-v3";
+const APP_SHELL = [
+  "./",
+  "./index.html",
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png"
 ];
 
-self.addEventListener("install", function (e) {
-  self.skipWaiting();
-  e.waitUntil(
-    caches.open(CACHE).then(function (c) {
-      // نتجاهل فشل أي مورد مفرد حتى لا يفشل التثبيت كله
-      return Promise.allSettled(CORE.map(function (u) { return c.add(u); }));
-    })
+self.addEventListener("install", event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener("activate", function (e) {
-  e.waitUntil(
-    caches.keys().then(function (keys) {
-      return Promise.all(
-        keys.filter(function (k) { return k !== CACHE; })
-            .map(function (k) { return caches.delete(k); })
-      );
-    }).then(function () { return self.clients.claim(); })
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(
+      keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+    )).then(() => self.clients.claim())
   );
 });
 
-self.addEventListener("fetch", function (e) {
-  var req = e.request;
-  if (req.method !== "GET") return;
-  var url = new URL(req.url);
+self.addEventListener("fetch", event => {
+  const request = event.request;
+  if (request.method !== "GET") return;
 
-  // ملفات الصوت الخارجية: الشبكة أولاً، دون تخزين (كبيرة الحجم)
-  if (/\.mp3($|\?)/.test(url.pathname)) return;
+  const url = new URL(request.url);
+  if (request.destination === "audio") return;
 
-  // صفحات HTML: الشبكة أولاً مع رجوع للكاش عند انقطاع الإنترنت
-  if (req.mode === "navigate" || req.destination === "document") {
-    e.respondWith(
-      fetch(req).then(function (res) {
-        var copy = res.clone();
-        caches.open(CACHE).then(function (c) { c.put(req, copy); });
-        return res;
-      }).catch(function () {
-        return caches.match(req).then(function (r) { return r || caches.match("./dar-safwan.html"); });
-      })
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put("./index.html", copy));
+          return response;
+        })
+        .catch(() => caches.match("./index.html"))
     );
     return;
   }
 
-  // باقي الموارد: الكاش أولاً ثم الشبكة (stale-while-revalidate مبسّط)
-  e.respondWith(
-    caches.match(req).then(function (cached) {
-      var net = fetch(req).then(function (res) {
-        if (res && res.status === 200 && res.type === "basic") {
-          var copy = res.clone();
-          caches.open(CACHE).then(function (c) { c.put(req, copy); });
+  if (url.origin === location.origin) {
+    event.respondWith(
+      caches.match(request).then(cached => cached || fetch(request).then(response => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+        return response;
+      }))
+    );
+    return;
+  }
+
+  event.respondWith(
+    caches.match(request).then(cached => {
+      const network = fetch(request).then(response => {
+        if (response && response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
         }
-        return res;
-      }).catch(function () { return cached; });
-      return cached || net;
+        return response;
+      }).catch(() => cached);
+      return cached || network;
     })
   );
 });

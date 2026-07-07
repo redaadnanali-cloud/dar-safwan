@@ -1,17 +1,29 @@
 {
   "name": "دار سفوان القرآنية",
   "short_name": "دار سفوان",
-  "description": "منصة التعليم القرآني الرسمية لدار سفوان القرآنية — دروس تجويد، اختبارات تفاعلية، وشهادات معتمدة",
+  "description": "منصة التعليم القرآني لدار سفوان: دروس، اختبارات، مصحف، وشهادات.",
   "lang": "ar",
   "dir": "rtl",
-  "start_url": "./dar-safwan.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0f1f3d",
   "theme_color": "#0f1f3d",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
-  ]
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "books"],
+  "screenshots": []
 }

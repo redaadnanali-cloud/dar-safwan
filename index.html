@@ -8,6 +8,8 @@
 <meta name="description" content="منصة التعليم القرآني الرسمية لدار سفوان القرآنية — دروس تجويد، اختبارات تفاعلية، وشهادات معتمدة">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="دار سفوان">
@@ -128,18 +130,18 @@ body{font-family:'Cairo',sans-serif;background:#f0f4f8;color:var(--gray800);padd
 .lcard-2{background:linear-gradient(135deg,#065f46,#10b981)}
 
 /* HADITH MARQUEE BOARD */
-.hadith-wrap{padding:6px 0 4px}
+.hadith-wrap{padding:4px 0 2px}
 .hadith-track{overflow:hidden;direction:ltr}
-.hadith-track-inner{display:flex;gap:12px;width:max-content;padding:2px 16px 10px;will-change:transform;align-items:flex-start}
-.hcard{direction:rtl;text-align:right;position:relative;width:300px;min-width:300px;max-width:300px;flex-shrink:0;border-radius:16px;padding:13px 16px 12px;color:#fff;box-shadow:var(--sh2);overflow:hidden}
+.hadith-track-inner{display:flex;gap:10px;width:max-content;padding:2px 14px 7px;will-change:transform;align-items:flex-start}
+.hcard{direction:rtl;text-align:right;position:relative;width:280px;min-width:280px;max-width:280px;flex-shrink:0;border-radius:14px;padding:10px 13px 9px;color:#fff;box-shadow:var(--sh2);overflow:hidden}
 .hcard::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 88% -15%,rgba(201,168,76,.35),transparent 55%)}
 .hcard::after{content:'"';position:absolute;bottom:-22px;left:10px;font-family:Georgia,serif;font-size:80px;line-height:1;color:rgba(255,255,255,.07);pointer-events:none}
 .hcard-1,.hcard-2,.hcard-3,.hcard-4,.hcard-5{background:linear-gradient(150deg,#0a1830 0%,#153561 55%,#1e3d72 100%)}
-.hcard-speaker{position:relative;display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;color:var(--gold2);background:rgba(201,168,76,.16);border:1px solid rgba(201,168,76,.35);padding:2px 9px;border-radius:50px;margin-bottom:7px}
-.hcard-quote{position:relative;font-family:'Amiri',serif;font-size:15px;font-weight:500;line-height:1.9;color:#fff;margin-bottom:8px}
+.hcard-speaker{position:relative;display:inline-flex;align-items:center;gap:5px;font-size:9.5px;font-weight:800;color:var(--gold2);background:rgba(201,168,76,.16);border:1px solid rgba(201,168,76,.35);padding:2px 8px;border-radius:50px;margin-bottom:5px}
+.hcard-quote{position:relative;font-family:'Amiri',serif;font-size:13.5px;font-weight:500;line-height:1.65;color:#fff;margin-bottom:6px}
 .hcard-mark{display:none}
-.hcard-divider{position:relative;height:1px;background:rgba(201,168,76,.35);margin-bottom:6px}
-.hcard-src{position:relative;font-size:9.5px;color:rgba(255,255,255,.85);line-height:1.5}
+.hcard-divider{position:relative;height:1px;background:rgba(201,168,76,.35);margin-bottom:5px}
+.hcard-src{position:relative;font-size:9px;color:rgba(255,255,255,.85);line-height:1.35}
 .hcard-src b{color:var(--gold2);font-weight:700}
 
 /* PROGRESS CARD */
@@ -328,15 +330,20 @@ html.dark .cont-done{background:linear-gradient(135deg,#065f46,#0d7a5f)}
 .qhdr p{font-size:11px;color:rgba(255,255,255,.65)}
 .qlbl{padding:6px 14px;background:#fff;border-bottom:1px solid var(--gray200);font-size:11px;font-weight:700;color:var(--navy)}
 .qlist-wrap{padding:12px 14px}
-.qcard{background:#fff;border-radius:12px;padding:14px;margin-bottom:8px;box-shadow:var(--sh);border:1.5px solid var(--gray200);cursor:pointer}
-.qcard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-.qcard-top h4{font-size:13px;font-weight:700;color:var(--navy)}
+.qcard{background:linear-gradient(180deg,#fff,#fbfdff);border-radius:14px;padding:14px;margin-bottom:10px;box-shadow:0 6px 18px rgba(15,31,61,.08);border:1.5px solid rgba(37,99,235,.12);cursor:pointer;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s,border-color .15s}
+.qcard::before{content:'';position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(90deg,var(--gold),var(--blue),var(--green))}
+.qcard:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(15,31,61,.12);border-color:rgba(37,99,235,.25)}
+.qcard:active{transform:scale(.99)}
+.qcard-top{display:flex;justify-content:space-between;align-items:flex-start;margin:4px 0 9px;gap:10px;position:relative}
+.qcard-top h4{font-size:13.5px;font-weight:800;color:var(--navy)}
 .qcard-top p{font-size:10px;color:var(--gray400);margin-top:2px}
 .qbadge{padding:2px 9px;border-radius:50px;font-size:9px;font-weight:700}
 .qb-g{background:var(--greenl);color:var(--green)}
 .qb-gl{background:rgba(201,168,76,.12);color:#92400e}
 .qb-gr{background:var(--gray100);color:var(--gray400)}
-.qcard-cta{font-size:11.5px;font-weight:700;color:var(--blue);text-align:center;padding-top:8px;border-top:1px solid var(--gray100)}
+.qcard-meter{height:6px;background:var(--gray100);border-radius:50px;overflow:hidden;margin:7px 0 9px}
+.qcard-meter span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--blue),var(--green))}
+.qcard-cta{font-size:11.5px;font-weight:800;color:var(--blue);text-align:center;padding-top:8px;border-top:1px solid var(--gray100);display:flex;align-items:center;justify-content:center;gap:6px}
 html.dark .qcard-cta{border-top-color:#2a3a52}
 .sboxes{display:flex;gap:6px}
 .sbox{flex:1;background:var(--gray50);border-radius:8px;padding:7px;text-align:center;border:1.5px solid var(--gray200)}
@@ -374,6 +381,15 @@ html.dark .qcard-cta{border-top-color:#2a3a52}
 .opt{background:#fff;border:2px solid var(--gray200);border-radius:10px;padding:11px 14px;font-family:'Cairo',sans-serif;font-size:12px;color:var(--gray800);cursor:pointer;text-align:right;font-weight:500;transition:all .15s}
 .opt.correct{border-color:var(--green);background:var(--greenl);color:var(--green);font-weight:700}
 .opt.wrong{border-color:var(--red);background:var(--redl);color:var(--red)}
+.qfeedback{display:none;border:1.5px solid rgba(37,99,235,.16);background:linear-gradient(180deg,#f8fbff,#fff);border-radius:12px;padding:11px 12px;font-size:11.5px;line-height:1.8;color:var(--gray800);box-shadow:var(--sh)}
+.qfeedback.show{display:block}
+.qfeedback.good{border-color:rgba(5,150,105,.28);background:linear-gradient(180deg,#ecfdf5,#fff)}
+.qfeedback.bad{border-color:rgba(220,38,38,.24);background:linear-gradient(180deg,#fef2f2,#fff)}
+.qfeedback b{color:var(--navy)}
+.qfeedback .qf-status{display:inline-flex;align-items:center;gap:5px;font-weight:800;margin-bottom:3px}
+.qfeedback.good .qf-status{color:var(--green)}
+.qfeedback.bad .qf-status{color:var(--red)}
+.qfeedback .qf-note{color:var(--gray600)}
 
 /* DRAG & DROP MATCHING QUESTIONS */
 .dd-hint{font-size:11px;color:var(--gray600);text-align:center;margin-bottom:8px}
@@ -385,6 +401,9 @@ html.dark .qcard-cta{border-top-color:#2a3a52}
 .dd-btn.correct{border-color:var(--green);background:var(--greenl);color:var(--green)}
 .dd-btn.wrong{border-color:var(--red);background:var(--redl);color:var(--red)}
 html.dark .dd-btn{background:#182333;color:#e5e9f0}
+html.dark .qfeedback{background:#111a28;border-color:#2a3a52;color:#e5e9f0}
+html.dark .qfeedback b{color:#f8fafc}
+html.dark .qfeedback .qf-note{color:#c4ccda}
 .nwrap{margin:12px 13px 0;display:none}
 .nwrap.show{display:block}
 
@@ -532,7 +551,7 @@ html.dark .qr-result-text{color:#e5e9f0}
 .qr-page-view{padding-bottom:26px}
 .qr-mushaf-page{background:#f9f2e2;padding:22px 18px 26px;min-height:60vh}
 html.dark .qr-mushaf-page{background:#20180e}
-.qr-mushaf-text{font-family:'Amiri',serif;font-size:21px;line-height:2.35;color:#1c1207;direction:rtl;text-align:justify;text-align-last:center}
+.qr-mushaf-text{font-family:'Amiri','Scheherazade New',serif;font-size:21px;line-height:2.35;color:#1c1207;direction:rtl;text-align:justify;text-align-last:center}
 html.dark .qr-mushaf-text{color:#e8dcc0}
 .qr-surah-tag{display:block;text-align:center;background:linear-gradient(135deg,var(--navy),var(--navy2));color:var(--gold2);border:1.5px solid var(--gold);border-radius:10px;padding:8px 10px;margin:4px 0 14px;font-size:14px;font-weight:700;font-family:'Amiri',serif}
 .qr-ayah-end{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:1.3px solid var(--gold);border-radius:50%;background:rgba(201,168,76,.14);color:#8a5a13;font-size:11px;font-weight:700;margin:0 2px;vertical-align:middle;cursor:pointer;font-family:'Cairo',sans-serif}
@@ -573,7 +592,7 @@ html.dark .prowic{filter:brightness(1.3)}
 .lrow{padding:14px;gap:12px}.lrow-ic{width:64px;height:64px;border-radius:20px;font-size:32px}.lrow-info h4{font-size:15px}.lrow-info p{font-size:11.5px}.sbadge{font-size:10px}.lrow-num{width:28px;height:28px;font-size:11px}
 .dh-icon{font-size:58px;margin-bottom:10px}.dh h2{font-size:24px}.dh-meta{font-size:12px}.lbadge{font-size:11.5px;padding:5px 12px}
 .dbody{padding:14px 16px}.intro-box{padding:20px}.intro-label{font-size:12px}.intro-text{font-size:22px;line-height:2.25}.def-vis-title,.rules-title{font-size:13px}.def-chip{font-size:14px;padding:8px 14px}.rule-card{padding:16px;gap:12px}.rn{width:28px;height:28px;font-size:12px}.rt{font-size:16px;line-height:2}.rn2{font-size:14px;line-height:1.9}.re{font-size:21px;padding:5px 11px}.ex-section-title{font-size:14px;padding:9px 11px}.qex-head{padding:10px 12px}.qex-lbl{font-size:13px}.qex-typ{font-size:10.5px}.qverse{font-size:25px;line-height:2.25}.qnote{font-size:13.5px;line-height:1.9}.btn-complete{font-size:15px;padding:15px}
-.hadith-track-inner{align-items:stretch}.hcard{height:272px;display:flex;flex-direction:column}.hcard-speaker{flex-shrink:0}.hcard-quote{flex:1;overflow:auto;padding-left:2px}.hcard-divider,.hcard-src{flex-shrink:0}
+.hadith-track-inner{align-items:stretch}.hcard{height:198px;display:flex;flex-direction:column}.hcard-speaker{flex-shrink:0}.hcard-quote{flex:1;overflow:auto;padding-left:2px}.hcard-divider,.hcard-src{flex-shrink:0}
 .prog-card{border:1.5px solid var(--gray200)}.prog-top h3{font-size:14.5px}.prog-top a{font-size:12px}.prog-label span,.prog-label strong{font-size:12.5px}.pbar{height:10px}.prog-dots{gap:6px}.pd{width:30px;height:30px;border:none;cursor:pointer;position:relative;transition:transform .15s,box-shadow .15s}.pd:active{transform:scale(.92)}.pd:hover{box-shadow:0 0 0 4px rgba(37,99,235,.12)}.pd-quiz::after{content:'';position:absolute;left:1px;bottom:1px;width:9px;height:9px;border-radius:50%;background:var(--gold);border:2px solid #fff}.pd-cur{box-shadow:0 0 0 4px rgba(201,168,76,.26)}.pd-level-label{width:100%;font-size:10.5px;color:var(--gray600);font-weight:800;margin:4px 0 -1px}.prog-summary{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.prog-pill{background:var(--gray50);border:1px solid var(--gray200);border-radius:10px;padding:8px;text-align:center}.prog-pill b{display:block;color:var(--navy);font-size:13px}.prog-pill span{font-size:10px;color:var(--gray600)}
 html.dark{--gray400:#8fa0b8;--gray600:#c4ccda}
 html.dark .prog-card,html.dark .cont-card,html.dark .mini-card,html.dark .ltab-bar,html.dark .sinp,html.dark .cat,html.dark .lrow,html.dark .def-visual,html.dark .rule-card,html.dark .qex,html.dark .qlbl,html.dark .qcard,html.dark .scard,html.dark .qbox,html.dark .opt,html.dark .ccard,html.dark .prow,html.dark .bnav,html.dark .auth-box{background:#182333;border-color:#2a3a52;color:#e5e9f0}
@@ -1575,7 +1594,15 @@ function showPage(name,btn){
   if(name==="profile") renderAuthBox();
   window.scrollTo(0,0);
 }
-function toast(msg){var t=document.getElementById("toast-el");t.textContent=msg;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2200);}
+function toast(msg){var t=document.getElementById("toast-el");if(!t)return;t.textContent=msg;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2200);}
+function setupConnectivityNotice(){
+  function update(){
+    if(!navigator.onLine) toast("أنت الآن دون إنترنت، ستعمل الميزات المحفوظة فقط");
+  }
+  window.addEventListener("offline",function(){toast("انقطع الاتصال، تم تفعيل وضع القراءة المحفوظة");});
+  window.addEventListener("online",function(){toast("عاد الاتصال بالإنترنت");});
+  update();
+}
 
 var fontLevel=0;
 function changeFontSize(dir){
@@ -1915,6 +1942,7 @@ function renderQuizzes(){
     var badge=done?"<span class='qbadge qb-g'><span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='9.2'/><polyline points='7.8,12.3 10.6,15.2 16.3,8.8'/></svg></span> "+toAr(pct)+"٪</span>":"<span class='qbadge qb-gl'>جديد</span>";
     h+="<div class='qcard' onclick='startQuiz("+lid+")'>"
       +"<div class='qcard-top'><div><h4>"+q.t+"</h4><p>"+toAr(q.q.length)+" سؤال · اختبار شامل</p></div>"+badge+"</div>"
+      +"<div class='qcard-meter'><span style='width:"+(done?pct:0)+"%'></span></div>"
       +"<div class='qcard-cta'>"+(done?"<span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M20 11A8 8 0 1 0 18 16'/><polyline points='20,5 20,11 14,11'/></svg></span> إعادة المحاولة":"<span class='ico' style='width:13px;height:13px'><svg viewBox='0 0 24 24' fill='currentColor'><polygon points='7.5,4.5 19.5,12 7.5,19.5'/></svg></span> ابدأ الاختبار")+"</div>"
       +"</div>";
   }
@@ -1948,6 +1976,7 @@ function showQ(){
   document.getElementById("qbox").innerHTML="<div class='qbox-ic'><span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M4 19.2c0-.9.7-1.6 1.6-1.6H20'/><path d='M6 2.5h14v18.3H6.6A2.1 2.1 0 0 1 4.5 18.7V4.6A2.1 2.1 0 0 1 6 2.5Z'/></svg></span></div><p>"+qi.q+"</p>";
   var oh="";
   for(var i=0;i<qi.o.length;i++) oh+="<button class='opt' onclick='answerQ("+i+")'>"+qi.o[i]+"</button>";
+  oh+="<div id='qfeedback' class='qfeedback'></div>";
   document.getElementById("opts").innerHTML=oh;
   var nw=document.getElementById("nwrap");
   nw.classList.remove("show");
@@ -1972,9 +2001,10 @@ function showDD(qi,tot){
   }
   document.getElementById("opts").innerHTML=
     "<div class='dd-hint'>اضغط على الحكم ثم على تعريفه المطابق</div>"
-    +"<div class='dd-wrap'><div class='dd-col' id='dd-terms'>"+th+"</div><div class='dd-col' id='dd-matches'>"+mh+"</div></div>";
+    +"<div class='dd-wrap'><div class='dd-col' id='dd-terms'>"+th+"</div><div class='dd-col' id='dd-matches'>"+mh+"</div></div>"
+    +"<div id='qfeedback' class='qfeedback'></div>";
   var nw=document.getElementById("nwrap");
-  nw.classList.remove("show");
+  nw.classList.add("show");
   nw.innerHTML="<button class='btn-complete' id='dd-check-btn' onclick='ddCheck("+tot+")'>تحقق من الإجابة <span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='9.2'/><polyline points='7.8,12.3 10.6,15.2 16.3,8.8'/></svg></span></button>";
 }
 function ddSelectTerm(i){
@@ -2025,19 +2055,46 @@ function ddCheck(tot){
   }
   if(correctAll) curScore++;
   document.getElementById("dd-check-btn").outerHTML=curQ===tot-1?"<button class='btn-complete' onclick='showResult()'>عرض النتيجة <span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M7 4.5h10v5a5 5 0 0 1-10 0Z'/><path d='M7 6H4.7A2.3 2.3 0 0 0 7 9.7M17 6h2.3A2.3 2.3 0 0 1 17 9.7'/><path d='M12 14.5V18M8.7 21.5h6.6M9.7 18h4.6v3.5H9.7Z'/></svg></span></button>":"<button class='btn-complete' onclick='nextQ()'>السؤال التالي ←</button>";
+  renderQuestionFeedback(qi,correctAll,correctPairsText(qi));
+  document.getElementById("nwrap").classList.add("show");
   toast(correctAll?"إجابة صحيحة!":"بعض المطابقات غير صحيحة");
 }
 function answerQ(idx){
   if(answered) return;
   answered=true;
-  var correct=getQuizzes()[curQuizId].q[curQ].a;
+  var qi=getQuizzes()[curQuizId].q[curQ];
+  var correct=qi.a;
   var opts=document.querySelectorAll(".opt");
   opts[correct].classList.add("correct");
   if(idx!==correct) opts[idx].classList.add("wrong");
   else curScore++;
+  renderQuestionFeedback(qi,idx===correct,qi.o[correct]);
   document.getElementById("nwrap").classList.add("show");
 }
-function nextQ(){curQ++;showQ();}
+function quizRuleTitle(){
+  var q=getQuizzes()[curQuizId];
+  return q&&q.t?q.t.replace(/\s*[—-].*$/,""):"هذا الحكم";
+}
+function correctPairsText(qi){
+  var out=[];
+  for(var i=0;i<qi.pairs.length;i++) out.push(qi.pairs[i].term+" ← "+qi.pairs[i].match);
+  return out.join("، ");
+}
+function renderQuestionFeedback(qi,isCorrect,correctText){
+  var box=document.getElementById("qfeedback");
+  if(!box) return;
+  var note=qi.note||("ملاحظة: هذا السؤال مرتبط بدرس "+quizRuleTitle()+"؛ ركّز على العلامة والرسم قبل اختيار الحكم.");
+  box.className="qfeedback show "+(isCorrect?"good":"bad");
+  box.innerHTML="<div class='qf-status'>"+(isCorrect?"إجابة صحيحة":"الإجابة الصحيحة موضحة أدناه")+"</div>"
+    +"<div><b>الصحيح:</b> "+correctText+"</div>"
+    +"<div class='qf-note'>"+note+"</div>";
+}
+function nextQ(){
+  var q=getQuizzes()[curQuizId];
+  if(!q||curQ>=q.q.length-1){ showResult(); return; }
+  curQ++;
+  showQ();
+}
 function showResult(){
   document.getElementById("quiz-active").classList.remove("open");
   document.getElementById("qresult").classList.add("open");
@@ -2077,7 +2134,7 @@ function renderCerts(){
       +"<div class='cmeta'>الموضوع: <strong>"+c.s+"</strong></div>"
       +(c.earned
         ?"<div class='cpreview' id='cpre_"+i+"'><div class='ct'>دار سفوان القرآنية</div><div class='cn'>"+c.t+"</div><div class='cs'>"+c.s+"</div></div>"
-          +"<div class='cacts'><button class='btn-out' onclick=\"toast('جاري...')\">مشاركة</button><button class='btn-s' onclick=\"downloadCert("+i+")\">تنزيل</button></div>"
+          +"<div class='cacts'><button class='btn-out' onclick=\"shareCert("+i+")\">مشاركة</button><button class='btn-s' onclick=\"downloadCert("+i+")\">تنزيل</button></div>"
         :"<div class='locked-o'><span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><rect x='5' y='10.5' width='14' height='9.5' rx='2'/><path d='M8 10.5V7.5a4 4 0 0 1 8 0v3'/></svg></span> أكمل "+c.s+" لفتح هذه الشهادة</div>")
       +"</div>";
   }
@@ -2096,6 +2153,42 @@ function downloadCert(idx){
     document.body.removeChild(link);
     toast("تم تحميل الشهادة");
   }).catch(function(){toast("تعذّر تحميل الشهادة");});
+}
+function dataUrlToBlob(dataUrl){
+  var parts=dataUrl.split(",");
+  var meta=parts[0].match(/:(.*?);/);
+  var mime=meta?meta[1]:"image/png";
+  var bin=atob(parts[1]);
+  var len=bin.length;
+  var bytes=new Uint8Array(len);
+  for(var i=0;i<len;i++) bytes[i]=bin.charCodeAt(i);
+  return new Blob([bytes],{type:mime});
+}
+function renderCertBlob(idx){
+  var el=document.getElementById("cpre_"+idx);
+  if(!el||typeof html2canvas==="undefined") return Promise.reject(new Error("missing cert"));
+  return html2canvas(el,{scale:3,backgroundColor:"#0f1f3d"}).then(function(canvas){
+    return dataUrlToBlob(canvas.toDataURL("image/png"));
+  });
+}
+function shareCert(idx){
+  var fileName="شهادة-دار-سفوان-"+toAr(idx+1)+".png";
+  toast("جاري تحضير المشاركة...");
+  renderCertBlob(idx).then(function(blob){
+    var file=new File([blob],fileName,{type:"image/png"});
+    if(navigator.canShare&&navigator.canShare({files:[file]})&&navigator.share){
+      return navigator.share({title:"شهادة دار سفوان القرآنية",text:"أنجزت شهادة من دار سفوان القرآنية",files:[file]}).then(function(){
+        toast("تم فتح نافذة المشاركة");
+      });
+    }
+    if(navigator.share){
+      return navigator.share({title:"شهادة دار سفوان القرآنية",text:"أنجزت شهادة من دار سفوان القرآنية",url:location.href}).then(function(){
+        toast("تم فتح نافذة المشاركة");
+      });
+    }
+    downloadCert(idx);
+    toast("المتصفح لا يدعم المشاركة، تم تنزيل الشهادة");
+  }).catch(function(){toast("تعذّرت مشاركة الشهادة");});
 }
 
 // ════════════════════════════════════════════════════════════
@@ -2122,6 +2215,10 @@ function buildPageIndex(){
 function surahByNumber(n){
   for(var i=0;i<QURAN_DATA.surahs.length;i++) if(QURAN_DATA.surahs[i].number===n) return QURAN_DATA.surahs[i];
   return null;
+}
+function quranDisplayText(txt){
+  // مصحف المدينة يستعمل علامة السكون العثمانية (رأس حاء/خاء صغير) لا السكون الكتابي المعتاد.
+  return String(txt).replace(/\u0652/g,"\u06E1");
 }
 function loadQuranData(onDone){
   if(quranLoading) return;
@@ -2151,7 +2248,7 @@ function renderSurahList(){
     var s=QURAN_DATA.surahs[i];
     h+="<div class='qr-surah-row' onclick='jumpToPage("+s.startPage+")'>"
       +"<div class='qr-surah-num'>"+toAr(s.number)+"</div>"
-      +"<div class='qr-surah-info'><h4>"+s.name+"</h4><p>"+s.englishName+" · "+toAr(s.numberOfAyahs)+" آية · "+(SURAH_REV_AR[s.revelationType]||s.revelationType)+"</p></div>"
+      +"<div class='qr-surah-info'><h4>"+quranDisplayText(s.name)+"</h4><p>"+s.englishName+" · "+toAr(s.numberOfAyahs)+" آية · "+(SURAH_REV_AR[s.revelationType]||s.revelationType)+"</p></div>"
       +"<span class='qr-surah-chev'>‹</span></div>";
   }
   list.innerHTML=h;
@@ -2180,17 +2277,17 @@ function renderMushafPage(pageNum,highlightAyah){
     var it=items[i];
     if(it.s!==lastSurah){
       var sInfo=surahByNumber(it.s);
-      h+="<span class='qr-surah-tag'>سورة "+sInfo.name.replace(/^سُورَةُ\s*/,"")+"</span>";
+      h+="<span class='qr-surah-tag'>سورة "+quranDisplayText(sInfo.name.replace(/^سُورَةُ\s*/,""))+"</span>";
       lastSurah=it.s;
     }
     var uid="qr_"+it.s+"_"+it.a;
-    h+="<span class='qr-ayat-txt' data-s='"+it.s+"' data-a='"+it.a+"'>"+it.t+"</span> "
+    h+="<span class='qr-ayat-txt' data-s='"+it.s+"' data-a='"+it.a+"'>"+quranDisplayText(it.t)+"</span> "
       +"<span class='qr-ayah-end' id='qae_"+uid+"' onclick='playAyahTap(\""+uid+"\","+it.s+","+it.a+")'>"+toAr(it.a)+"</span>"
       +(it.sj?"<span class='qr-sajda-mark' title='آية سجدة'>۩</span>":"")
       +" ";
   }
   document.getElementById("qr-mushaf-text").innerHTML=h;
-  document.getElementById("qr-page-htitle").textContent=surahByNumber(firstItem.s).name.replace(/^سُورَةُ\s*/,"سورة ");
+  document.getElementById("qr-page-htitle").textContent=quranDisplayText(surahByNumber(firstItem.s).name.replace(/^سُورَةُ\s*/,"سورة "));
   document.getElementById("qr-foot-page").textContent=toAr(pageNum);
   document.getElementById("qr-foot-juz").textContent="الجزء "+toAr(firstItem.j);
   document.getElementById("qr-foot-hizb").textContent="الحزب "+toAr(Math.ceil(firstItem.hq/4));
@@ -2498,6 +2595,7 @@ renderQuizzes();
 renderCerts();
 updateDarkToggleUI();
 renderAuthBox();
+setupConnectivityNotice();
 (function(){
   var splash=document.getElementById("app-splash");
   if(splash){
@@ -2510,7 +2608,9 @@ renderAuthBox();
 })();
 if("serviceWorker" in navigator){
   window.addEventListener("load",function(){
-    navigator.serviceWorker.register("service-worker.js").catch(function(){});
+    navigator.serviceWorker.register("service-worker.js").catch(function(e){
+      console.warn("service worker registration failed",e);
+    });
   });
 }
 
