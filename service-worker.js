@@ -1,4 +1,4 @@
-const CACHE_NAME = "dar-safwan-v3";
+const CACHE_NAME = "dar-safwan-v4";
 const APP_SHELL = [
   "./",
   "./index.html",

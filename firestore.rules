@@ -11,6 +11,8 @@ service cloud.firestore {
           'prog',
           'level',
           'lastQuranPage',
+          'profile',
+          'notifications',
           'ts'
         ]);
     }

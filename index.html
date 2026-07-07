@@ -443,6 +443,7 @@ html.dark .qfeedback .qf-note{color:#c4ccda}
 /* PROFILE */
 .phdr{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:22px 16px;text-align:center;color:#fff}
 .avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:var(--navy);border:3px solid rgba(255,255,255,.2)}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .pname{font-size:17px;font-weight:700;margin-bottom:3px}
 .psub{font-size:11px;color:rgba(255,255,255,.65)}
 .pstats{display:flex;background:rgba(255,255,255,.1);border-radius:10px;margin-top:14px;overflow:hidden}
@@ -476,6 +477,22 @@ html.dark .auth-input{background:#141c2b;border-color:#2a3a52;color:#e5e9f0}
 .prow{background:#fff;border-radius:10px;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;box-shadow:var(--sh);border:1.5px solid var(--gray200);cursor:pointer}
 .prow-sep{font-size:10.5px;font-weight:800;color:var(--gray400);margin:16px 4px 8px}
 html.dark .prow-sep{color:var(--gray400)}
+.profile-panel{display:none;background:#fff;border:1.5px solid var(--gray200);box-shadow:var(--sh);border-radius:12px;padding:13px;margin:0 0 8px}
+.profile-panel.open{display:block}
+.pf-grid{display:grid;grid-template-columns:1fr;gap:9px}
+.pf-label{font-size:10.5px;font-weight:800;color:var(--gray600);margin-bottom:4px}
+.pf-input{width:100%;background:var(--gray50);border:1.5px solid var(--gray200);border-radius:9px;padding:10px 12px;font-family:'Cairo',sans-serif;font-size:12px;color:var(--gray800)}
+.pf-input:focus{outline:none;border-color:var(--blue)}
+.pf-actions{display:flex;gap:7px;margin-top:10px}
+.pf-actions button{flex:1}
+.pf-note{font-size:10px;color:var(--gray600);line-height:1.7;margin-top:8px}
+.pf-check{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray800);font-weight:700}
+.share-row{display:flex;gap:7px;align-items:center;margin-top:8px}
+.share-url{flex:1;direction:ltr;text-align:left;font-size:11px;background:var(--gray50);border:1px solid var(--gray200);border-radius:8px;padding:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html.dark .profile-panel{background:#182333;border-color:#2a3a52}
+html.dark .pf-input,html.dark .share-url{background:#141c2b;border-color:#2a3a52;color:#e5e9f0}
+html.dark .pf-label,html.dark .pf-note{color:#c4ccda}
+html.dark .pf-check{color:#e5e9f0}
 
 /* LEGAL PAGES (PRIVACY / TERMS) */
 .legal-header{display:flex;align-items:center;gap:10px;padding:14px 16px;background:linear-gradient(135deg,var(--navy),var(--navy2));position:sticky;top:0;z-index:5}
@@ -892,10 +909,30 @@ html.dark .ex-section-title{background:linear-gradient(to left,#1c2a3d,#182333);
   </div>
   <div class="pbody">
     <div id="auth-box"></div>
-    <div class="prow" onclick="toast('قريباً')"><div class="prowl"><div class="prowic" style="background:rgba(37,99,235,.1)"><span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='3.6'/><path d='M4.5 20c1-3.6 4-5.6 7.5-5.6s6.5 2 7.5 5.6'/></svg></span></div><div><h4>تعديل الملف الشخصي</h4><p>الاسم والصورة</p></div></div><span style="color:var(--gray400)">‹</span></div>
+    <div class="prow" onclick="toggleProfilePanel('profile-edit-panel')"><div class="prowl"><div class="prowic" style="background:rgba(37,99,235,.1)"><span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='3.6'/><path d='M4.5 20c1-3.6 4-5.6 7.5-5.6s6.5 2 7.5 5.6'/></svg></span></div><div><h4>تعديل الملف الشخصي</h4><p>الاسم والصورة</p></div></div><span style="color:var(--gray400)">‹</span></div>
+    <div class="profile-panel" id="profile-edit-panel">
+      <div class="pf-grid">
+        <div><div class="pf-label">اسم الطالب</div><input class="pf-input" id="profile-name-input" type="text" maxlength="40" placeholder="اكتب اسمك"></div>
+        <div><div class="pf-label">حرف الصورة عند عدم رفع صورة</div><input class="pf-input" id="profile-avatar-input" type="text" maxlength="2" placeholder="مثال: ط"></div>
+        <div><div class="pf-label">صورة شخصية اختيارية</div><input class="pf-input" id="profile-photo-input" type="file" accept="image/*"></div>
+      </div>
+      <div class="pf-actions"><button class="btn-out" onclick="clearProfilePhoto()">حذف الصورة</button><button class="btn-s" onclick="saveProfileSettings()">حفظ</button></div>
+      <div class="pf-note">تحفظ البيانات محليًا، وتزامن مع الحساب السحابي عند تسجيل الدخول.</div>
+    </div>
     <div class="prow" onclick="toggleDarkMode()"><div class="prowl"><div class="prowic" style="background:rgba(15,31,61,.12)"><span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='currentColor'><path d='M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z'/></svg></span></div><div><h4>الوضع الداكن</h4><p>مريح للعين أثناء القراءة ليلاً</p></div></div><div class="dtoggle" id="darkToggleSwitch"><div class="dtoggle-knob"></div></div></div>
-    <div class="prow" onclick="toast('قريباً')"><div class="prowl"><div class="prowic" style="background:rgba(201,168,76,.1)"><span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M6 10.5a6 6 0 0 1 12 0c0 4 1.5 5.3 1.5 5.3H4.5S6 14.5 6 10.5Z'/><path d='M10 19a2 2 0 0 0 4 0'/></svg></span></div><div><h4>الإشعارات</h4><p>تذكيرات الدراسة اليومية</p></div></div><span style="color:var(--gray400)">‹</span></div>
-    <div class="prow" onclick="toast('قريباً')"><div class="prowl"><div class="prowic" style="background:rgba(5,150,105,.1)"><span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M12 15.5V4.5M8 8.3 12 4l4 4.3'/><path d='M4.5 16v2.5A2.5 2.5 0 0 0 7 21h10a2.5 2.5 0 0 0 2.5-2.5V16'/></svg></span></div><div><h4>مشاركة المنصة</h4><p>دعوة الأصدقاء للتعلم</p></div></div><span style="color:var(--gray400)">‹</span></div>
+    <div class="prow" onclick="toggleProfilePanel('notify-panel')"><div class="prowl"><div class="prowic" style="background:rgba(201,168,76,.1)"><span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M6 10.5a6 6 0 0 1 12 0c0 4 1.5 5.3 1.5 5.3H4.5S6 14.5 6 10.5Z'/><path d='M10 19a2 2 0 0 0 4 0'/></svg></span></div><div><h4>الإشعارات</h4><p id="notify-row-sub">تذكيرات الدراسة اليومية</p></div></div><span style="color:var(--gray400)">‹</span></div>
+    <div class="profile-panel" id="notify-panel">
+      <label class="pf-check"><input type="checkbox" id="notify-enabled-input"> تفعيل تذكير الدراسة اليومي</label>
+      <div style="margin-top:9px"><div class="pf-label">وقت التذكير</div><input class="pf-input" id="notify-time-input" type="time" value="18:00"></div>
+      <div class="pf-actions"><button class="btn-out" onclick="testNotification()">تجربة</button><button class="btn-s" onclick="saveNotificationSettings()">حفظ</button></div>
+      <div class="pf-note">هذه تذكيرات محلية. الإشعارات أثناء إغلاق التطبيق تحتاج Push Server ولوحة إدارة لاحقًا.</div>
+    </div>
+    <div class="prow" onclick="sharePlatform()"><div class="prowl"><div class="prowic" style="background:rgba(5,150,105,.1)"><span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M12 15.5V4.5M8 8.3 12 4l4 4.3'/><path d='M4.5 16v2.5A2.5 2.5 0 0 0 7 21h10a2.5 2.5 0 0 0 2.5-2.5V16'/></svg></span></div><div><h4>مشاركة المنصة</h4><p>دعوة الأصدقاء للتعلم</p></div></div><span style="color:var(--gray400)">‹</span></div>
+    <div class="profile-panel" id="share-panel">
+      <div class="pf-label">رابط المنصة</div>
+      <div class="share-row"><div class="share-url" id="share-url-text"></div><button class="btn-s" onclick="copyPlatformLink()">نسخ</button></div>
+      <div class="pf-note">إذا كان الجهاز يدعم المشاركة المباشرة ستفتح نافذة المشاركة، وإلا سيتم نسخ الرابط.</div>
+    </div>
     <div class="prow-sep">قانوني</div>
     <div class="prow" onclick="showPage('privacy')"><div class="prowl"><div class="prowic" style="background:rgba(37,99,235,.1)"><span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><rect x='5' y='10.5' width='14' height='9.5' rx='2'/><path d='M8 10.5V7.5a4 4 0 0 1 8 0v3'/></svg></span></div><div><h4>سياسة الخصوصية</h4><p>كيف نتعامل مع بياناتك</p></div></div><span style="color:var(--gray400)">‹</span></div>
     <div class="prow" onclick="showPage('terms')"><div class="prowl"><div class="prowic" style="background:rgba(201,168,76,.1)"><span class='ico' style='width:15px;height:15px'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M6 2.5h8l4.5 4.5V21A1 1 0 0 1 17.5 22h-11A1 1 0 0 1 5.5 21V3.5A1 1 0 0 1 6 2.5Z'/><path d='M14 2.5V7h4.5'/><line x1='8.5' y1='12.5' x2='15.5' y2='12.5'/><line x1='8.5' y1='16' x2='15.5' y2='16'/></svg></span></div><div><h4>شروط الاستخدام</h4><p>الأحكام والشروط</p></div></div><span style="color:var(--gray400)">‹</span></div>
@@ -1571,6 +1608,8 @@ var level="reading", curLessonId=null, curQuizId=null, curStage=null;
 var curQ=0, curScore=0, answered=false;
 var prog={reading:{},tajweed:{}};
 var ddPairs={}, ddSelTerm=null, ddOrder=[];
+var profileSettings={name:"الطالب القرآني",avatar:"ط",photo:null};
+var notificationSettings={enabled:false,time:"18:00",lastSent:""};
 
 function getLessons(){return level==="reading"?RL:TL;}
 function getQuizzes(){return level==="reading"?RQ:TQ;}
@@ -1591,7 +1630,7 @@ function showPage(name,btn){
   if(name!=="lessons") closeLesson();
   if(name==="quiz") renderQuizzes();
   if(name==="quran") initQuranPage();
-  if(name==="profile") renderAuthBox();
+  if(name==="profile"){ renderAuthBox(); renderProfileSettingsUI(); }
   window.scrollTo(0,0);
 }
 function toast(msg){var t=document.getElementById("toast-el");if(!t)return;t.textContent=msg;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2200);}
@@ -1602,6 +1641,131 @@ function setupConnectivityNotice(){
   window.addEventListener("offline",function(){toast("انقطع الاتصال، تم تفعيل وضع القراءة المحفوظة");});
   window.addEventListener("online",function(){toast("عاد الاتصال بالإنترنت");});
   update();
+}
+function toggleProfilePanel(id){
+  var panels=document.querySelectorAll(".profile-panel");
+  for(var i=0;i<panels.length;i++) if(panels[i].id!==id) panels[i].classList.remove("open");
+  var panel=document.getElementById(id);
+  if(panel) panel.classList.toggle("open");
+  if(id==="share-panel") updateSharePanel();
+}
+function renderProfileSettingsUI(){
+  var name=(profileSettings.name||"الطالب القرآني").trim()||"الطالب القرآني";
+  var avatar=(profileSettings.avatar||name.charAt(0)||"ط").trim().slice(0,2);
+  var av=document.querySelector(".avatar"),pn=document.querySelector(".pname");
+  if(av){
+    av.innerHTML=profileSettings.photo?"<img src='"+profileSettings.photo+"' alt='صورة الطالب'>":avatar;
+  }
+  if(pn) pn.textContent=name;
+  var nameInput=document.getElementById("profile-name-input");
+  var avatarInput=document.getElementById("profile-avatar-input");
+  if(nameInput) nameInput.value=name;
+  if(avatarInput) avatarInput.value=avatar;
+  var enabled=document.getElementById("notify-enabled-input");
+  var time=document.getElementById("notify-time-input");
+  if(enabled) enabled.checked=!!notificationSettings.enabled;
+  if(time) time.value=notificationSettings.time||"18:00";
+  var sub=document.getElementById("notify-row-sub");
+  if(sub) sub.textContent=notificationSettings.enabled?("مفعلة يوميًا عند "+toAr(notificationSettings.time||"18:00")):"تذكيرات الدراسة اليومية";
+  updateProfileStats();
+  updateSharePanel();
+}
+function updateProfileStats(){
+  var doneLessons=0,doneQuizzes=0,doneCerts=0;
+  for(var i=0;i<RL.length;i++) if(RL[i].status==="done") doneLessons++;
+  for(var j=0;j<TL.length;j++) if(TL[j].status==="done") doneLessons++;
+  var prR=prog.reading||{},prT=prog.tajweed||{};
+  doneQuizzes=Object.keys(prR).length+Object.keys(prT).length;
+  if(doneLessons>=RL.length) doneCerts++;
+  if(doneLessons>=RL.length+TL.length) doneCerts+=2;
+  var stats=document.querySelectorAll(".pstat .pn");
+  if(stats[0]) stats[0].textContent=toAr(doneLessons);
+  if(stats[1]) stats[1].textContent=toAr(doneQuizzes);
+  if(stats[2]) stats[2].textContent=toAr(doneCerts);
+}
+function saveProfileSettings(){
+  var name=document.getElementById("profile-name-input").value.trim()||"الطالب القرآني";
+  var avatar=document.getElementById("profile-avatar-input").value.trim()||name.charAt(0)||"ط";
+  var file=document.getElementById("profile-photo-input").files[0];
+  function finish(photo){
+    profileSettings={name:name,avatar:avatar.slice(0,2),photo:photo===undefined?profileSettings.photo:photo};
+    saveState();
+    renderProfileSettingsUI();
+    toast("تم حفظ الملف الشخصي");
+  }
+  if(file){
+    if(file.size>300000){ toast("الصورة كبيرة، اختر صورة أقل من 300KB"); return; }
+    var reader=new FileReader();
+    reader.onload=function(){ finish(reader.result); };
+    reader.onerror=function(){ toast("تعذّر قراءة الصورة"); };
+    reader.readAsDataURL(file);
+  }else finish();
+}
+function clearProfilePhoto(){
+  profileSettings.photo=null;
+  saveState();
+  renderProfileSettingsUI();
+  toast("تم حذف الصورة");
+}
+function saveNotificationSettings(){
+  var enabled=!!document.getElementById("notify-enabled-input").checked;
+  var time=document.getElementById("notify-time-input").value||"18:00";
+  notificationSettings.enabled=enabled;
+  notificationSettings.time=time;
+  if(enabled&&"Notification" in window&&Notification.permission==="default"){
+    Notification.requestPermission().then(function(){ renderProfileSettingsUI(); });
+  }
+  saveState();
+  renderProfileSettingsUI();
+  toast(enabled?"تم تفعيل التذكير":"تم إيقاف التذكير");
+}
+function sendStudyNotification(manual){
+  var title="تذكير دار سفوان";
+  var body="حان وقت مراجعة درس قرآني قصير.";
+  if("Notification" in window&&Notification.permission==="granted"){
+    new Notification(title,{body:body,icon:"icon-192.png"});
+  }else if(manual&&"Notification" in window&&Notification.permission==="default"){
+    Notification.requestPermission().then(function(p){ if(p==="granted") new Notification(title,{body:body,icon:"icon-192.png"}); else toast(body); });
+  }else toast(body);
+}
+function testNotification(){ sendStudyNotification(true); }
+function setupNotificationReminder(){
+  setInterval(function(){
+    if(!notificationSettings.enabled) return;
+    var now=new Date();
+    var hh=String(now.getHours()).padStart(2,"0"),mm=String(now.getMinutes()).padStart(2,"0");
+    var today=now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate();
+    if((hh+":"+mm)===(notificationSettings.time||"18:00")&&notificationSettings.lastSent!==today){
+      notificationSettings.lastSent=today;
+      saveState();
+      sendStudyNotification(false);
+    }
+  },30000);
+}
+function getPlatformShareUrl(){
+  return location.href.split("#")[0].split("?")[0];
+}
+function updateSharePanel(){
+  var el=document.getElementById("share-url-text");
+  if(el) el.textContent=getPlatformShareUrl();
+}
+function copyPlatformLink(){
+  var url=getPlatformShareUrl();
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(function(){toast("تم نسخ الرابط");}).catch(function(){toast(url);});
+  }else toast(url);
+}
+function sharePlatform(){
+  updateSharePanel();
+  var url=getPlatformShareUrl();
+  if(navigator.share){
+    navigator.share({title:"دار سفوان القرآنية",text:"منصة تعليم قرآني للدروس والاختبارات والمصحف",url:url}).then(function(){
+      toast("تم فتح المشاركة");
+    }).catch(function(){ toggleProfilePanel("share-panel"); });
+  }else{
+    toggleProfilePanel("share-panel");
+    copyPlatformLink();
+  }
 }
 
 var fontLevel=0;
@@ -2394,7 +2558,7 @@ function buildStateObj(){
   var rl={},tl={};
   for(var i=0;i<RL.length;i++) if(RL[i].status==="done") rl[RL[i].id]=1;
   for(var i=0;i<TL.length;i++) if(TL[i].status==="done") tl[TL[i].id]=1;
-  return {rl:rl,tl:tl,prog:prog,level:level,lastQuranPage:lastQuranPage,ts:Date.now()};
+  return {rl:rl,tl:tl,prog:prog,level:level,lastQuranPage:lastQuranPage,profile:profileSettings,notifications:notificationSettings,ts:Date.now()};
 }
 function applyStateObj(data){
   if(!data) return;
@@ -2403,6 +2567,8 @@ function applyStateObj(data){
   if(data.prog) prog=data.prog;
   if(data.level) level=data.level;
   if(data.lastQuranPage) lastQuranPage=data.lastQuranPage;
+  if(data.profile) profileSettings=Object.assign(profileSettings,data.profile);
+  if(data.notifications) notificationSettings=Object.assign(notificationSettings,data.notifications);
 }
 function saveState(){
   try{
@@ -2422,7 +2588,7 @@ function loadState(){
   }catch(e){}
 }
 function refreshHomeUI(){
-  renderHome();renderLessons(null);renderQuizzes();renderCerts();
+  renderHome();renderLessons(null);renderQuizzes();renderCerts();renderProfileSettingsUI();
 }
 
 // ════════════════════════════════════════════════════════════
@@ -2596,6 +2762,8 @@ renderCerts();
 updateDarkToggleUI();
 renderAuthBox();
 setupConnectivityNotice();
+setupNotificationReminder();
+renderProfileSettingsUI();
 (function(){
   var splash=document.getElementById("app-splash");
   if(splash){
