@@ -21,7 +21,7 @@
   --gray50:#f9fafb;--gray100:#f3f4f6;--gray200:#e5e7eb;
   --gray400:#6b7280;--gray600:#4b5563;--gray800:#1f2937;
   --white:#fff;--off:#f8f9fc;
-  --surface:#fff;--surface2:#f0f4f8;--text-strong:var(--navy);
+  --surface:#fdfbf4;--surface2:#f2ede1;--text-strong:var(--navy);
   --r:14px;--r2:20px;
   --sh:0 1px 8px rgba(0,0,0,.07);--sh2:0 4px 20px rgba(0,0,0,.12);
   --qfont:'Scheherazade New','Amiri Quran','Geeza Pro','Traditional Arabic',serif;
@@ -199,8 +199,11 @@ a.hc:active{background:rgba(255,255,255,.18)}
 .rule-card{background:var(--surface);border-radius:10px;padding:10px 12px;display:flex;align-items:flex-start;gap:9px;box-shadow:var(--sh);border:1.5px solid var(--gray200);margin-bottom:6px}
 .rn{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;color:#fff;margin-top:1px}
 .rule-body{flex:1}
-.rt{font-size:13.5px;color:var(--gray800);line-height:1.7;font-weight:600}
-.rn2{font-family:'Amiri','Geeza Pro','Traditional Arabic',serif;font-size:18.5px;color:var(--blue);margin-top:3px;font-weight:600}
+.rt{font-size:14.5px;color:var(--gray800);line-height:1.6;font-weight:800;margin-bottom:2px}
+.rt.c-blue{color:#1d4ed8}.rt.c-green{color:#047857}.rt.c-gold{color:#a16207}.rt.c-purple{color:#6d28d9}.rt.c-red{color:#b91c1c}.rt.c-teal{color:#0e7490}.rt.c-navy{color:#1e3a8a}.rt.c-orange{color:#c2410c}.rt.c-rose{color:#be123c}.rt.c-indigo{color:#3730a3}
+.rn2{font-family:'Amiri','Geeza Pro','Traditional Arabic',serif;font-size:18.5px;color:#1a1a1a;font-weight:600;line-height:1.85;margin-top:6px;display:flex;align-items:flex-start;gap:7px;background:rgba(212,163,0,.12);border-right:3px solid #d4a300;border-radius:8px;padding:10px 12px}
+.rn2 svg{flex-shrink:0;margin-top:4px}
+.rn2 span{flex:1}
 .re{font-family:'Amiri','Geeza Pro','Traditional Arabic',serif;font-size:19.5px;font-weight:600;color:var(--text-strong);background:var(--gray50);border:1px solid var(--gray200);border-radius:6px;padding:3px 10px;margin-top:4px;display:inline-block;direction:rtl}
 
 /* EXAMPLE CARDS */
@@ -239,8 +242,11 @@ a.hc:active{background:rgba(255,255,255,.18)}
 .audio-header{display:flex;align-items:center;gap:6px;margin-bottom:6px}
 .audio-header span{font-size:11px;color:var(--gray400);font-weight:600}
 .audio-play-btn{display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--navy),var(--navy2));border:none;border-radius:10px;padding:10px 16px;cursor:pointer;width:100%;font-family:'Cairo','Geeza Pro',Tahoma,sans-serif;color:#fff;font-size:12px;font-weight:700}
-.record-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:var(--purplel);border:1.5px dashed #c4b5fd;border-radius:9px;padding:8px 10px;margin-top:8px;width:100%;font-family:'Cairo','Geeza Pro',Tahoma,sans-serif;color:var(--purple);font-size:11px;font-weight:700;cursor:pointer}
-.record-btn.recording{background:var(--redl);border-color:var(--red);color:var(--red)}
+/* Teacher explanation (video/audio) attached to an example */
+.explain-section{padding:0 10px 12px;border-top:1px dashed var(--gray200);margin-top:2px;padding-top:10px}
+.explain-title{font-size:11px;font-weight:700;color:var(--gray600);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.explain-video-wrap{position:relative;width:100%;padding-top:56.25%;border-radius:10px;overflow:hidden;background:#000}
+.explain-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .audio-play-btn .play-ic{width:32px;height:32px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
 .audio-play-btn .play-info{flex:1;text-align:right}
 .audio-play-btn .play-name{font-size:11px;font-weight:700}
@@ -302,8 +308,6 @@ a.hc:active{background:rgba(255,255,255,.18)}
 
 /* SIMPLE MODE (teacher/classroom view) */
 body.simple-mode .streak-wrap,body.simple-mode .dq-wrap,body.simple-mode .review-wrap,body.simple-mode .place-banner{display:none}
-.qlbl{padding:6px 14px;background:var(--surface);border-bottom:1px solid var(--gray200);font-size:11px;font-weight:700;color:var(--text-strong)}
-.qlist-wrap{padding:12px 14px}
 .qcard{background:var(--surface);border-radius:12px;padding:14px;margin-bottom:8px;box-shadow:var(--sh);border:1.5px solid var(--gray200);cursor:pointer}
 .qcard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
 .qcard-top h4{font-size:13px;font-weight:700;color:var(--text-strong)}
@@ -436,6 +440,11 @@ body.dark-mode{
 body.dark-mode .intro-box{background:linear-gradient(135deg,#182338,#101c30);border-color:#28405e}
 body.dark-mode .ex-section-title{background:linear-gradient(to left,var(--gray100),var(--surface));color:var(--gold2)}
 body.dark-mode .qverse-box{background:linear-gradient(135deg,#2a2410,#241d0c);border-color:rgba(201,168,76,.35)}
+body.dark-mode .hl-g{color:#fcd34d;background:rgba(251,191,36,.22)}
+body.dark-mode .hl-b{color:#93c5fd;background:rgba(96,165,250,.25)}
+body.dark-mode .hl-gr{color:#6ee7b7;background:rgba(16,185,129,.25)}
+body.dark-mode .hl-r{color:#fca5a5;background:rgba(252,113,113,.25)}
+body.dark-mode .hl-p{color:#c4b5fd;background:rgba(196,181,253,.25)}
 body.dark-mode .streak-card{background:linear-gradient(135deg,#2a2010,#221a0c);border-color:#4a3418}
 body.dark-mode .streak-card .sn{color:#f0a868}
 body.dark-mode .streak-card .sl{color:#d9a066}
@@ -452,7 +461,17 @@ body.dark-mode .search-bar svg{color:var(--gray400)}
 body.dark-mode .place-banner{background:linear-gradient(135deg,#0a1526,#152847)}
 body.dark-mode .btn-out{border-color:var(--gold);color:var(--gold2)}
 body.dark-mode .re{background:var(--gray50)}
-body.dark-mode .rn2{color:#f3f6fb}
+body.dark-mode .rn2{color:#f3f6fb;background:rgba(212,163,0,.14);border-right-color:#e0b400}
+body.dark-mode .rt.c-blue{color:#93c5fd}
+body.dark-mode .rt.c-green{color:#6ee7b7}
+body.dark-mode .rt.c-gold{color:#fbbf24}
+body.dark-mode .rt.c-purple{color:#c4b5fd}
+body.dark-mode .rt.c-red{color:#fca5a5}
+body.dark-mode .rt.c-teal{color:#67e8f9}
+body.dark-mode .rt.c-navy{color:#93c5fd}
+body.dark-mode .rt.c-orange{color:#fdba74}
+body.dark-mode .rt.c-rose{color:#fda4af}
+body.dark-mode .rt.c-indigo{color:#a5b4fc}
 body.dark-mode .review-card h4,body.dark-mode .review-card p{color:#c4b5fd}
 
 /* FIQH AL-TILAWA — full-width image band directly under the header */
@@ -506,11 +525,6 @@ body.dark-mode .comp-welcome{color:var(--gold2)}
 [role=button]:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 
 /* ── lessons page: lessons | quizzes switch, quiz card inside a lesson ── */
-.lmode-bar{display:flex;gap:3px;margin:10px 13px 0;background:var(--gray100);border-radius:10px;padding:3px}
-.lmode{flex:1;border:none;background:none;padding:8px 6px;border-radius:8px;font-family:inherit;font-size:12px;font-weight:700;color:var(--gray600);cursor:pointer}
-.lmode.active{background:var(--surface);color:var(--text-strong);box-shadow:var(--sh)}
-#llist-view .qlbl{margin-top:10px}
-#llist-view .qlist-wrap{padding:8px 13px 16px}
 .lq-tag{color:var(--blue);font-weight:700}
 .lq-tag.ok{color:var(--green)}
 .lq-tag.bad{color:var(--red)}
@@ -677,7 +691,6 @@ body.dark-mode .comp-welcome{color:var(--gold2)}
       <button class="ltab active" id="lt1" onclick="switchLvl('reading',this)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;display:inline-block;flex-shrink:0"><path d="M4 5.5c2-1.3 5-1.3 8 0v14c-3-1.3-6-1.3-8 0z"/><path d="M20 5.5c-2-1.3-5-1.3-8 0v14c3-1.3 6-1.3 8 0z"/></svg> القراءة الصحيحة</button>
       <button class="ltab" id="lt2" onclick="switchLvl('tajweed',this)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;display:inline-block;flex-shrink:0"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/></svg> أحكام التجويد</button>
     </div>
-    <div class="lmode-bar"><button class="lmode active" id="lm-lessons" onclick="setLMode('lessons')">الدروس</button><button class="lmode" id="lm-quizzes" onclick="setLMode('quizzes')">الاختبارات</button></div>
     <div class="search-bar" id="lsearch"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6"/><path d="M20 20l-5-5"/></svg><input class="sinp" type="text" placeholder="ابحث عن درس..." oninput="filterL(this.value)"></div>
     <div class="cat-bar" id="lcats">
       <button class="cat active" onclick="filterCat('الكل',this)">الكل</button>
@@ -686,8 +699,6 @@ body.dark-mode .comp-welcome{color:var(--gold2)}
       <button class="cat" onclick="filterCat('متقدم',this)">متقدم</button>
     </div>
     <div class="llist" id="llist"></div>
-    <div class="qlbl" id="qlbl" style="display:none"></div>
-    <div class="qlist-wrap" id="qlist" style="display:none"></div>
   </div>
   <div class="ldetail" id="ldetail">
     <div class="dh" id="dh">
@@ -719,7 +730,6 @@ body.dark-mode .comp-welcome{color:var(--gold2)}
     <div class="res-ti" id="res-ti"></div>
     <div class="res-su" id="res-su"></div>
     <div class="res-btns"><button class="btn-out" onclick="retryQ()">إعادة</button><button class="btn-s" onclick="backToLesson()">الرجوع للدرس</button></div>
-    <button class="res-link" onclick="backToQuizList()">قائمة اختبارات المستوى</button>
   </div>
 </div>
 
@@ -1393,7 +1403,6 @@ function updateCertDates(){
 }
 
 function getLessons(){return level==="reading"?RL:TL;}
-function getQuizzes(){return level==="reading"?RQ:TQ;}
 function getProg(){return prog[level];}
 
 // ════════════════════════════════════════════════════════════
@@ -1727,19 +1736,10 @@ function toAr(n){
 // ════════════════════════════════════════════════════════════
 //  LESSONS LIST
 // ════════════════════════════════════════════════════════════
-function setLMode(m){lmode=m;syncLessonsUI();}
 function syncLessonsUI(){
-  var q=(lmode==="quizzes");
   document.getElementById("lt1").classList.toggle("active",level==="reading");
   document.getElementById("lt2").classList.toggle("active",level==="tajweed");
-  document.getElementById("lm-lessons").classList.toggle("active",!q);
-  document.getElementById("lm-quizzes").classList.toggle("active",q);
-  var qs=quizSet(level),pr=getProg(),ks=Object.keys(qs);
-  var passed=ks.filter(function(k){return pr[k]&&pr[k].s>=PASS_PCT;}).length;
-  document.getElementById("lm-quizzes").textContent="الاختبارات ("+toAr(passed)+"/"+toAr(ks.length)+")";
-  ["lsearch","lcats","llist"].forEach(function(id){document.getElementById(id).style.display=q?"none":"";});
-  ["qlbl","qlist"].forEach(function(id){document.getElementById(id).style.display=q?"":"none";});
-  if(q) renderQuizzes(); else renderLessons(null);
+  renderLessons(null);
 }
 function switchLvl(lv,btn){
   level=lv;
@@ -1813,8 +1813,8 @@ function renderDetail(l,id){
   for(var i=0;i<l.rules.length;i++){
     var r=l.rules[i];
     rh+="<div class='rule-card'><div class='rn "+r.c+"'>"+toAr(i+1)+"</div><div class='rule-body'>"
-      +"<div class='rt'>"+r.t+"</div>"
-      +(r.d?"<div class='rn2'>"+r.d+"</div>":"")
+      +"<div class='rt "+r.c+"'>"+r.t+"</div>"
+      +(r.d?"<div class='rn2'>"+ic('bulb',15)+"<span>"+r.d+"</span></div>":"")
       +(r.ex?"<div class='re'>"+r.ex+"</div>":"")
       +"</div></div>";
   }
@@ -1835,9 +1835,9 @@ function renderDetail(l,id){
         +"<span class='play-info'><span class='play-name'>استمع بصوت الشيخ محمود خليل الحصري</span><span class='play-sub'>اضغط للاستماع لتلاوة الآية</span></span>"
         +"</button>"
         +"<div class='yt-wrap' id='yt_"+uid+"'></div>"
-        +"<button class='record-btn' id='rec_"+uid+"' onclick='toggleRecord(\""+uid+"\")'>"+ic('mic',15)+" سجّل قراءتك وقارنها بنفسك</button>"
-        +"<div id='recwrap_"+uid+"'></div>"
-        +"</div></div>";
+        +"</div>"
+        +explainBlock(e)
+        +"</div>";
     }
   }
   document.getElementById("dbody").innerHTML=
@@ -1846,6 +1846,29 @@ function renderDetail(l,id){
     +"<button class='btn-complete' onclick=\"completeLesson('"+level+"',"+id+")\">"+ic('check')+" إتمام الدرس</button>"
     +lessonQuizCard(id)
     +"<div style='height:14px'></div>";
+}
+// Optional teacher explanation (video/audio) for a single example.
+// To attach one, add explainVideo and/or explainAudio to that example
+// object in the RL/TL lesson data, e.g.:
+//   {..., explainVideo:"https://youtu.be/XXXXXXXXXXX", explainAudio:"https://example.com/files/lesson1-ex1.mp3"}
+// Both are optional and independent — the block only renders what is provided.
+function ytEmbedUrl(url){
+  if(!url) return "";
+  var m=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{6,})/);
+  var id=m?m[1]:url; // fallback: a bare video ID was given directly
+  return "https://www.youtube-nocookie.com/embed/"+id;
+}
+function explainBlock(e){
+  if(!e.explainVideo&&!e.explainAudio) return "";
+  var h="<div class='explain-section'><div class='explain-title'>"+ic('bulb',14)+" شرح المثال</div>";
+  if(e.explainVideo){
+    h+="<div class='explain-video-wrap'><iframe src='"+ytEmbedUrl(e.explainVideo)+"' loading='lazy' allowfullscreen title='شرح فيديو للمثال'></iframe></div>";
+  }
+  if(e.explainAudio){
+    h+="<audio controls preload='none' style='width:100%;height:40px;border-radius:8px;margin-top:8px' src='"+e.explainAudio+"'>متصفحك لا يدعم تشغيل الصوت</audio>";
+  }
+  h+="</div>";
+  return h;
 }
 function lessonQuizCard(id){
   var q=quizSet(level)[id];
@@ -1885,52 +1908,18 @@ function completeLesson(lv,id){
 }
 
 // ════════════════════════════════════════════════════════════
-//  AUDIO PLAYER — Husary via Quran.com CDN (mp3) embedded as YouTube fallback
+//  AUDIO PLAYER — Husary recitation, embedded inline per example
 // ════════════════════════════════════════════════════════════
 var activeAudio=null;
-// ════════════════════════════════════════════════════════════
-//  SELF-RECORDING — record your own reading, play it back to compare
-//  (Note: this only lets the student hear themselves; it does not
-//  grade or algorithmically compare pronunciation — that needs a
-//  real speech-analysis backend which this static page doesn't have.)
-// ════════════════════════════════════════════════════════════
-var activeRecorder=null, activeRecId=null;
-function toggleRecord(uid){
-  var btn=document.getElementById("rec_"+uid);
-  var wrap=document.getElementById("recwrap_"+uid);
-  if(activeRecorder&&activeRecId===uid){
-    activeRecorder.stop();
-    return;
-  }
-  if(activeRecorder&&activeRecId!==uid){
-    activeRecorder.stop();
-  }
-  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||typeof MediaRecorder==="undefined"){
-    toast(ic('warn')+" التسجيل الصوتي غير مدعوم في هذا المتصفح");
-    return;
-  }
-  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
-    var chunks=[];
-    var mr=new MediaRecorder(stream);
-    activeRecorder=mr; activeRecId=uid;
-    btn.classList.add("recording");
-    btn.innerHTML=ic('pause',15)+" جارِ التسجيل — اضغط للإيقاف";
-    mr.ondataavailable=function(e){chunks.push(e.data);};
-    mr.onstop=function(){
-      stream.getTracks().forEach(function(t){t.stop();});
-      btn.classList.remove("recording");
-      btn.innerHTML=ic('mic',15)+" أعد التسجيل";
-      activeRecorder=null; activeRecId=null;
-      var blob=new Blob(chunks,{type:"audio/webm"});
-      var url=URL.createObjectURL(blob);
-      wrap.innerHTML="<audio controls style='width:100%;height:38px;border-radius:8px;margin-top:6px' src='"+url+"'></audio>"
-        +"<div style='font-size:10.5px;color:var(--gray400);margin-top:3px;text-align:center'>استمع لنفسك ثم قارن بتلاوة الشيخ أعلاه</div>";
-    };
-    mr.start();
-    setTimeout(function(){if(mr.state==="recording") mr.stop();},15000); // safety cap: 15s
-  }).catch(function(){
-    toast(ic('warn')+" تعذّر الوصول إلى الميكروفون — تحقق من إذن المتصفح");
-  });
+// Ayah count per surah (1..114) — used to compute the global ayah number
+// (1-6236) that the primary audio API needs.
+// Ayah count per surah (1..114) — used to compute the global ayah number
+// (1-6236) that the primary audio API needs.
+var SURAH_AYAT=[7,286,200,176,120,165,206,75,129,109,123,111,43,52,99,128,111,110,98,135,112,78,118,64,77,227,93,88,69,60,34,30,73,54,45,83,182,88,75,85,54,53,89,59,37,35,38,29,18,45,60,49,62,55,78,96,29,22,24,13,14,11,11,18,12,12,30,52,52,44,28,28,20,56,40,31,50,40,46,42,29,19,36,25,22,17,19,26,30,20,15,21,11,8,8,19,5,8,8,11,11,8,3,9,5,4,7,3,6,3,5,4,5,6];
+function globalAyahNum(surah,ayah){
+  var n=0;
+  for(var i=0;i<surah-1;i++) n+=SURAH_AYAT[i];
+  return n+ayah;
 }
 function toggleAudio(uid,surah,ayah){
   var wrap=document.getElementById("yt_"+uid);
@@ -1949,8 +1938,13 @@ function toggleAudio(uid,surah,ayah){
   } else {
     var surahPad=String(surah).padStart(3,'0');
     var ayahPad=String(ayah).padStart(3,'0');
-    // Reliable CDN sources for Husary recitation — tries each until one works
+    var gnum=globalAyahNum(surah,ayah);
+    // Reliable CDN sources for Husary recitation — tries each until one works.
+    // api.islamic.app is tried first (modern, CORS-enabled, redirects to a
+    // Cloudflare-backed CDN); everyayah.com is kept as a fallback.
     var sources=[
+      "https://cdn.islamic.app/quran/audio/ar.husary/"+gnum+".mp3",
+      "https://api.islamic.app/v1/audio/ayah/ar.husary/"+gnum,
       "https://everyayah.com/data/Husary_128kbps/"+surahPad+ayahPad+".mp3",
       "https://www.everyayah.com/data/Husary_128kbps/"+surahPad+ayahPad+".mp3"
     ];
@@ -1964,18 +1958,24 @@ function toggleAudio(uid,surah,ayah){
     activeAudio=uid;
 
     var audEl=document.getElementById("aud_"+uid);
-    var srcIdx=0;
-    audEl.addEventListener("error",function(){
+    var srcIdx=0,started=false;
+    function tryNextSource(){
       srcIdx++;
       if(srcIdx<sources.length){
         audEl.querySelector("source").src=sources[srcIdx];
         audEl.load();
+        audEl.play().catch(function(){});
       } else {
         var errBox=document.getElementById("audErr_"+uid);
         if(errBox) errBox.style.display="block";
         icon.textContent="▶";
       }
-    });
+    }
+    audEl.addEventListener("error",tryNextSource);
+    audEl.addEventListener("canplay",function(){started=true;});
+    // Safety net: if a source neither errors nor becomes playable within
+    // a few seconds (e.g. silently blocked), move on to the next one.
+    setTimeout(function(){if(!started&&activeAudio===uid) tryNextSource();},6000);
     audEl.addEventListener("ended",function(){ icon.textContent="▶"; activeAudio=null; });
     audEl.play().catch(function(){ /* wait for user tap on native controls */ });
   }
@@ -1984,34 +1984,7 @@ function toggleAudio(uid,surah,ayah){
 // ════════════════════════════════════════════════════════════
 //  QUIZZES
 // ════════════════════════════════════════════════════════════
-function switchQLvl(lv,btn){
-  level=lv;
-  var tabs=btn.parentElement.querySelectorAll(".ltab");
-  for(var i=0;i<tabs.length;i++) tabs[i].classList.remove("active");
-  btn.classList.add("active");
-  renderQuizzes();
-}
 function quizSet(lv){return lv==="reading"?RQ:TQ;}
-function renderQuizzes(){
-  var qz=getQuizzes(),pr=getProg(),el=document.getElementById("qlist");
-  var lb=document.getElementById("qlbl");
-  if(lb) lb.innerHTML=(level==="reading"?ic('book'):ic('cap'))+(level==="reading"?" اختبارات القراءة الصحيحة":" اختبارات أحكام التجويد");
-  var h="",keys=Object.keys(qz);
-  for(var ki=0;ki<keys.length;ki++){
-    var lid=keys[ki],q=qz[lid];
-    var sp=(pr[lid]||{}).s,t=sp!==undefined,d=t&&sp>=PASS_PCT;
-    var badge=d?"<span class='qbadge qb-g'>"+ic('check')+" مكتمل</span>":t?"<span class='qbadge qb-gl'>أعد المحاولة</span>":"<span class='qbadge qb-gl'>جديد</span>";
-    h+="<div class='qcard' onclick=\"startQuiz('"+level+"',"+lid+",'list')\">"
-      +"<div class='qcard-top'><div><h4>"+q.t+"</h4><p>"+toAr(q.q.length)+" أسئلة</p></div>"+badge+"</div>"
-      +"<div class='sboxes'><div class='sbox' style='border-color:"+(d?"#059669":t?"#dc2626":"#e5e7eb")+"'>"
-      +"<div class='sic'>"+(d?ic('check',18):t?ic('warn',18):ic('play',18))+"</div>"
-      +"<div class='st' style='color:"+(d?"#059669":t?"#dc2626":"#4b5563")+"'>"+(d?"مكتمل":t?"أعد المحاولة":"ابدأ الاختبار")+"</div>"
-      +(t?"<div class='sc' style='color:"+(d?"#059669":"#dc2626")+"'>"+toAr(sp)+"٪</div>":"<div class='ss'>النجاح من "+toAr(PASS_PCT)+"٪</div>")
-      +"</div></div></div>";
-  }
-  if(!h) h="<div class='note-empty'>لا توجد اختبارات لهذا المستوى بعد</div>";
-  el.innerHTML=h;
-}
 function startQuiz(lv,lid,from){
   var q=quizSet(lv)[lid];
   if(!q||!q.q||!q.q.length){toast("لا يوجد اختبار لهذا الدرس بعد");return;}
@@ -2026,15 +1999,11 @@ function startQuiz(lv,lid,from){
   document.getElementById("qpf").style.background="linear-gradient(90deg,#1e40af,#3b82f6)";
   showQ();
 }
-function quizBack(){if(quizOrigin==="lesson") backToLesson(); else backToQuizList();}
+function quizBack(){backToLesson();}
 function backToLesson(){
   level=curQuizLevel;lmode="lessons";
   showPage("lessons");
   openLesson(parseInt(curQuizId,10));
-}
-function backToQuizList(){
-  level=curQuizLevel;lmode="quizzes";
-  showPage("lessons");
 }
 function showQ(){
   var qi=curQs[curQ],tot=curQs.length;
